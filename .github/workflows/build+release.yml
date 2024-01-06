@@ -1,0 +1,35 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:  # manual trigger
+
+jobs:
+  build:
+    permissions:
+      contents: write  # allow to create a release
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+          cache: 'npm'
+          cache-dependency-path: src/web-ui/package-lock.json
+      - run: npm ci
+        working-directory: src/web-ui/
+      - run: npm run build
+        working-directory: src/web-ui/
+      - name: Release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          draft: false
+          prerelease: false
+          title: "Jarklin-Web Build"
+          files: |
+            src/web-ui/dist/web-ui.tgz
