@@ -1,2 +1,2 @@
-# osition-web
-web-interface for the osition-server
+# jarklin-web
+web-interface for the jarklin-server
