@@ -19,10 +19,14 @@ jobs:
           node-version: latest
           cache: 'npm'
           cache-dependency-path: src/web-ui/package-lock.json
-      - run: npm ci
+      - name: Install dependencies
+        run: npm ci
         working-directory: src/web-ui/
-      - run: npm run build
+      - name: Build
+        run: npm run build
         working-directory: src/web-ui/
+      - name: Make Archive
+        run: tar -cvz -C src/web-ui/dist/ -f "web-ui.tgz" .
       - name: Release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
@@ -32,4 +36,4 @@ jobs:
           prerelease: false
           title: "Jarklin-Web Build"
           files: |
-            src/web-ui/dist/web-ui.tgz
+            web-ui.tgz
