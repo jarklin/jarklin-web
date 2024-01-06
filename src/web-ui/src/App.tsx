@@ -1,5 +1,5 @@
 export default function App() {
     return <>
-        <h1>Hello Jarklin</h1>
+        <h1 className="text-center text-2xl">Hello Jarklin</h1>
     </>;
 }
