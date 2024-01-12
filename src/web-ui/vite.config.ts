@@ -5,4 +5,11 @@ import react from '@vitejs/plugin-react-swc'
 export default defineConfig({
   plugins: [react()],
   base: "",  // make build relative
+  server: {
+    proxy: {
+      '/files/': 'http://localhost:8000',
+      '/login': 'http://localhost:8000',
+      '/logout': 'http://localhost:8000',
+    }
+  }
 })
