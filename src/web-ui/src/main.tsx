@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom/client';
 import { HashRouter } from "react-router-dom";
 import App from './App.tsx';
 import './index.css';
+import axios from "axios";
+
+
+axios.defaults.withCredentials = true;
+
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
