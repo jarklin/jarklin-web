@@ -21,6 +21,6 @@ function Layout() {
 
 function Index() {
     return <>
-        <h1 className="text-center text-2xl">Hello Jarklin!</h1>
+        <h1 className="text-center text-2xl text-accent">Hello Jarklin!</h1>
     </>;
 }
