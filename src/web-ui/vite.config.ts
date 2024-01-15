@@ -8,9 +8,9 @@ export default defineConfig({
   base: "",  // make build relative
   server: {
     proxy: {
-      '/files/': 'http://localhost:8000',
-      '/login': 'http://localhost:8000',
-      '/logout': 'http://localhost:8000',
+      '/files/': 'http://localhost:5000',
+      '/login': 'http://localhost:5000',
+      '/logout': 'http://localhost:5000',
     }
   }
 })
