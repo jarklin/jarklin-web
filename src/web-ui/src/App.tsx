@@ -1,26 +1,17 @@
-import { Routes, Route, Outlet } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import HomePage from "~/pages/home";
+import NotFound from "~/pages/404.tsx";
+import PageLayout from "~/PageLayout";
+
 
 export default function App() {
     return <>
         <Routes>
-            <Route path="/" element={<Layout />}>
-                <Route index element={<Index />} />
-                <Route path="*" element={<p>404 Not Found</p>} />
+            <Route element={<PageLayout />}>
+                <Route index element={<HomePage />} />
+                <Route path="*" element={<NotFound />} />
             </Route>
         </Routes>
     </>;
 }
 
-
-function Layout() {
-    return <>
-        <Outlet />
-    </>;
-}
-
-
-function Index() {
-    return <>
-        <h1 className="text-center text-2xl text-accent">Hello Jarklin!</h1>
-    </>;
-}

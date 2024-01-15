@@ -8,6 +8,7 @@ import './index.css';
 
 
 axios.defaults.withCredentials = true;
+axios.defaults.baseURL = "./";  // todo: validate if this works with changed server baseurl
 
 const queryClient = new QueryClient();
 
