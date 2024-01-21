@@ -17,7 +17,20 @@ export default {
                 'DEFAULT': "#00ADB5",
                 'light': "#00FFF5",
             }
-        }
+        },
+        animation: {
+            "anything-is-loading": "marginLeftN100to100 1s linear infinite",
+        },
+        keyframes: {
+            marginLeftN100to100: {
+                "0%": {
+                    marginLeft: "-100%",
+                },
+                "100%": {
+                    marginLeft: "100%",
+                },
+            },
+        },
     },
   },
   plugins: [

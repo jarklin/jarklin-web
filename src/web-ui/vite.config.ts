@@ -13,4 +13,4 @@ export default defineConfig({
       '/logout': 'http://localhost:5000',
     }
   }
-})
+});
