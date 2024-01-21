@@ -1,6 +1,7 @@
 import {Link} from "react-router-dom";
 import {createAvatar} from "~/util";
 import jarklinIconSrc from "~/assets/jarklin.svg";
+import {useIsFetching} from "react-query";
 
 export default function PageNavBar() {
     return <>
@@ -13,5 +14,18 @@ export default function PageNavBar() {
                 <img className="h-8 bg-accent rounded-full" src={createAvatar("Jarklin", undefined, 'black')} alt="Avatar" />
             </Link>
         </div>
+        <BackgroundQueryIndicator />
     </>;
+}
+
+function BackgroundQueryIndicator() {
+    const isFetching = useIsFetching();
+
+    if (!isFetching) {
+        return null;
+    }
+
+    return <div className="overflow-hidden">
+        <div className="h-px bg-accent-light w-1/3 animate-anything-is-loading" />
+    </div>;
 }
