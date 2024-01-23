@@ -34,9 +34,9 @@ jobs:
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
+          automatic_release_tag: "${{ steps.date.outputs.NOW }}"
           draft: false
           prerelease: false
-          title: "Jarklin-Web Build (${{ steps.date.outputs.NOW }})"
+          title: "Jarklin-Web Build"
           files: |
             web-ui.tgz
