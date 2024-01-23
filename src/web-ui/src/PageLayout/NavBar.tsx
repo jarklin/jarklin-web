@@ -3,13 +3,19 @@ import {createAvatar} from "~/util";
 import jarklinIconSrc from "~/assets/jarklin.svg";
 import {useIsFetching} from "react-query";
 
-export default function PageNavBar() {
+
+interface Props {
+    title: string
+}
+
+
+export default function PageNavBar(props: Props) {
     return <>
         <div className="bg-primary-light p-1 flex gap-1 items-stretch content-baseline">
             <Link to="/">
                 <img className="h-8 rounded-md" src={jarklinIconSrc} alt="" />
             </Link>
-            <div className="grow" />
+            <div className="grow grid place-content-center text-2xl">{props.title}</div>
             <Link to="/config">
                 <img className="h-8 bg-accent rounded-full" src={createAvatar("Jarklin", undefined, 'black')} alt="Avatar" />
             </Link>

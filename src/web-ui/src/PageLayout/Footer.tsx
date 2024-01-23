@@ -17,7 +17,7 @@ export default function PageFooter() {
             {/*</div>*/}
             {/*<div className="bg-accent h-px w-full" />*/}
             <div>
-                <Link className="hover:underline text-accent" to="https://jarklin.github.io/" target="_blank">
+                <Link className="text-accent hover:underline hover:text-accent-light" to="https://jarklin.github.io/" target="_blank">
                     ©{new Date().getFullYear()} Jarklin
                 </Link>
             </div>
