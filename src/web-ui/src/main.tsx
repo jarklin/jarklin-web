@@ -5,6 +5,7 @@ import App from './App.tsx';
 import axios, { AxiosError, HttpStatusCode } from "axios";
 import { QueryClient, QueryClientProvider } from "react-query";
 import './index.css';
+import ContextsProvider from "~/contexts";
 
 
 axios.defaults.withCredentials = true;
@@ -36,9 +37,11 @@ const queryClient = new QueryClient({
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <QueryClientProvider client={queryClient}>
-            <HashRouter>
-                <App />
-            </HashRouter>
+            <ContextsProvider>
+                <HashRouter>
+                    <App />
+                </HashRouter>
+            </ContextsProvider>
         </QueryClientProvider>
     </React.StrictMode>,
 );
