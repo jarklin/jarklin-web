@@ -9,8 +9,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/files/': 'http://localhost:5000',
-      '/login': 'http://localhost:5000',
-      '/logout': 'http://localhost:5000',
+      '/auth/': 'http://localhost:5000',
     }
   }
 });
