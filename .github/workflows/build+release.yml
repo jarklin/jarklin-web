@@ -28,7 +28,7 @@ jobs:
       - name: Make Archive
         run: tar -cvz -C src/web-ui/dist/ -f "web-ui.tgz" .
       - name: Set now env
-        run: echo "NOW=$(date --utc --iso-8601=seconds)" >> $GITHUB_OUTPUT
+        run: echo "NOW=$(date --utc +'%Y%m%d%H%M')" >> $GITHUB_OUTPUT
         id: date
       - name: Release
         uses: "marvinpinto/action-automatic-releases@latest"
