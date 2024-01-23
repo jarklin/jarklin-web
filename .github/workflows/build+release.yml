@@ -34,6 +34,6 @@ jobs:
           automatic_release_tag: "latest"
           draft: false
           prerelease: false
-          title: "Jarklin-Web Build"
+          title: "Jarklin-Web Build ($(date --utc --iso-8601=seconds))"
           files: |
             web-ui.tgz
