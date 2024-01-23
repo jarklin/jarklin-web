@@ -27,14 +27,15 @@ jobs:
         working-directory: src/web-ui/
       - name: Make Archive
         run: tar -cvz -C src/web-ui/dist/ -f "web-ui.tgz" .
-      - name: Set now env
-        run: echo "NOW=$(date --utc +'%Y%m%d%H%M')" >> $GITHUB_OUTPUT
-        id: date
+      # - name: Set now env
+      #   run: echo "NOW=$(date --utc +'%Y%m%d%H%M')" >> $GITHUB_OUTPUT
+      #   id: date
       - name: Release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "${{ steps.date.outputs.NOW }}"
+          # automatic_release_tag: "${{ steps.date.outputs.NOW }}"
+          automatic_release_tag: "latest"
           draft: false
           prerelease: false
           title: "Jarklin-Web Build"
