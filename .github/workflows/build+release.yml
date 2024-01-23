@@ -27,6 +27,9 @@ jobs:
         working-directory: src/web-ui/
       - name: Make Archive
         run: tar -cvz -C src/web-ui/dist/ -f "web-ui.tgz" .
+      - name: Set now env
+        run: echo "NOW=$(date --utc --iso-8601=seconds)" >> $GITHUB_OUTPUT
+        id: date
       - name: Release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
@@ -34,6 +37,6 @@ jobs:
           automatic_release_tag: "latest"
           draft: false
           prerelease: false
-          title: "Jarklin-Web Build ($(date --utc --iso-8601=seconds))"
+          title: "Jarklin-Web Build (${{ steps.date.outputs.NOW }})"
           files: |
             web-ui.tgz
