@@ -1,17 +1,17 @@
-import type { GalleryMeta } from "~/types";
+import type {GalleryMeta, JarklinInfoEntry} from "~/types";
 import {twMerge} from "tailwind-merge";
 
 
 interface Props {
     className?: string
-    meta: GalleryMeta
+    info: JarklinInfoEntry<GalleryMeta>
 }
 
 
 export default function GalleryCard(props: Props) {
-    const meta = props.meta;
+    const info = props.info;
 
     return <div className={twMerge("", props.className)}>
-        {JSON.stringify(meta)}
+        {JSON.stringify(info)}
     </div>;
 }

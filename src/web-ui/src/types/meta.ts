@@ -1,11 +1,11 @@
 export type JarklinInfo = Array<JarklinInfoEntry>;
 
-export interface JarklinInfoEntry {
+export interface JarklinInfoEntry<Meta extends VideoMeta | GalleryMeta = VideoMeta | GalleryMeta> {
     path: string
     name: string
     ext: string
     mtime: number
-    meta: VideoMeta | GalleryMeta
+    meta: Meta
 }
 
 

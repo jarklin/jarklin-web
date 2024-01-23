@@ -1,17 +1,17 @@
-import type { VideoMeta } from "~/types";
+import type {JarklinInfoEntry, VideoMeta} from "~/types";
 import {twMerge} from "tailwind-merge";
 
 
 interface Props {
     className?: string
-    meta: VideoMeta
+    info: JarklinInfoEntry<VideoMeta>
 }
 
 
 export default function VideoCard(props: Props) {
-    const meta = props.meta;
+    const info = props.info;
 
     return <div className={twMerge("", props.className)}>
-        {JSON.stringify(meta)}
+        {JSON.stringify(info)}
     </div>;
 }
