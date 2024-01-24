@@ -4,17 +4,18 @@ import type {GalleryMeta, JarklinInfoEntry, VideoMeta} from "~/types";
 
 
 interface Props {
+    className?: string
     info: JarklinInfoEntry
 }
 
 
-export default function MetaCard({ info }: Props) {
-    switch (info.meta.type) {
+export default function MetaCard(props: Props) {
+    switch (props.info.meta.type) {
         case "gallery":
-            return <GalleryCard info={info as JarklinInfoEntry<GalleryMeta>} />
+            return <GalleryCard className={props.className} info={props.info as JarklinInfoEntry<GalleryMeta>} />
         case "video":
-            return <VideoCard info={info as JarklinInfoEntry<VideoMeta>} />
+            return <VideoCard className={props.className} info={props.info as JarklinInfoEntry<VideoMeta>} />
         default:
-            throw new Error(`unknown meta: '${JSON.stringify(info)}'`)
+            throw new Error(`unknown meta: '${JSON.stringify(props.info)}'`)
     }
 }

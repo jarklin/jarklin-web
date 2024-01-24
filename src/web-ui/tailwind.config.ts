@@ -18,6 +18,9 @@ export default {
                 'light': "#00FFF5",
             }
         },
+        aspectRatio: {
+            "vertical": "9 / 16",
+        },
         animation: {
             "anything-is-loading": "marginLeftN100to100 1s linear infinite",
         },

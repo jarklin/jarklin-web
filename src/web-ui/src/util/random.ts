@@ -1,4 +1,4 @@
-export function shuffle<T>(array: Array<T>): Array<T> {
+export function shuffled<T>(array: Array<T>): Array<T> {
     const arr = Array.from(array);
     for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
