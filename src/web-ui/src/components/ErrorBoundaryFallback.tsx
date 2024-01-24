@@ -4,7 +4,7 @@ import {Navigate} from "react-router-dom";
 
 
 export function ErrorBoundaryFallback({ error }: FallbackProps) {
-    if (error instanceof AxiosError && error.status === HttpStatusCode.Unauthorized) {
+    if (error instanceof AxiosError && error.response?.status === HttpStatusCode.Unauthorized) {
         return <Navigate to="/login" />;
     }
 
