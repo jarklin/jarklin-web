@@ -1,6 +1,6 @@
 
 export function username2initials(username: string) {
-    return Array.from(username.matchAll(/\b\w/g)).join("").toUpperCase();
+    return Array.from(username.matchAll(/\b\w/g)).join("").toUpperCase() || username.charAt(0);
 }
 
 export function createAvatar(name: string, backgroundColor?: string, foregroundColor?: string) {

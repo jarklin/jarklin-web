@@ -20,7 +20,7 @@ export default function PageNavBar(props: Props) {
             </Link>
             <div className="grow grid place-content-center text-2xl">{props.title}</div>
             <Link to="/config">
-                <img className="h-8 bg-accent rounded-full" src={createAvatar(username ?? "Jarklin", undefined, 'black')} alt="Avatar" />
+                <img className="h-8 bg-accent rounded-full" src={createAvatar(username ?? "⚙", undefined, 'black')} alt="Avatar" />
             </Link>
         </div>
         <BackgroundQueryIndicator />
