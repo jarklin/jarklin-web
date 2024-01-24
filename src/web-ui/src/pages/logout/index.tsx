@@ -1,13 +1,17 @@
-import {useMutation} from "react-query";
+import {useMutation, useQueryClient} from "react-query";
 import {useEffect} from "react";
 import axios from "axios";
 import {Navigate} from "react-router-dom";
 
 
 export default function LogoutPage() {
+    const queryClient = useQueryClient();
     const logout = useMutation(
         ["auth", "logout"],
         () => axios.post("/auth/logout"),
+        { onSuccess: () => {
+            queryClient.removeQueries();
+        } }
     );
 
     useEffect(() => {
