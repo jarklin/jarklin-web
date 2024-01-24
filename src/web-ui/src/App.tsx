@@ -1,7 +1,7 @@
 import {Routes, Route, useLocation} from "react-router-dom";
 import HomePage from "~/pages/home";
-import LoginPage from "~/pages/login.tsx";
-import LogoutPage from "~/pages/logout.tsx";
+import LoginPage from "~/pages/login";
+import LogoutPage from "~/pages/logout";
 import NotFound from "~/pages/404.tsx";
 import PageLayout from "~/PageLayout";
 import ConfigPage from "~/pages/config";
