@@ -1,10 +1,10 @@
-import useJarklinInfo from "~/hooks/useJarklinInfo.ts";
+import useInfo from "~/hooks/useInfo.ts";
 import {useMemo} from "react";
 import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
 import InfoCard from "src/components/InfoCard";
 import {Link} from "react-router-dom";
 import {encodePath, extractTags, shuffled} from "~/util";
-import {JarklinInfoEntry} from "~/types";
+import {InfoEntry} from "~/types";
 
 export default function HomePage() {
     return <>
@@ -17,7 +17,7 @@ export default function HomePage() {
 }
 
 export function RandomGalleryFeed() {
-    const entries = useJarklinInfo();
+    const entries = useInfo();
 
     const randomGalleries = useMemo(
         () => shuffled(
@@ -32,7 +32,7 @@ export function RandomGalleryFeed() {
 }
 
 export function RandomVideoFeed() {
-    const entries = useJarklinInfo();
+    const entries = useInfo();
 
     const randomVideos = useMemo(
         () => shuffled(
@@ -48,7 +48,7 @@ export function RandomVideoFeed() {
 
 
 export function NewestGalleryFeed() {
-    const entries = useJarklinInfo();
+    const entries = useInfo();
 
     const newestGalleries = useMemo(
         () => entries.data!
@@ -63,7 +63,7 @@ export function NewestGalleryFeed() {
 
 
 export function NewestVideoFeed() {
-    const entries = useJarklinInfo();
+    const entries = useInfo();
 
     const newestVideos = useMemo(
         () => entries.data!
@@ -77,7 +77,7 @@ export function NewestVideoFeed() {
 }
 
 
-function Feed({ title, entries }: { title: string, entries: Array<JarklinInfoEntry> }) {
+function Feed({ title, entries }: { title: string, entries: Array<InfoEntry> }) {
     return <>
         <p className="text-2xl">{title}</p>
         <VerticalScrollArea>
@@ -92,7 +92,7 @@ function Feed({ title, entries }: { title: string, entries: Array<JarklinInfoEnt
 
 
 function AllTags() {
-    const entries = useJarklinInfo();
+    const entries = useInfo();
 
     const tags = useMemo(
         () => Array.from(new Set(

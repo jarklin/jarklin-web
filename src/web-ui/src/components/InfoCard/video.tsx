@@ -1,4 +1,4 @@
-import type {JarklinInfoEntry, VideoMeta} from "~/types";
+import type {VideoInfoEntry} from "~/types";
 import {twMerge} from "tailwind-merge";
 import {formatFilename, getPreview} from "~/util";
 import {FilmIcon} from "lucide-react";
@@ -6,7 +6,7 @@ import {FilmIcon} from "lucide-react";
 
 interface Props {
     className?: string
-    info: JarklinInfoEntry<VideoMeta>
+    info: VideoInfoEntry
 }
 
 

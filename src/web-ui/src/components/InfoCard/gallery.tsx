@@ -1,4 +1,4 @@
-import type {GalleryMeta, JarklinInfoEntry} from "~/types";
+import type {GalleryInfoEntry} from "~/types";
 import {twMerge} from "tailwind-merge";
 import {formatFilename, getPreview} from "~/util";
 import {GalleryVerticalEndIcon} from "lucide-react";
@@ -6,7 +6,7 @@ import {GalleryVerticalEndIcon} from "lucide-react";
 
 interface Props {
     className?: string
-    info: JarklinInfoEntry<GalleryMeta>
+    info: GalleryInfoEntry
 }
 
 
