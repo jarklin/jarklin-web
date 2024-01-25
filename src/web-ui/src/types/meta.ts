@@ -4,6 +4,7 @@ export interface JarklinInfoEntry<Meta extends VideoMeta | GalleryMeta = VideoMe
     path: string
     name: string
     ext: string
+    ctime: number
     mtime: number
     meta: Meta
 }
