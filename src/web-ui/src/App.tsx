@@ -5,6 +5,7 @@ import LogoutPage from "~/pages/logout";
 import NotFound from "~/pages/404.tsx";
 import PageLayout from "~/PageLayout";
 import ConfigPage from "~/pages/config";
+import ViewPage from "~/pages/view";
 
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
                 <Route path="login" element={<LoginPage />} />
                 <Route path="logout" element={<LogoutPage />} />
                 <Route path="config" element={<ConfigPage />} />
+                <Route path="view/*" element={<ViewPage />} />
                 <Route path="*" element={<NotFound />} />
             </Route>
         </Routes>
