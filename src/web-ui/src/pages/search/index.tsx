@@ -3,20 +3,24 @@ import {useMemo, useState} from "react";
 import CardGrid from "~/components/CardGrid.tsx";
 import useDebounce from "~/hooks/useDebounce.ts";
 import InfoCard from "~/components/InfoCard";
-import {encodePath} from "~/util";
-import {Link} from "react-router-dom";
+import {encodePath, extractTags} from "~/util";
+import {Link, useSearchParams} from "react-router-dom";
 
 
 export default function SearchPage() {
+    const [searchParams] = useSearchParams();
     const [inputValue, setInputValue] = useState("");
     const rawEntries = useInfo();
     const query = useDebounce(inputValue.trim().toLowerCase(), 300);
 
-    const validEntries = useMemo(() => {
-        if (query.length < 3) {
-            return [];
-        }
+    const possibleEntries = useMemo(() => {
+        const tag = searchParams.get("tag")
         return rawEntries.data!
+            .filter(entry => tag === null || extractTags(entry.path).includes(tag))
+    }, [rawEntries.data, searchParams]);
+
+    const validEntries = useMemo(() => {
+        return possibleEntries
             .map((entry) => {
                 const name = entry.name.toLowerCase();
                 let score: number = 0;
@@ -40,14 +44,14 @@ export default function SearchPage() {
             .filter(element => element.score >= (query.length / 2))
             .sort((a, b) => b.score - a.score)
             .map(element => element.value)
-    }, [rawEntries.data, query]);
+    }, [possibleEntries, query]);
 
     return <>
-        <div className="w-full p-3 relative">
+        <div className="w-full p-3">
             <input
                 type="search"
                 className="block w-full max-w-screen-lg mx-auto px-1 py-px text-black rounded-md"
-                placeholder="query"
+                placeholder="Query"
                 value={inputValue}
                 onChange={e => setInputValue(e.target.value)}
             />
