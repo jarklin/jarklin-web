@@ -21,8 +21,8 @@ export default function WatchVideoPage() {
 
     return <>
         <VideoPlayer
-            className=""
-            title={data.name}
+            className="h-full"
+            autoplay title={data.name}
             src={getSource(data.path)}
             poster={getPreview(data.path)}
         />
