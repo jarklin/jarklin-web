@@ -8,7 +8,7 @@ interface Props {
 
 
 export default function GalleryView({ info }: Props) {
-    return <Navigate to={`/read/${encodePath(info.path)}`} />;
+    return <Navigate replace to={`/read/${encodePath(info.path)}`} />;
     // return <>
     //
     // </>;

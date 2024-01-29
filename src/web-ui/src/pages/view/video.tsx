@@ -13,7 +13,7 @@ interface Props {
 
 
 export default function VideoView({ info }: Props) {
-    return <Navigate to={`/watch/${encodePath(info.path)}`} />;
+    return <Navigate replace to={`/watch/${encodePath(info.path)}`} />;
     // return <div>
     //     <img className="h-max max-h-[50vh] w-full object-cover" src={getAnimatedPreview(info.path)} alt="" />
     //     <div className="flex -mt-[10vh] bg-black">
