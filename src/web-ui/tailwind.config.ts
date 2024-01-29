@@ -1,5 +1,7 @@
 import type { Config } from 'tailwindcss'
 import * as tailwindContainerQueriesPlugin from '@tailwindcss/container-queries';
+import vidstackCssPlugin from "@vidstack/react/tailwind.cjs";
+import tailwindAnimatePlugin from "tailwindcss-animate";
 
 export default {
   content: [
@@ -16,7 +18,9 @@ export default {
             'accent': {
                 'DEFAULT': "#00ADB5",
                 'light': "#00FFF5",
-            }
+            },
+            'media-brand': 'rgb(var(--media-brand) / <alpha-value>)',
+            'media-focus': 'rgb(var(--media-focus) / <alpha-value>)',
         },
         aspectRatio: {
             "vertical": "9 / 16",
@@ -38,6 +42,19 @@ export default {
   },
   plugins: [
       tailwindContainerQueriesPlugin,
+      tailwindAnimatePlugin,
+      vidstackCssPlugin({
+          prefix: 'media',
+      }),
+      customVariants,
   ],
 } satisfies Config
 
+
+function customVariants({ addVariant, matchVariant }) {
+    // Strict version of `.group` to help with nesting.
+    matchVariant('parent-data', (value) => `.parent[data-${value}] > &`);
+
+    addVariant('hocus', ['&:hover', '&:focus-visible']);
+    addVariant('group-hocus', ['.group:hover &', '.group:focus-visible &']);
+}
