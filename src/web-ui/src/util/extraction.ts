@@ -12,7 +12,7 @@ export function extractTags(path: string): Array<string> {
     tags.push(...parts.slice(0, parts.length - 2));
 
     // add variations/combinations
-    for(let max = 2; max <= parts.length - 2; max++) {
+    for(let max = 2; max <= parts.length - 1; max++) {
         tags.push(parts.slice(0, max).join("|"))
     }
 
