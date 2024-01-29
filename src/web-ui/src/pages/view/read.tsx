@@ -17,13 +17,12 @@ export default function ReadGalleryPage() {
         throw new Error("not a gallery")
     }
 
-
     return <>
         <ScrollProgress />
         <div className="flex flex-col items-center">
             {data.meta.images.map(image => <>
                 <img
-                    className="max-w-screen-lg"
+                    className="w-full max-w-screen-lg"
                     src={getSource(`${data.path}/${image.filename}`)}
                     alt={image.filename}
                     width={image.width} height={image.height}
