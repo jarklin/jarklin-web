@@ -8,11 +8,11 @@ export function extractTags(path: string): Array<string> {
     // split by '/'|'\'
     const parts = path.split(/[\/\\]/g).filter(e => e);
 
-    // every element is added once (except the filename (last part))
-    tags.push(...parts.slice(0, parts.length - 1));
+    // every element is added once (except the filename and folder name (last part))
+    tags.push(...parts.slice(0, parts.length - 2));
 
     // add variations/combinations
-    for(let max = 2; max < parts.length; max++) {
+    for(let max = 2; max <= parts.length - 2; max++) {
         tags.push(parts.slice(0, max).join("|"))
     }
 
