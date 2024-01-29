@@ -1,4 +1,6 @@
 import {GalleryInfoEntry} from "~/types";
+import {Navigate} from "react-router-dom";
+import {encodePath} from "~/util";
 
 interface Props {
     info: GalleryInfoEntry
@@ -6,7 +8,8 @@ interface Props {
 
 
 export default function GalleryView({ info }: Props) {
-    return <>
-        {JSON.stringify(info)}
-    </>;
+    return <Navigate to={`/read/${encodePath(info.path)}`} />;
+    // return <>
+    //
+    // </>;
 }
