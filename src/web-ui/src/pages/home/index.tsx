@@ -7,13 +7,13 @@ import {encodePath, extractTags, shuffled} from "~/util";
 import {InfoEntry} from "~/types";
 
 export default function HomePage() {
-    return <>
+    return <div className="p-2">
         <RandomGalleryFeed />
         <RandomVideoFeed />
         <NewestGalleryFeed />
         <NewestVideoFeed />
         <AllTags />
-    </>;
+    </div>;
 }
 
 export function RandomGalleryFeed() {
