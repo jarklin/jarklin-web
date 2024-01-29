@@ -3,7 +3,7 @@ import {createAvatar} from "~/util";
 import jarklinIconSrc from "~/assets/jarklin.svg";
 import {useIsFetching} from "react-query";
 import useUsername from "~/hooks/useUsername.ts";
-import {ArrowLeftIcon} from "lucide-react";
+import {ArrowLeftIcon, ScanSearchIcon} from "lucide-react";
 
 
 interface Props {
@@ -15,7 +15,7 @@ export default function PageNavBar(props: Props) {
     const username = useUsername();
 
     return <>
-        <div className="bg-primary-light p-1 flex gap-1 items-stretch content-baseline">
+        <div className="bg-primary-light p-1 flex gap-2 items-stretch content-baseline">
             {/* @ts-ignore useNavigate() allows -1 to go back */}
             <Link to={-1}>
                 <ArrowLeftIcon className="w-8 h-8 rounded-md" />
@@ -24,6 +24,9 @@ export default function PageNavBar(props: Props) {
                 <img className="h-8 rounded-md" src={jarklinIconSrc} alt="" />
             </Link>
             <div className="grow grid place-content-center text-2xl">{props.title}</div>
+            <Link to="/search">
+                <ScanSearchIcon className="w-8 h-8 rounded-md" />
+            </Link>
             <Link to="/config">
                 <img className="h-8 aspect-square bg-accent rounded-full" src={createAvatar(username ?? "⚙", undefined, 'black')} alt="Avatar" />
             </Link>

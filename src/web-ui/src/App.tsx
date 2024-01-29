@@ -5,6 +5,7 @@ import LogoutPage from "~/pages/logout";
 import NotFound from "~/pages/404.tsx";
 import PageLayout from "~/PageLayout";
 import ConfigPage from "~/pages/config";
+import SearchPage from "~/pages/search";
 import ViewPage from "~/pages/view";
 import ReadGalleryPage from "~/pages/view/read.tsx";
 import WatchVideoPage from "~/pages/view/watch.tsx";
@@ -20,6 +21,7 @@ export default function App() {
                 <Route path="login" element={<LoginPage />} />
                 <Route path="logout" element={<LogoutPage />} />
                 <Route path="config" element={<ConfigPage />} />
+                <Route path="search" element={<SearchPage />} />
                 <Route path="view/*" element={<ViewPage />} />
                 <Route path="read/*" element={<ReadGalleryPage />} />
                 <Route path="watch/*" element={<WatchVideoPage />} />
