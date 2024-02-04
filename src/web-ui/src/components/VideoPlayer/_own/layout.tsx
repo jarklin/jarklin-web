@@ -1,12 +1,13 @@
 import captionStyles from './css/captions.module.css';
 import styles from './css/video-layout.module.css';
 import {Captions, Controls} from "@vidstack/react";
-import VideoPlayerGestures from "./gestures.tsx";
+import VideoPlayerGestures from "./gestures";
 import * as Buttons from './buttons';
 import * as Menus from './menus';
 import * as Sliders from './sliders';
-import {TimeGroup} from "./time-group.tsx";
-import {Title} from "./title.tsx";
+import {TimeGroup} from "./time-group";
+import {Title} from "./title";
+
 
 export default function VideoPlayerLayout() {
     return <>
