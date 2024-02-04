@@ -3,85 +3,34 @@ import {useMemo} from "react";
 import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
 import InfoCard from "src/components/InfoCard";
 import {Link} from "react-router-dom";
-import {encodePath, extractTags, shuffled} from "~/util";
+import {encodePath, extractTags} from "~/util";
 import {InfoEntry} from "~/types";
+import {homeEntries} from "~/pages/home/entries.ts";
 
 export default function HomePage() {
     return <div className="p-2">
-        <RandomGalleryFeed />
-        <RandomVideoFeed />
-        <NewestGalleryFeed />
-        <NewestVideoFeed />
+        {homeEntries.map(entry => <Feed title={entry.title} filter={entry.filter} />)}
         <AllTags />
     </div>;
 }
 
-export function RandomGalleryFeed() {
+
+function Feed({ title, filter }: { title: string, filter: ((entries: InfoEntry[]) => InfoEntry[]) }) {
     const entries = useInfo();
 
-    const randomGalleries = useMemo(
-        () => shuffled(
-                entries.data!
-                    .filter(entry => entry.meta.type === "gallery")
-            )
-            .slice(0, 20),
+    const visible = useMemo(
+        () => filter(entries.data!).slice(0, 20),
         [entries.data],
-    );
+    )
 
-    return <Feed title="Random Galleries" entries={randomGalleries} />;
-}
+    if (!visible.length) {
+        return null;
+    }
 
-export function RandomVideoFeed() {
-    const entries = useInfo();
-
-    const randomVideos = useMemo(
-        () => shuffled(
-            entries.data!
-                .filter(entry => entry.meta.type === "video")
-        )
-        .slice(0, 20),
-        [entries.data],
-    );
-
-    return <Feed title="Random Videos" entries={randomVideos} />;
-}
-
-
-export function NewestGalleryFeed() {
-    const entries = useInfo();
-
-    const newestGalleries = useMemo(
-        () => entries.data!
-            .filter(entry => entry.meta.type === "gallery")
-            .sort((a, b) => b.mtime - a.mtime)
-            .slice(0, 20),
-        [entries.data],
-    );
-
-    return <Feed title="Newest Galleries" entries={newestGalleries} />;
-}
-
-
-export function NewestVideoFeed() {
-    const entries = useInfo();
-
-    const newestVideos = useMemo(
-        () => entries.data!
-            .filter(entry => entry.meta.type === "video")
-            .sort((a, b) => b.mtime - a.mtime)
-            .slice(0, 20),
-        [entries.data],
-    );
-
-    return <Feed title="Newest Videos" entries={newestVideos} />;
-}
-
-
-function Feed({ title, entries }: { title: string, entries: Array<InfoEntry> }) {
     return <>
         <p className="text-2xl">{title}</p>
         <VerticalScrollArea>
-            {entries.map(info => <>
+            {visible.map(info => <>
                 <Link key={info.path} to={`/view/${encodePath(info.path)}`}>
                     <InfoCard className="h-60" info={info}/>
                 </Link>
