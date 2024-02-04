@@ -29,6 +29,7 @@ export const homeEntries: Entry[] = [
         title: "Recently Updated Galleries",
         filter: (entries) => (
             entries
+                .filter(entry => entry.mtime != entry.ctime)  // avoid adding newest
                 .filter(entry => entry.meta.type === "gallery")
                 .sort((a, b) => b.mtime - a.mtime)
         ),
