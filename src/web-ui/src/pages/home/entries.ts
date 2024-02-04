@@ -1,5 +1,6 @@
 import {InfoEntry} from "~/types";
-import {shuffled} from "~/util";
+import {dailyRandom, shuffled} from "~/util";
+
 
 interface Entry {
     title: string
@@ -13,6 +14,7 @@ export const homeEntries: Entry[] = [
         filter: (entries) => shuffled(
             entries
                 .filter(entry => entry.meta.type === "gallery")
+            , dailyRandom()
         ),
     },
     {
@@ -20,6 +22,7 @@ export const homeEntries: Entry[] = [
         filter: (entries) =>  shuffled(
             entries
                 .filter(entry => entry.meta.type === "video")
+            , dailyRandom()
         ),
     },
     {
