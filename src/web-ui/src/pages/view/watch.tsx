@@ -1,9 +1,10 @@
 import "@vidstack/react/player/styles/base.css"
-import useInfo from "~/hooks/useInfo.ts";
+import {lazy} from "react";
 import {useParams} from "react-router-dom";
+import useInfo from "~/hooks/useInfo.ts";
 import NotFound from "~/pages/404.tsx";
 import {getPreview, getSource} from "~/util";
-import VideoPlayer from "~/components/VideoPlayer";
+const VideoPlayer = lazy(() => import("~/components/VideoPlayer"));
 
 
 export default function WatchVideoPage() {
