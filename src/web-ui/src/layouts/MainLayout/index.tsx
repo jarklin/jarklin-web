@@ -1,8 +1,8 @@
 import {ErrorBoundary} from "react-error-boundary";
 import {ErrorBoundaryFallback} from "~/components/ErrorBoundaryFallback.tsx";
 import {Outlet} from "react-router-dom";
-import NavBar from "./NavBar";
-import Footer from "./Footer";
+import NavBar from "./NavBar.tsx";
+import Footer from "../SimpleLayout/Footer.tsx";
 import {Suspense} from "react";
 
 interface Props {
