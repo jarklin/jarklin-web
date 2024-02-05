@@ -1,4 +1,3 @@
-import {Link} from "react-router-dom";
 import jarklinIconSrc from "~/assets/jarklin.svg";
 import {useIsFetching} from "react-query";
 
@@ -11,9 +10,7 @@ interface Props {
 export default function PageNavBar(props: Props) {
     return <>
         <div className="bg-primary-light p-1 flex gap-2 items-stretch content-baseline">
-            <Link to="/">
-                <img className="h-8 rounded-md" src={jarklinIconSrc} alt="" />
-            </Link>
+            <img className="h-8 rounded-md" src={jarklinIconSrc} alt="" />
             <div className="text-2xl">{props.title}</div>
             <div className="grow grid place-content-center text-2xl" />
         </div>
