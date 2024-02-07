@@ -1,10 +1,10 @@
 import random, {Random} from "random"
 
 
-export function dailyRandom() {
+export function seededRandom() {
     const now = new Date(Date.now());
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const seed = today.toISOString();
+    const seedDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours());
+    const seed = seedDate.toISOString();
     return random.clone(seed)
 }
 
