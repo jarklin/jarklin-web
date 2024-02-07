@@ -1,4 +1,4 @@
-import {InfoEntry} from "~/types";
+import {InfoEntry} from "~/hooks/useInfo/types.ts";
 import {dailyRandom, shuffled} from "~/util";
 
 
@@ -13,7 +13,7 @@ export const homeEntries: Entry[] = [
         title: "Random Galleries",
         filter: (entries) => shuffled(
             entries
-                .filter(entry => entry.meta.type === "gallery")
+                .filter(entry => entry.type === "gallery")
             , dailyRandom()
         ),
     },
@@ -21,7 +21,7 @@ export const homeEntries: Entry[] = [
         title: "Random Videos",
         filter: (entries) =>  shuffled(
             entries
-                .filter(entry => entry.meta.type === "video")
+                .filter(entry => entry.type === "video")
             , dailyRandom()
         ),
     },
@@ -30,7 +30,7 @@ export const homeEntries: Entry[] = [
         filter: (entries) => (
             entries
                 .filter(entry => entry.mtime != entry.ctime)  // avoid adding newest
-                .filter(entry => entry.meta.type === "gallery")
+                .filter(entry => entry.type === "gallery")
                 .sort((a, b) => b.mtime - a.mtime)
         ),
     },
@@ -42,7 +42,7 @@ export const homeEntries: Entry[] = [
         title: "Newest Galleries",
         filter: (entries) => (
             entries
-                .filter(entry => entry.meta.type === "gallery")
+                .filter(entry => entry.type === "gallery")
                 .sort((a, b) => b.ctime - a.ctime)
         ),
     },
@@ -50,7 +50,7 @@ export const homeEntries: Entry[] = [
         title: "Newest Videos",
         filter: (entries) => (
             entries
-                .filter(entry => entry.meta.type === "video")
+                .filter(entry => entry.type === "video")
                 .sort((a, b) => b.ctime - a.ctime)
         ),
     },

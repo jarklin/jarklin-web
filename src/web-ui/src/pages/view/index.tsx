@@ -1,15 +1,15 @@
 import {useParams} from "react-router-dom";
-import useInfo from "~/hooks/useInfo.ts";
+import index from "~/hooks/useInfo";
 import NotFound from "~/pages/404.tsx";
 import VideoView from "~/pages/view/video.tsx";
 import GalleryView from "~/pages/view/gallery.tsx";
-import {GalleryInfoEntry, VideoInfoEntry} from "~/types";
+import {GalleryInfoEntry, VideoInfoEntry} from "~/hooks/useInfo/types.ts";
 
 export default function ViewPage() {
-    const info = useInfo();
+    const info = index();
     const { "*": path } = useParams();
 
-    const data = info.data?.find(entry => entry.path === path);
+    const data = info.find(entry => entry.path === path);
 
     switch (data?.meta.type) {
         case "gallery":

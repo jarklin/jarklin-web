@@ -1,4 +1,4 @@
-import {VideoInfoEntry} from "~/types";
+import {VideoInfoEntry} from "~/hooks/useInfo/types.ts";
 // import {formatFilename, getAnimatedPreview, getPreview, getPreviewImage} from "~/util";
 // import humanize from "humanize-plus";
 // import humanizeDuration from "humanize-duration";

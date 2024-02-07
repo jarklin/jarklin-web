@@ -2,8 +2,9 @@ export function formatFilename(name: string) {
     // @v2
     return name
         .replace(/\b\d{3,4}p\b/g, "")  // eg 240p or 360p
-        .replace(/[\s._\-]+/g, " ")
-        .replace(/\b/g, letter => letter.toUpperCase())
+        .replace(/\s{2,}/g, " ")
+        .replace(/[._\-]{2,}/g, duplicated => duplicated.charAt(0))
+        .replace(/\b./g, letter => letter.toUpperCase())
 
     // @v1
     // return name

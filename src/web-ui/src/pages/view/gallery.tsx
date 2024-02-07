@@ -1,4 +1,4 @@
-import {GalleryInfoEntry} from "~/types";
+import {GalleryInfoEntry} from "~/hooks/useInfo/types.ts";
 import {Navigate} from "react-router-dom";
 import {encodePath} from "~/util";
 

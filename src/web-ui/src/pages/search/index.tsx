@@ -1,4 +1,4 @@
-import useInfo from "~/hooks/useInfo.ts";
+import useInfo from "~/hooks/useInfo";
 import {useMemo, useState} from "react";
 import CardGrid from "~/components/CardGrid.tsx";
 import useDebounce from "~/hooks/useDebounce.ts";
@@ -15,9 +15,9 @@ export default function SearchPage() {
 
     const possibleEntries = useMemo(() => {
         const tag = searchParams.get("tag")
-        return rawEntries.data!
+        return rawEntries
             .filter(entry => tag === null || extractTags(entry.path).includes(tag))
-    }, [rawEntries.data, searchParams]);
+    }, [rawEntries, searchParams]);
 
     const validEntries = useMemo(() => {
         return possibleEntries
