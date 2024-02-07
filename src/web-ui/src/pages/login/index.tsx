@@ -46,9 +46,12 @@ export default function LoginPage() {
                     placeholder="Password"
                     disabled={logout.isLoading}
                 />
-                <input type="submit"
-                       className="bg-white text-black rounded-t-sm rounded-b-lg hover:cursor-pointer disabled:cursor-not-allowed"
-                       disabled={logout.isLoading} value="Login"/>
+                <input
+                    type="submit"
+                    className="bg-white text-black rounded-t-sm rounded-b-lg hover:cursor-pointer disabled:cursor-not-allowed"
+                    disabled={logout.isLoading}
+                    value="Login"
+                />
             </form>
         </div>
     </>;
