@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 import NotFound from "~/pages/404.tsx";
 import {getSource} from "~/util";
 import {useEffect, useState} from "react";
+import {ArrowUpFromDotIcon} from "lucide-react";
 
 export default function ReadGalleryPage() {
     const info = useInfo();
@@ -30,6 +31,7 @@ export default function ReadGalleryPage() {
                 />
             </>)}
         </div>
+        <ScrollToTopButton />
     </>;
 }
 
@@ -52,4 +54,27 @@ function ScrollProgress() {
     return <div className="sticky top-0">
         <div className="bg-accent-light h-1" style={{width: `${progress * 100}%`}} />
     </div>
+}
+
+
+function ScrollToTopButton() {
+    const [visible, setVisible] = useState(false);
+
+    useEffect(() => {
+        const controller = new AbortController();
+
+        window.addEventListener("scroll", () => {
+            setVisible(document.body.scrollTop > 50 || document.documentElement.scrollTop > 50);
+        })
+
+        return () => controller.abort();
+    }, []);
+
+    return <>
+        <button className="fixed bottom-2 left-1 bg-accent/50 grid place-content-center p-2 rounded-full transition-opacity" onClick={() => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }} style={{opacity: visible ? "100%" : "0%"}}>
+            <ArrowUpFromDotIcon />
+        </button>
+    </>;
 }
