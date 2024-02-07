@@ -39,12 +39,14 @@ export default function LoginPage() {
                     className="rounded-sm px-1 py-px bg-white text-black disabled:cursor-not-allowed"
                     placeholder="Username"
                     disabled={logout.isLoading}
+                    enterKeyHint="next"
                 />
                 <input
                     type="password" name="password"
                     className="rounded-sm px-1 py-px bg-white text-black disabled:cursor-not-allowed"
                     placeholder="Password"
                     disabled={logout.isLoading}
+                    enterKeyHint="done"
                 />
                 <input type="submit"
                        className="bg-white text-black rounded-t-sm rounded-b-lg hover:cursor-pointer disabled:cursor-not-allowed"

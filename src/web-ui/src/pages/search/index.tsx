@@ -54,6 +54,7 @@ export default function SearchPage() {
                 placeholder="Query"
                 value={inputValue}
                 onChange={e => setInputValue(e.target.value)}
+                enterKeyHint="search"
             />
         </div>
         {!validEntries.length ? <>
