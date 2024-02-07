@@ -1,4 +1,4 @@
-import useInfo from "~/hooks/useInfo.ts";
+import useInfo from "~/hooks/useInfo";
 import {useParams} from "react-router-dom";
 import NotFound from "~/pages/404.tsx";
 import {getSource} from "~/util";
@@ -8,7 +8,7 @@ export default function ReadGalleryPage() {
     const info = useInfo();
     const { "*": path } = useParams();
 
-    const data = info.data?.find(entry => entry.path === path);
+    const data = info.find(entry => entry.path === path);
 
     if (data === undefined) {
         return <NotFound />

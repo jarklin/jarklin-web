@@ -1,24 +1,37 @@
-interface GeneralInfoEntry {
+export type RawInfoEntry = {
     path: string
     name: string
     ext: string
     ctime: number
     mtime: number
+    meta: RawVideoMeta | RawGalleryMeta
 }
 
-export interface VideoInfoEntry extends GeneralInfoEntry{
-    meta: VideoMeta
+
+type ExtendedInfoEntry = RawInfoEntry & {
+    type: "video" | "gallery"
+    displayName: string
+    tags: string[]
+    meta: RawVideoMeta | RawGalleryMeta
 }
 
-export interface GalleryInfoEntry extends GeneralInfoEntry {
-    meta: GalleryMeta
+
+export type VideoInfoEntry = ExtendedInfoEntry & {
+    type: "video"
+    meta: RawVideoMeta
+}
+
+
+export type GalleryInfoEntry = ExtendedInfoEntry & {
+    type: "gallery"
+    meta: RawGalleryMeta
 }
 
 
 export type InfoEntry = VideoInfoEntry | GalleryInfoEntry
 
 
-export interface VideoMeta {
+interface RawVideoMeta {
     type: "video"
     width: number
     height: number
@@ -50,7 +63,7 @@ export interface VideoMeta {
     }>,
 }
 
-export interface GalleryMeta {
+interface RawGalleryMeta {
     type: "gallery"
     n_previews: number
     images: Array<{

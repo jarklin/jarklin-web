@@ -1,10 +1,10 @@
-import useInfo from "~/hooks/useInfo.ts";
+import useInfo from "~/hooks/useInfo";
 import {useMemo} from "react";
 import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
 import InfoCard from "src/components/InfoCard";
 import {Link} from "react-router-dom";
-import {encodePath, extractTags} from "~/util";
-import {InfoEntry} from "~/types";
+import {encodePath} from "~/util";
+import {InfoEntry} from "~/hooks/useInfo/types.ts";
 import {homeEntries} from "~/pages/home/entries.ts";
 
 export default function HomePage() {
@@ -19,8 +19,8 @@ function Feed({ title, filter }: { title: string, filter: ((entries: InfoEntry[]
     const entries = useInfo();
 
     const visible = useMemo(
-        () => filter(entries.data!).slice(0, 20),
-        [entries.data],
+        () => filter(entries).slice(0, 20),
+        [entries],
     )
 
     if (!visible.length) {
@@ -45,11 +45,11 @@ function AllTags() {
 
     const tags = useMemo(
         () => Array.from(new Set(
-            entries.data!
-                .map(entry => extractTags(entry.path))
+            entries
+                .map(entry => entry.tags)
                 .flat()
             )).sort((a, b) => a.localeCompare(b)),
-        [entries.data],
+        [entries],
     )
 
     return <>
