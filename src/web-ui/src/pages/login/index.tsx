@@ -48,9 +48,12 @@ export default function LoginPage() {
                     disabled={logout.isLoading}
                     enterKeyHint="done"
                 />
-                <input type="submit"
-                       className="bg-white text-black rounded-t-sm rounded-b-lg hover:cursor-pointer disabled:cursor-not-allowed"
-                       disabled={logout.isLoading} value="Login"/>
+                <input
+                    type="submit"
+                    className="bg-white text-black rounded-t-sm rounded-b-lg hover:cursor-pointer disabled:cursor-not-allowed"
+                    disabled={logout.isLoading}
+                    value="Login"
+                />
             </form>
         </div>
     </>;
