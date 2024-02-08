@@ -2,8 +2,8 @@ export type RawInfoEntry = {
     path: string
     name: string
     ext: string
-    ctime: number
-    mtime: number
+    creation_time: number
+    modification_time: number
     meta: RawVideoMeta | RawGalleryMeta
 }
 

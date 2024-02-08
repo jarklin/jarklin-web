@@ -9,7 +9,7 @@ interface Props {
 }
 
 
-export default function MetaCard(props: Props) {
+export default function InfoCard(props: Props) {
     switch (props.info.type) {
         case "gallery":
             return <GalleryCard className={props.className} info={props.info} />
