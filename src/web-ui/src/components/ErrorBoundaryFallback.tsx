@@ -1,11 +1,16 @@
 import { FallbackProps } from "react-error-boundary";
 import {AxiosError, HttpStatusCode} from "axios";
-import {Navigate} from "react-router-dom";
+import {Navigate, useLocation} from "react-router-dom";
 
 
 export function ErrorBoundaryFallback({ error }: FallbackProps) {
+    const location = useLocation();
+
     if (error instanceof AxiosError && error.response?.status === HttpStatusCode.Unauthorized) {
-        return <Navigate to="/login" />;
+        return <Navigate to={{
+            pathname: "/login",
+            search: new URLSearchParams({ redirect: `${location.pathname}${location.hash}${location.search}` }).toString(),
+        }} />;
     }
 
     return <>
