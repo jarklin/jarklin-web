@@ -57,7 +57,16 @@ export default function ViewPage() {
                 </div>
                 <div className="grow text-xs">
                     <p className="text-xl">{data.displayName}</p>
+                    <p>Path: {data.path}</p>
                     <InfoComponent data={data as never}/>
+                    <div className="flex gap-2 flex-wrap">
+                        {data.tags.map(tag => <>
+                            <Link key={tag} className="bg-accent hover:bg-accent-light rounded-lg px-1 py-px" to={{
+                                pathname: "/search",
+                                search: new URLSearchParams({tag}).toString(),
+                            }}>{tag}</Link>
+                        </>)}
+                    </div>
                 </div>
             </div>
             <p className="text-2xl">Previews</p>
@@ -70,7 +79,9 @@ export default function ViewPage() {
                 <p className="text-2xl">Related</p>
                 <VerticalScrollArea>
                     {related.map(entry => <>
-                        <InfoCard className="h-60" info={entry}/>
+                        <Link key={entry.path} to={`/view/${encodePath(entry.path)}`}>
+                            <InfoCard className="h-60" info={entry}/>
+                        </Link>
                     </>)}
                 </VerticalScrollArea>
             </>}
