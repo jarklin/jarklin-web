@@ -1,12 +1,14 @@
 import useInfo from "~/hooks/useInfo";
-import {useParams} from "react-router-dom";
+import {useParams, useSearchParams} from "react-router-dom";
 import NotFound from "~/pages/404.tsx";
 import {getSource} from "~/util";
 import {useEffect, useState} from "react";
 import {ArrowUpFromDotIcon} from "lucide-react";
+import ScrollToMe from "~/components/ScrollToMe.tsx";
 
 export default function ReadGalleryPage() {
     const info = useInfo();
+    const [searchParams] = useSearchParams();
     const { "*": path } = useParams();
 
     const data = info.find(entry => entry.path === path);
@@ -14,14 +16,17 @@ export default function ReadGalleryPage() {
     if (data === undefined) {
         return <NotFound />
     }
-    if (data.meta.type !== "gallery") {
+    if (data.type !== "gallery") {
         throw new Error("not a gallery")
     }
+
+    const currentImage = searchParams.get("currentImage");
 
     return <>
         <ScrollProgress />
         <div className="flex flex-col items-center">
             {data.meta.images.map(image => <>
+                <ScrollToMe if={image.filename === currentImage} />
                 <img
                     className="w-full max-w-screen-lg"
                     src={getSource(`${data.path}/${image.filename}`)}
