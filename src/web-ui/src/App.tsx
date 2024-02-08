@@ -10,11 +10,16 @@ import SearchPage from "~/pages/search";
 import ViewPage from "~/pages/view";
 import ReadGalleryPage from "~/pages/view/read.tsx";
 import WatchVideoPage from "~/pages/view/watch.tsx";
+import {useEffect} from "react";
 
 
 export default function App() {
     const { pathname } = useLocation();
     const title = titleMap[pathname] ?? "";
+
+    useEffect(() => {
+        document.documentElement.scrollTo({ top: 0, behavior: "instant" });
+    }, [pathname]);
 
     return <>
         <Routes key={pathname}>
