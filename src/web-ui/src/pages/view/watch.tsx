@@ -3,7 +3,6 @@ import {lazy} from "react";
 import {useParams} from "react-router-dom";
 import useInfo from "~/hooks/useInfo";
 import NotFound from "~/pages/404.tsx";
-import {getPreview, getSource} from "~/util";
 const VideoPlayer = lazy(() => import("~/components/VideoPlayer"));
 
 
@@ -16,16 +15,14 @@ export default function WatchVideoPage() {
     if (data === undefined) {
         return <NotFound />
     }
-    if (data.meta.type !== "video") {
+    if (data.type !== "video") {
         throw new Error("not a video")
     }
 
     return <>
         <VideoPlayer
             className="h-full"
-            autoplay title={data.name}
-            src={getSource(data.path)}
-            poster={getPreview(data.path)}
+            info={data}
         />
     </>;
 }

@@ -9,7 +9,7 @@ import {homeEntries} from "~/pages/home/entries.ts";
 
 export default function HomePage() {
     return <div className="p-2">
-        {homeEntries.map(entry => <Feed title={entry.title} filter={entry.filter} />)}
+        {homeEntries.map(entry => <Feed key={entry.title} title={entry.title} filter={entry.filter} />)}
         <AllTags />
     </div>;
 }
@@ -50,14 +50,17 @@ function AllTags() {
                 .flat()
             )).sort((a, b) => a.localeCompare(b)),
         [entries],
-    )
+    );
 
     return <>
         <p className="text-2xl">Tags</p>
         <div className="flex gap-2 flex-wrap">
             {tags.map(tag => <>
-                <Link key={tag} className="bg-accent hover:bg-accent-light rounded-lg px-1 py-px" to={`/search?tag=${encodeURIComponent(tag)}`}>{tag}</Link>
+                <Link key={tag} className="bg-accent hover:bg-accent-light rounded-lg px-1 py-px" to={{
+                    pathname: "/search",
+                    search: new URLSearchParams({ tag }).toString(),
+                }}>{tag}</Link>
             </>)}
         </div>
-    </>
+    </>;
 }
