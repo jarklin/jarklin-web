@@ -7,6 +7,7 @@ import {VideoInfoEntry} from "~/hooks/useInfo/types.ts";
 import {getPreviewImage, getSource} from "~/util";
 import {useMemo} from "react";
 import {useSearchParams} from "react-router-dom";
+import LoadingSpinner from "~/components/LoadingSpinner.tsx";
 
 
 interface Props {
@@ -36,11 +37,12 @@ export default function VideoPlayer(props: Props) {
     return <>
         <MediaPlayer
             className={twMerge("", props.className)}
-            src={getSource(info.path)}
+            autoPlay src={getSource(info.path)}
             title={info.displayName}
-            streamType="on-demand" load="eager"
+            viewType="video" streamType="on-demand" load="eager"
             duration={info.meta.duration}
             currentTime={parseFloat(searchParams.get("initialTime") ?? "0")}
+            keyTarget="document"  // maybe player but document seems better for now
         >
             <MediaProvider>
                 {/*{props.poster !== undefined && <Poster*/}
@@ -53,6 +55,9 @@ export default function VideoPlayer(props: Props) {
                 icons={defaultLayoutIcons}
                 style={{
                     '--video-brand': '#f5f5f5',
+                }}
+                slots={{
+                    bufferingIndicator: <LoadingSpinner className="absolute inset-0 transition-opacity opacity-0 media-buffering:opacity-100 ease-linear"/>,
                 }}
                 noScrubGesture={false}
                 thumbnails={thumbnails}
