@@ -72,7 +72,7 @@ export default function ViewPage() {
             <p className="text-2xl">Previews</p>
             <VerticalScrollArea>
                 {[...Array(data.meta.n_previews)].map((_, i) => <>
-                    <img className="h-20 object-cover rounded-md" src={getPreviewImage(data.path, i + 1)} alt=""/>
+                    <img key={i} className="h-20 object-cover rounded-md" src={getPreviewImage(data.path, i + 1)} alt=""/>
                 </>)}
             </VerticalScrollArea>
             {related.length !== 0 && <>
