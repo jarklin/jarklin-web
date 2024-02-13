@@ -37,14 +37,14 @@ export default function LoginPage() {
                         </div>
                 )}
                 <input
-                    type="text" name="username"
+                    required type="text" name="username"
                     className="rounded-sm px-1 py-px bg-white text-black disabled:cursor-not-allowed"
                     placeholder="Username"
                     disabled={login.isLoading}
                     enterKeyHint="next"
                 />
                 <input
-                    type="password" name="password"
+                    required type="password" name="password"
                     className="rounded-sm px-1 py-px bg-white text-black disabled:cursor-not-allowed"
                     placeholder="Password"
                     disabled={login.isLoading}
