@@ -1,10 +1,11 @@
 import useInfo from "~/hooks/useInfo";
 import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import NotFound from "~/pages/404.tsx";
-import {getSource} from "~/util";
-import {useEffect, useState} from "react";
+import {getPreviewImage, getSource} from "~/util";
+import {Fragment, useEffect, useState} from "react";
 import {ArrowLeftIcon, ArrowUpFromDotIcon} from "lucide-react";
 import ScrollToMe from "~/components/ScrollToMe.tsx";
+import {GalleryInfoEntry} from "~/hooks/useInfo/types.ts";
 
 export default function ReadGalleryPage() {
     const info = useInfo();
@@ -36,20 +37,50 @@ export default function ReadGalleryPage() {
     return <>
         <ScrollProgress />
         <div className="flex flex-col items-center">
-            {data.meta.images.map(image => <>
+            {data.meta.images.map((image, i) => <Fragment key={image.filename}>
                 <ScrollToMe if={image.filename === currentImage} />
-                <img
-                    className="w-full max-w-screen-lg"
-                    src={getSource(`${data.path}/${image.filename}`)}
-                    alt={image.filename}
-                    width={image.width} height={image.height}
-                    loading="lazy"
-                />
-            </>)}
+                <Image data={data} image={image} i={i} />
+            </Fragment>)}
         </div>
         <ScrollToTopButton />
         <EndExitButton />
     </>;
+}
+
+interface ImageProps {
+    data: GalleryInfoEntry,
+    image: GalleryInfoEntry['meta']['images'][number],
+    i: number
+}
+
+
+function Image({ data, image, i }: ImageProps) {
+    // first load the preview-image as "low resolution" and then the original
+    const [lowResolutionLoaded, setLowResolutionLoaded] = useState(false);
+    const [originalLoaded, setOriginalLoaded] = useState(false);
+
+    return <>
+        {!originalLoaded && <img
+            className="w-full max-w-screen-lg"
+            src={getPreviewImage(data.path, i + 1)}
+            alt=""
+            width={image.width} height={image.height}
+            onLoad={() => {
+                setLowResolutionLoaded(true);
+            }}
+        />}
+        {lowResolutionLoaded && <img
+            className="w-full max-w-screen-lg"
+            style={{display: originalLoaded ? "block" : "none"}}
+            src={getSource(`${data.path}/${image.filename}`)}
+            alt={image.filename}
+            width={image.width} height={image.height}
+            loading="lazy"
+            onLoad={() => {
+                setOriginalLoaded(true);
+            }}
+        />}
+    </>
 }
 
 
