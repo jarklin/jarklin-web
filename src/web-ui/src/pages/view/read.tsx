@@ -56,28 +56,32 @@ interface ImageProps {
 
 function Image({ data, image, i }: ImageProps) {
     // first load the preview-image as "low resolution" and then the original
-    const [lowResolutionLoaded, setLowResolutionLoaded] = useState(false);
-    const [originalLoaded, setOriginalLoaded] = useState(false);
+    const [lowResLoaded, setLowResLoaded] = useState(false);
+    const [highResLoaded, setHighResLoaded] = useState(false);
+
+    const highResSrc = getSource(`${data.path}/${image.filename}`);
+    const lowResSrc = getPreviewImage(data.path, i + 1);
 
     return <>
-        {!originalLoaded && <img
+        {/* real image that gets displayed */}
+        <img
             className="w-full max-w-screen-lg"
-            src={getPreviewImage(data.path, i + 1)}
+            src={highResLoaded ? highResSrc : lowResSrc}
             alt=""
             width={image.width} height={image.height}
             onLoad={() => {
-                setLowResolutionLoaded(true);
+                setLowResLoaded(true);
             }}
-        />}
-        {lowResolutionLoaded && <img
-            className="w-full max-w-screen-lg"
-            style={{display: originalLoaded ? "block" : "none"}}
-            src={getSource(`${data.path}/${image.filename}`)}
-            alt={image.filename}
-            width={image.width} height={image.height}
+        />
+        {/* not visible image just to ensure the image gets loaded */}
+        {/* this is to prevent layout shifts that would happen if the image gets switched */}
+        {(lowResLoaded && !highResLoaded) && <img
+            className="hidden"
+            src={highResSrc}
+            alt=""
             loading="lazy"
             onLoad={() => {
-                setOriginalLoaded(true);
+                setHighResLoaded(true);
             }}
         />}
     </>
