@@ -11,6 +11,7 @@ import ViewPage from "~/pages/view";
 import ReadGalleryPage from "~/pages/view/read.tsx";
 import WatchVideoPage from "~/pages/view/watch.tsx";
 import {useEffect} from "react";
+import ScrollProgressFix from "~/components/ScrollProgressFix.tsx";
 
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
     }, [pathname]);
 
     return <>
+        <ScrollProgressFix />
         <Routes key={pathname}>
             <Route element={<SimpleLayout title={title} />}>
                 <Route path="login" element={<LoginPage />} />
