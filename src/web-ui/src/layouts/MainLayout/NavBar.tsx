@@ -2,8 +2,8 @@ import {Link} from "react-router-dom";
 import {createAvatar} from "~/util";
 import jarklinIconSrc from "~/assets/jarklin.svg";
 import {useIsFetching} from "react-query";
-import useUsername from "~/hooks/useUsername.ts";
 import {ArrowLeftIcon, ScanSearchIcon} from "lucide-react";
+import {useMemo} from "react";
 
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 
 
 export default function PageNavBar(props: Props) {
-    const username = useUsername();
+    const avatar = useMemo(() => createAvatar( "⚙", undefined, 'black'), []);
 
     return <>
         <div className="bg-primary-light p-1 flex gap-2 items-stretch content-baseline">
@@ -28,7 +28,7 @@ export default function PageNavBar(props: Props) {
                 <ScanSearchIcon className="w-8 h-8 rounded-md" />
             </Link>
             <Link to="/config">
-                <img className="h-8 aspect-square bg-accent rounded-full" src={createAvatar(username ?? "⚙", undefined, 'black')} alt="Avatar" />
+                <img className="h-8 aspect-square bg-accent rounded-full" src={avatar} alt="Avatar" />
             </Link>
         </div>
         <BackgroundQueryIndicator />
