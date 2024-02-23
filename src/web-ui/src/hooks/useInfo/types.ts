@@ -55,9 +55,9 @@ interface RawVideoMeta {
     }>,
     chapters: Array<{
         id: number
-        start: number
+        // start: number
         start_time: number
-        end: number
+        // end: number
         end_time: number
         title: string
     }>,
