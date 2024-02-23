@@ -23,7 +23,7 @@ export default {
             'media-focus': 'rgb(var(--media-focus) / <alpha-value>)',
         },
         aspectRatio: {
-            "vertical": "9 / 16",
+            "portrait": "9 / 16",
         },
         animation: {
             "anything-is-loading": "marginLeftN100to100 1s linear infinite",
