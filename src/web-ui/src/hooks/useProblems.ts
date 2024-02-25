@@ -12,7 +12,7 @@ interface Problems {
 
 export default function useProblems(): Array<Problems> {
     const query = useQuery(
-        [".jarklin", "info.json"],
+        [".jarklin", "problems.json"],
         ({ signal }) => axios
             .get<Array<Problems>>("/files/.jarklin/problems.json", { signal })
             .then(r => r.data),
