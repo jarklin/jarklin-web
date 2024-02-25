@@ -27,7 +27,7 @@ export default function PageNavBar(props: Props) {
             <Link to="/search">
                 <ScanSearchIcon className="w-8 h-8 rounded-md" />
             </Link>
-            <Link to="/config">
+            <Link to="/config/">
                 <img className="h-8 aspect-square bg-accent rounded-full" src={avatar} alt="Avatar" />
             </Link>
         </div>

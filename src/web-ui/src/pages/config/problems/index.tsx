@@ -5,7 +5,6 @@ export default function ConfigProblemsPage() {
     const problems = useProblems();
 
     return <>
-        <h1 className="text-2xl">Problems</h1>
         <p>Some Media could not be processed. See here the details:</p>
         <div className="grow flex flex-col gap-2">
             {problems.map(problem => <>

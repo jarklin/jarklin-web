@@ -14,6 +14,7 @@ import {useEffect} from "react";
 import ScrollProgressFix from "~/components/ScrollProgressFix.tsx";
 import ConfigSettingsPage from "~/pages/config/settings";
 import ConfigProblemsPage from "~/pages/config/problems";
+import ConfigStatsPage from "~/pages/config/stats";
 
 
 export default function App() {
@@ -36,6 +37,7 @@ export default function App() {
                 <Route path="config" element={<ConfigPage />}>
                     <Route index element={<ConfigSettingsPage />} />
                     <Route path="problems" element={<ConfigProblemsPage />} />
+                    <Route path="stats" element={<ConfigStatsPage />} />
                 </Route>
                 <Route path="search" element={<SearchPage />} />
                 <Route path="view/*" element={<ViewPage />} />
