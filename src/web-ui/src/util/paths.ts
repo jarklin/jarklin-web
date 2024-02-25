@@ -1,7 +1,7 @@
 import {encodePath} from "~/util/encoding.ts";
 
 export function getSource(path: string): string {
-    return `./files/${encodePath(path)}`;
+    return `./files/${encodePath(path)}?optimize`;
 }
 
 export function getPreview(path: string): string {
