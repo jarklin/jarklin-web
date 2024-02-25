@@ -12,6 +12,8 @@ import ReadGalleryPage from "~/pages/view/read.tsx";
 import WatchVideoPage from "~/pages/view/watch.tsx";
 import {useEffect} from "react";
 import ScrollProgressFix from "~/components/ScrollProgressFix.tsx";
+import ConfigSettingsPage from "~/pages/config/settings";
+import ConfigProblemsPage from "~/pages/config/problems";
 
 
 export default function App() {
@@ -31,7 +33,10 @@ export default function App() {
             </Route>
             <Route element={<MainLayout title={title} />}>
                 <Route index element={<HomePage />} />
-                <Route path="config" element={<ConfigPage />} />
+                <Route path="config" element={<ConfigPage />}>
+                    <Route index element={<ConfigSettingsPage />} />
+                    <Route path="problems" element={<ConfigProblemsPage />} />
+                </Route>
                 <Route path="search" element={<SearchPage />} />
                 <Route path="view/*" element={<ViewPage />} />
                 <Route path="read/*" element={<ReadGalleryPage />} />

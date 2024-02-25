@@ -1,15 +1,24 @@
-import {Link} from "react-router-dom";
-import useUsername from "~/hooks/useUsername.ts";
+import {NavLink, Outlet} from "react-router-dom";
+
+
+const links = [
+    { href: "/config/", label: "Config" },
+    { href: "/config/problems/", label: "Problems" },
+]
+
 
 export default function ConfigPage() {
-    const username = useUsername();
-
-    return <div className="flex flex-col h-full p-4">
-        <div className="grow" />
-        {username !== null &&
-            <div className="grid place-content-center">
-                <Link className="px-2 py-px bg-white text-black rounded-lg hover:cursor-pointer disabled:cursor-not-allowed" to="/logout">Logout</Link>
+    return <>
+        <div className="flex flex-col h-full gap-2 p-4">
+            <div className="flex justify-center gap-4 p-2">
+                {links.map(link => <>
+                    <NavLink end className="group p-1 [&.active>span]:bg-accent-light [&.active>span]:max-w-full" to={link.href}>
+                        {link.label}
+                        <span className="block mx-auto max-w-0 group-hover:max-w-full transition-[max-width] h-px bg-accent" />
+                    </NavLink>
+                </>)}
             </div>
-        }
-    </div>;
+            <Outlet />
+        </div>
+    </>;
 }
