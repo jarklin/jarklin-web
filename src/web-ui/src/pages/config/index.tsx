@@ -2,7 +2,7 @@ import {NavLink, Outlet} from "react-router-dom";
 
 
 const links = [
-    { href: "/config/", label: "Config" },
+    { href: "/config/", label: "Settings" },
     { href: "/config/problems/", label: "Problems" },
 ]
 
