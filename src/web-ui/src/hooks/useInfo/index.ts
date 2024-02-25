@@ -5,7 +5,7 @@ import {InfoEntry, RawInfoEntry} from "./types.ts";
 import {extractTags, formatFilename} from "~/util";
 
 
-export default function index(): Array<InfoEntry> {
+export default function useInfo(): Array<InfoEntry> {
     const query = useQuery(
         [".jarklin", "info.json"],
         ({ signal }) => axios

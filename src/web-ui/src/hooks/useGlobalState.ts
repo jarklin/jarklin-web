@@ -5,7 +5,12 @@ import {useEffect, useState} from "react";
 export default function useGlobalState<T>(key: string, defaultValue?: T | any): [T, (v: T) => void] {
     const [value, setStateValue] = useState<T>(() => {
         const stored = localStorage.getItem(key);
-        return stored === null ? defaultValue : JSON.parse(stored);
+        if (stored === null) {
+            localStorage.setItem(key, JSON.stringify(value));
+            return defaultValue;
+        } else {
+            return JSON.parse(stored);
+        }
     });
 
     useEffect(() => {
