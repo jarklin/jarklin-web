@@ -3,7 +3,7 @@ import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import NotFound from "~/pages/404.tsx";
 import {getPreviewImage, getSource} from "~/util";
 import {Fragment, useEffect, useState} from "react";
-import {ArrowLeftIcon, ArrowUpFromDotIcon} from "lucide-react";
+import {ArrowLeftIcon, ArrowUpFromDotIcon, ServerCrashIcon} from "lucide-react";
 import ScrollToMe from "~/components/ScrollToMe.tsx";
 import {GalleryInfoEntry} from "~/hooks/useInfo/types.ts";
 
@@ -55,12 +55,17 @@ interface ImageProps {
 
 
 function Image({ data, image, i }: ImageProps) {
+    const [failed, setFailed] = useState(false);
     // first load the preview-image as "low resolution" and then the original
     const [lowResLoaded, setLowResLoaded] = useState(false);
     const [highResLoaded, setHighResLoaded] = useState(false);
 
     const highResSrc = getSource(`${data.path}/${image.filename}`);
     const lowResSrc = getPreviewImage(data.path, i + 1);
+
+    if (failed) {
+        return <ServerCrashIcon className="w-full max-w-screen-lg" />;
+    }
 
     return <>
         {/* real image that gets displayed */}
@@ -72,6 +77,9 @@ function Image({ data, image, i }: ImageProps) {
             onLoad={() => {
                 setLowResLoaded(true);
             }}
+            onError={() => {
+                setFailed(true);
+            }}
         />
         {/* not visible image just to ensure the image gets loaded */}
         {/* this is to prevent layout shifts that would happen if the image gets switched */}
@@ -82,6 +90,9 @@ function Image({ data, image, i }: ImageProps) {
             loading="lazy"
             onLoad={() => {
                 setHighResLoaded(true);
+            }}
+            onError={() => {
+                setFailed(true);
             }}
         />}
     </>
