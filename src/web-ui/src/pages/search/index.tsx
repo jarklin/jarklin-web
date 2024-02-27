@@ -1,10 +1,11 @@
 import useInfo from "~/hooks/useInfo";
-import {useEffect, useMemo} from "react";
+import {useCallback, useEffect, useMemo} from "react";
 import CardGrid from "~/components/CardGrid.tsx";
 import useDebounce from "~/hooks/useDebounce.ts";
 import InfoCard from "~/components/InfoCard";
 import {encodePath, extractTags} from "~/util";
 import {Link, useSearchParams} from "react-router-dom";
+import {SearchIcon} from "lucide-react";
 
 
 const PAGESIZE = 24;  // "best" page size
@@ -17,18 +18,22 @@ export default function SearchPage() {
     const page = +(searchParams.get("page") ?? 1);
     const query = useDebounce(queryValue.trim().toLowerCase(), 300);
 
-    function setQueryValue(next: string) {
+    const setQueryValue = useCallback((next: string) => {
         setSearchParams((prev) => ({ ...Object.fromEntries(prev.entries()), query: next }));
-    }
+    }, [setSearchParams]);
 
-    function setPage(next: number) {
+    const setPage = useCallback((next: number) => {
         setSearchParams((prev) => ({ ...Object.fromEntries(prev.entries()), page: `${next}` }));
         document.documentElement.scrollTo({ top: 0, behavior: "instant" });
-    }
+    }, [setSearchParams]);
 
     useEffect(() => {
         setPage(1);
-    }, [query]);
+    }, [query, setPage]);
+
+    // const allTags = useMemo(() => {
+    //     return Array.from(new Set(rawEntries.flatMap(e => e.tags)));
+    // }, [rawEntries]);
 
     const possibleEntries = useMemo(() => {
         const tag = searchParams.get("tag")
@@ -68,12 +73,14 @@ export default function SearchPage() {
     const recommendedPages = [page-2, page-1, page, page+1, page+2].filter(p => p > 0 && p <= totalPages);
 
     return <>
-        <div className="w-full p-3">
+        <div className="w-full p-3 flex gap-1 justify-center">
+            <div className="p-px bg-white text-primary-light rounded-l-md rounded-r-sm">
+                <SearchIcon className="" />
+            </div>
             <input
                 type="search"
-                autoFocus
-                className="block w-full max-w-screen-lg mx-auto px-1 py-px text-black rounded-md"
-                placeholder="Query"
+                className="block w-full max-w-screen-lg px-1 py-px bg-white text-black rounded-l-sm rounded-r-md"
+                autoFocus  placeholder="Query"
                 value={queryValue}
                 onChange={e => setQueryValue(e.target.value)}
                 enterKeyHint="search"
