@@ -55,12 +55,12 @@ function AllTags() {
     return <>
         <p className="text-2xl">Tags</p>
         <div className="flex gap-2 flex-wrap">
-            {tags.map(tag => <>
+            {tags.map(tag => (
                 <Link key={tag} className="bg-accent hover:bg-accent-light rounded-lg px-1 py-px" to={{
                     pathname: "/search",
                     search: new URLSearchParams({ tag }).toString(),
                 }}>{tag}</Link>
-            </>)}
+            ))}
         </div>
     </>;
 }
