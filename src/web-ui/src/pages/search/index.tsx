@@ -71,6 +71,7 @@ export default function SearchPage() {
         <div className="w-full p-3">
             <input
                 type="search"
+                autoFocus
                 className="block w-full max-w-screen-lg mx-auto px-1 py-px text-black rounded-md"
                 placeholder="Query"
                 value={queryValue}
