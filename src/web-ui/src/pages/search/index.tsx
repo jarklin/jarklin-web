@@ -1,5 +1,5 @@
 import useInfo from "~/hooks/useInfo";
-import {useMemo, useState} from "react";
+import {useEffect, useMemo} from "react";
 import CardGrid from "~/components/CardGrid.tsx";
 import useDebounce from "~/hooks/useDebounce.ts";
 import InfoCard from "~/components/InfoCard";
@@ -7,11 +7,28 @@ import {encodePath, extractTags} from "~/util";
 import {Link, useSearchParams} from "react-router-dom";
 
 
+const PAGESIZE = 24;  // "best" page size
+
+
 export default function SearchPage() {
-    const [searchParams] = useSearchParams();
-    const [inputValue, setInputValue] = useState("");
     const rawEntries = useInfo();
-    const query = useDebounce(inputValue.trim().toLowerCase(), 300);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const queryValue = searchParams.get("query") ?? "";
+    const page = +(searchParams.get("page") ?? 1);
+    const query = useDebounce(queryValue.trim().toLowerCase(), 300);
+
+    function setQueryValue(next: string) {
+        setSearchParams((prev) => ({ ...Object.fromEntries(prev.entries()), query: next }));
+    }
+
+    function setPage(next: number) {
+        setSearchParams((prev) => ({ ...Object.fromEntries(prev.entries()), page: `${next}` }));
+        document.documentElement.scrollTo({ top: 0, behavior: "instant" });
+    }
+
+    useEffect(() => {
+        setPage(1);
+    }, [query]);
 
     const possibleEntries = useMemo(() => {
         const tag = searchParams.get("tag")
@@ -41,10 +58,14 @@ export default function SearchPage() {
                     score: score,
                 }
             })
-            .filter(element => element.score >= (query.length / 2))
+            .filter(element => element.score >= (query.length * 0.8))
             .sort((a, b) => b.score - a.score)
             .map(element => element.value)
     }, [possibleEntries, query]);
+
+    const totalPages = Math.ceil(validEntries.length / PAGESIZE);
+
+    const recommendedPages = [page-2, page-1, page, page+1, page+2].filter(p => p > 0 && p <= totalPages);
 
     return <>
         <div className="w-full p-3">
@@ -52,8 +73,8 @@ export default function SearchPage() {
                 type="search"
                 className="block w-full max-w-screen-lg mx-auto px-1 py-px text-black rounded-md"
                 placeholder="Query"
-                value={inputValue}
-                onChange={e => setInputValue(e.target.value)}
+                value={queryValue}
+                onChange={e => setQueryValue(e.target.value)}
                 enterKeyHint="search"
             />
         </div>
@@ -61,12 +82,27 @@ export default function SearchPage() {
             <p className="text-center text-xl">No entries found</p>
         </> : <>
             <CardGrid>
-                {validEntries.map(entry => <>
+                {validEntries.slice((page-1) * PAGESIZE, page * PAGESIZE).map(entry => (
                     <Link key={entry.path} to={`/view/${encodePath(entry.path)}`}>
                         <InfoCard key={entry.path} info={entry} />
                     </Link>
-                </>)}
+                ))}
             </CardGrid>
+            {recommendedPages.length > 1 && <>
+                <div className="flex justify-center py-1 gap-4">
+                    {!recommendedPages.includes(1) && <>
+                        <button className="p-2" onClick={() => setPage(1)}>1</button>
+                        <p className="cursor-default py-2">...</p>
+                    </>}
+                    {recommendedPages.map(recommendedPage => (
+                        <button className="p-2" onClick={() => setPage(recommendedPage)}>{recommendedPage}</button>
+                    ))}
+                    {!recommendedPages.includes(totalPages) && <>
+                        <p className="cursor-default py-2">...</p>
+                        <button className="p-2" onClick={() => setPage(totalPages)}>{totalPages}</button>
+                    </>}
+                </div>
+            </>}
         </>}
     </>;
 }
