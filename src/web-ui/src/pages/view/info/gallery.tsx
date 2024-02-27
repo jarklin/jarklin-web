@@ -3,6 +3,7 @@ import {encodePath, getAnimatedPreview, getPreview, getPreviewImage} from "~/uti
 import {Link} from "react-router-dom";
 import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
 import {BookOpenTextIcon} from "lucide-react";
+import humanize from "humanize-plus";
 
 
 export default function GalleryViewPage({ gallery }: { gallery: GalleryInfoEntry }) {
@@ -23,6 +24,7 @@ export default function GalleryViewPage({ gallery }: { gallery: GalleryInfoEntry
                 <p className="text-xl">{gallery.displayName}</p>
                 <p>Path: {gallery.path}</p>
                 <p>Images: {gallery.meta.images.length}</p>
+                <p>Total Size: {humanize.fileSize(gallery.meta.images.reduce((size, image) => size + image.filesize, 0))}</p>
                 <div className="flex gap-2 flex-wrap">
                     {gallery.tags.map(tag => <>
                         <Link key={tag} className="bg-accent hover:bg-accent-light rounded-lg px-1 py-px" to={{
