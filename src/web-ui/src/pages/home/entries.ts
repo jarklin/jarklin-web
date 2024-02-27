@@ -4,6 +4,7 @@ import {seededRandom, shuffled} from "~/util";
 
 interface Entry {
     title: string
+    larger?: boolean
     filter: (entries: InfoEntry[]) => InfoEntry[]
 }
 
@@ -11,6 +12,7 @@ interface Entry {
 export const homeEntries: Entry[] = [
     {
         title: "Random Galleries",
+        larger: true,
         filter: (entries) => shuffled(
             entries
                 .filter(entry => entry.type === "gallery")
@@ -27,6 +29,7 @@ export const homeEntries: Entry[] = [
     },
     {
         title: "Recently Updated Galleries",
+        larger: true,
         filter: (entries) => (
             entries
                 .filter(entry => entry.modification_time != entry.creation_time)  // attempt to avoid adding newest
@@ -40,6 +43,7 @@ export const homeEntries: Entry[] = [
     // },
     {
         title: "Newest Galleries",
+        larger: true,
         filter: (entries) => (
             entries
                 .filter(entry => entry.type === "gallery")

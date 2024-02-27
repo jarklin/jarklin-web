@@ -79,7 +79,7 @@ export default function SearchPage() {
             </div>
             <input
                 type="search"
-                className="block w-full max-w-screen-lg px-1 py-px bg-white text-black rounded-l-sm rounded-r-md"
+                className="block w-full max-w-screen-lg px-1 py-px bg-white text-black rounded-l-sm rounded-r-md placeholder:font-bold"
                 autoFocus  placeholder="Query"
                 value={queryValue}
                 onChange={e => setQueryValue(e.target.value)}
@@ -91,8 +91,8 @@ export default function SearchPage() {
         </> : <>
             <CardGrid>
                 {validEntries.slice((page-1) * PAGESIZE, page * PAGESIZE).map(entry => (
-                    <Link key={entry.path} to={`/view/${encodePath(entry.path)}`}>
-                        <InfoCard key={entry.path} info={entry} />
+                    <Link key={entry.path} to={`/view/${encodePath(entry.path)}`} className="m-auto hover:scale-105">
+                        <InfoCard className="max-h-60" key={entry.path} info={entry} />
                     </Link>
                 ))}
             </CardGrid>

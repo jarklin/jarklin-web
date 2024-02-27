@@ -1,5 +1,5 @@
 import useInfo from "~/hooks/useInfo";
-import {useMemo} from "react";
+import {useMemo, Fragment} from "react";
 import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
 import InfoCard from "src/components/InfoCard";
 import {Link} from "react-router-dom";
@@ -7,15 +7,19 @@ import {encodePath} from "~/util";
 import {InfoEntry} from "~/hooks/useInfo/types.ts";
 import {homeEntries} from "~/pages/home/entries.ts";
 
+
 export default function HomePage() {
     return <div className="p-2">
-        {homeEntries.map(entry => <Feed key={entry.title} title={entry.title} filter={entry.filter} />)}
+        {homeEntries.map((entry) => <Fragment key={entry.title}>
+            <Feed key={entry.title} {...entry} />
+            <div className="h-px m-1 bg-primary-light/50" />
+        </Fragment>)}
         <AllTags />
     </div>;
 }
 
 
-function Feed({ title, filter }: { title: string, filter: ((entries: InfoEntry[]) => InfoEntry[]) }) {
+function Feed({ title, larger, filter }: { title: string, larger?: boolean, filter: ((entries: InfoEntry[]) => InfoEntry[]) }) {
     const entries = useInfo();
 
     const visible = useMemo(
@@ -28,11 +32,11 @@ function Feed({ title, filter }: { title: string, filter: ((entries: InfoEntry[]
     }
 
     return <>
-        <p className="text-2xl">{title}</p>
+        <h1 className="text-2xl font-bold">{title}</h1>
         <VerticalScrollArea>
             {visible.map(info => <>
-                <Link key={info.path} to={`/view/${encodePath(info.path)}`}>
-                    <InfoCard className="h-60" info={info}/>
+                <Link className="hover:scale-105 transition-transform" key={info.path} to={`/view/${encodePath(info.path)}`}>
+                    <InfoCard className={larger ? "h-72" : "h-52"} info={info}/>
                 </Link>
             </>)}
         </VerticalScrollArea>
@@ -53,10 +57,10 @@ function AllTags() {
     );
 
     return <>
-        <p className="text-2xl">Tags</p>
+        <h1 className="text-2xl font-bold">Tags</h1>
         <div className="flex gap-2 flex-wrap">
             {tags.map(tag => (
-                <Link key={tag} className="bg-accent hover:bg-accent-light rounded-lg px-1 py-px" to={{
+                <Link key={tag} className="bg-accent hover:bg-accent-light text-primary rounded-lg px-1 py-px" to={{
                     pathname: "/search",
                     search: new URLSearchParams({ tag }).toString(),
                 }}>{tag}</Link>

@@ -8,7 +8,7 @@ interface Props extends PropsWithChildren {
 
 
 export default function VerticalScrollArea(props: Props) {
-    return <div className={twMerge("flex gap-2 p-2 overflow-x-scroll", props.className)}>
+    return <div className={twMerge("flex gap-2 lg:gap-4 p-2 overflow-x-scroll", props.className)}>
         {props.children}
     </div>;
 }
