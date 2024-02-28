@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import {encodePath} from "~/util";
 import {InfoEntry} from "~/hooks/useInfo/types.ts";
 import {homeEntries} from "~/pages/home/entries.ts";
+import TagLink from "~/components/TagLink.tsx";
 
 
 export default function HomePage() {
@@ -59,12 +60,7 @@ function AllTags() {
     return <>
         <h1 className="text-2xl font-bold">Tags</h1>
         <div className="flex gap-2 flex-wrap">
-            {tags.map(tag => (
-                <Link key={tag} className="bg-accent hover:bg-accent-light text-primary rounded-lg px-1 py-px" to={{
-                    pathname: "/search",
-                    search: new URLSearchParams({ tag }).toString(),
-                }}>{tag}</Link>
-            ))}
+            {tags.map(tag => <TagLink key={tag} tag={tag} />)}
         </div>
     </>;
 }
