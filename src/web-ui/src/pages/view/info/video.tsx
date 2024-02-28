@@ -59,7 +59,7 @@ export default function VideoViewPage({ video }: { video: VideoInfoEntry }) {
                     pathname: href,
                     search: new URLSearchParams({ initialTime: scene.startTime.toString() }).toString(),
                 }}>
-                    <img className="block aspect-video h-20 object-cover" src={getPreviewImage(video.path, i + 1)} alt="" />
+                    <img className="block aspect-video h-video-sm object-cover" src={getPreviewImage(video.path, i + 1)} alt="" />
                     <p className="text-sm px-1">{scene.title}</p>
                 </Link>
             </>)}

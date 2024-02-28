@@ -22,6 +22,13 @@ export default {
             'media-brand': 'rgb(var(--media-brand) / <alpha-value>)',
             'media-focus': 'rgb(var(--media-focus) / <alpha-value>)',
         },
+        height: {
+            "gallery": "16rem",
+            "video": "12.5rem",
+            "mixed": "14.5rem",
+            "gallery-sm": "14rem",
+            "video-sm": "10.5rem",
+        },
         aspectRatio: {
             "portrait": "9 / 16",
         },

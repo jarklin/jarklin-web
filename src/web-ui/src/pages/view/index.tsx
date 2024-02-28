@@ -36,7 +36,7 @@ export default function ViewPage() {
                 <VerticalScrollArea>
                     {related.map(entry => <>
                         <Link key={entry.path} to={`/view/${encodePath(entry.path)}`}>
-                            <InfoCard className="h-60" info={entry}/>
+                            <InfoCard className="h-mixed" info={entry}/>
                         </Link>
                     </>)}
                 </VerticalScrollArea>

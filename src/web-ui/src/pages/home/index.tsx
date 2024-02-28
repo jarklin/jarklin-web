@@ -39,7 +39,7 @@ function Feed({ title, larger, filter }: { title: string, larger?: boolean, filt
         <VerticalScrollArea>
             {visible.map(info => (
                 <Link className="hover:scale-105 transition-transform" key={info.path} to={`/view/${encodePath(info.path)}`}>
-                    <InfoCard className={larger ? "h-72" : "h-52"} info={info}/>
+                    <InfoCard className={larger ? "h-gallery" : "h-video"} info={info}/>
                 </Link>
             ))}
         </VerticalScrollArea>
@@ -61,7 +61,7 @@ function AllTags() {
 
     return <>
         <SectionHeader>Tags</SectionHeader>
-#        <div className="flex gap-2 flex-wrap">
+        <div className="flex flex-wrap gap-2 p-2">
             {tags.map(tag => <TagLink key={tag} tag={tag} />)}
         </div>
     </>;

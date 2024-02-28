@@ -48,7 +48,7 @@ export default function GalleryViewPage({ gallery }: { gallery: GalleryInfoEntry
                         currentImage: image.filename,
                     }).toString()
                 }}>
-                    <img className="block aspect-portrait h-40 object-cover" src={getPreviewImage(gallery.path, i + 1)} alt=""/>
+                    <img className="block aspect-portrait h-gallery-sm object-cover" src={getPreviewImage(gallery.path, i + 1)} alt=""/>
                 </Link>
             </>)}
         </VerticalScrollArea>
