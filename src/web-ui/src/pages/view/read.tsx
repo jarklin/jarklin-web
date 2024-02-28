@@ -151,7 +151,6 @@ function EndExitButton() {
         const controller = new AbortController();
 
         window.addEventListener("scroll", () => {
-            console.log({ innerHeight: window.innerHeight, scrollY: window.scrollY, offsetHeight: document.body.offsetHeight })
             setEnd((window.innerHeight + window.scrollY) >= document.body.offsetHeight);
         })
 
