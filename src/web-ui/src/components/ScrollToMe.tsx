@@ -16,5 +16,5 @@ export default function ScrollToMe(props: Props) {
         }
     }, [shouldScroll]);
 
-    return shouldScroll && <div ref={ref} className="invisible" />;
+    return <div ref={ref} className="invisible" />;
 }
