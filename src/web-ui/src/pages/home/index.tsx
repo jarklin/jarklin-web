@@ -35,11 +35,11 @@ function Feed({ title, larger, filter }: { title: string, larger?: boolean, filt
     return <>
         <h1 className="text-2xl font-bold">{title}</h1>
         <VerticalScrollArea>
-            {visible.map(info => <>
+            {visible.map(info => (
                 <Link className="hover:scale-105 transition-transform" key={info.path} to={`/view/${encodePath(info.path)}`}>
                     <InfoCard className={larger ? "h-72" : "h-52"} info={info}/>
                 </Link>
-            </>)}
+            ))}
         </VerticalScrollArea>
     </>;
 }
