@@ -6,6 +6,8 @@ import {Fragment, useEffect, useState} from "react";
 import {ArrowLeftIcon, ArrowUpFromDotIcon, ServerCrashIcon} from "lucide-react";
 import ScrollToMe from "~/components/ScrollToMe.tsx";
 import {GalleryInfoEntry} from "~/hooks/useInfo/types.ts";
+import useFullScreen from "~/hooks/useFullScreen.ts";
+
 
 export default function ReadGalleryPage() {
     const info = useInfo();
@@ -21,16 +23,13 @@ export default function ReadGalleryPage() {
         throw new Error("not a gallery")
     }
 
-    useEffect(() => {
-        if (!document.fullscreenEnabled) { return; }
-        document.documentElement.requestFullscreen().then();
-
-        return () => {
-            if (document.fullscreenElement !== null) {
-                document.exitFullscreen().then()
-            }
-        };
-     }, []);
+    useFullScreen({
+        autoFullScreen: true,
+        bindKey: true,  // is dump. as it would exit with onFullScreenLeave
+        // onFullScreenLeave: () => {
+        //     navigate(-1);
+        // }
+    });
 
     const currentImage = searchParams.get("currentImage");
 
