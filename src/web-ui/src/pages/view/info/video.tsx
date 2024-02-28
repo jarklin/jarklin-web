@@ -6,6 +6,8 @@ import {PlayCircleIcon} from "lucide-react";
 import humanizeDuration from "humanize-duration";
 import humanize from "humanize-plus";
 import TagLink from "~/components/TagLink.tsx";
+import SectionSeparator from "~/components/Section/Separator.tsx";
+import SectionHeader from "~/components/Section/Header.tsx";
 
 
 export default function VideoViewPage({ video }: { video: VideoInfoEntry }) {
@@ -49,7 +51,8 @@ export default function VideoViewPage({ video }: { video: VideoInfoEntry }) {
                 </div>
             </div>
         </div>
-        <p className="text-2xl">{video.meta.chapters?.length ? "Chapters" : "Scenes"}</p>
+        <SectionSeparator />
+        <SectionHeader className="px-2">{video.meta.chapters?.length ? "Chapters" : "Scenes"}</SectionHeader>
         <VerticalScrollArea>
             {scenes.map((scene, i) => <>
                 <Link key={i} className="flex flex-col min-w-fit bg-primary-light rounded-md overflow-hidden" to={{

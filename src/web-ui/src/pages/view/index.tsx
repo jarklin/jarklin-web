@@ -6,6 +6,8 @@ import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
 import InfoCard from "~/components/InfoCard";
 import VideoViewPage from "~/pages/view/info/video.tsx";
 import GalleryViewPage from "~/pages/view/info/gallery.tsx";
+import SectionSeparator from "~/components/Section/Separator.tsx";
+import SectionHeader from "~/components/Section/Header.tsx";
 
 
 export default function ViewPage() {
@@ -29,7 +31,8 @@ export default function ViewPage() {
                 : <div>Fuck</div>
             }
             {related.length !== 0 && <>
-                <p className="text-2xl">Related</p>
+                <SectionSeparator />
+                <SectionHeader className="px-2">Related</SectionHeader>
                 <VerticalScrollArea>
                     {related.map(entry => <>
                         <Link key={entry.path} to={`/view/${encodePath(entry.path)}`}>

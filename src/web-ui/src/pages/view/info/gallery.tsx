@@ -5,6 +5,8 @@ import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
 import {BookOpenTextIcon} from "lucide-react";
 import humanize from "humanize-plus";
 import TagLink from "~/components/TagLink.tsx";
+import SectionHeader from "~/components/Section/Header.tsx";
+import SectionSeparator from "~/components/Section/Separator.tsx";
 
 
 export default function GalleryViewPage({ gallery }: { gallery: GalleryInfoEntry }) {
@@ -36,7 +38,8 @@ export default function GalleryViewPage({ gallery }: { gallery: GalleryInfoEntry
                 </div>
             </div>
         </div>
-        <p className="text-2xl">Images</p>
+        <SectionSeparator />
+        <SectionHeader className="px-2">Images</SectionHeader>
         <VerticalScrollArea>
             {gallery.meta.images.map((image, i) => <>
                 <Link key={i} className="min-w-fit bg-primary-light rounded-md overflow-hidden" to={{

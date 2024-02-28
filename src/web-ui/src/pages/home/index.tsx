@@ -7,13 +7,15 @@ import {encodePath} from "~/util";
 import {InfoEntry} from "~/hooks/useInfo/types.ts";
 import {homeEntries} from "~/pages/home/entries.ts";
 import TagLink from "~/components/TagLink.tsx";
+import SectionHeader from "~/components/Section/Header.tsx";
+import SectionSeparator from "~/components/Section/Separator.tsx";
 
 
 export default function HomePage() {
     return <div className="p-2">
         {homeEntries.map((entry) => <Fragment key={entry.title}>
             <Feed key={entry.title} {...entry} />
-            <div className="h-px m-1 bg-primary-light/50" />
+            <SectionSeparator />
         </Fragment>)}
         <AllTags />
     </div>;
@@ -33,7 +35,7 @@ function Feed({ title, larger, filter }: { title: string, larger?: boolean, filt
     }
 
     return <>
-        <h1 className="text-2xl font-bold">{title}</h1>
+        <SectionHeader>{title}</SectionHeader>
         <VerticalScrollArea>
             {visible.map(info => (
                 <Link className="hover:scale-105 transition-transform" key={info.path} to={`/view/${encodePath(info.path)}`}>
@@ -58,8 +60,8 @@ function AllTags() {
     );
 
     return <>
-        <h1 className="text-2xl font-bold">Tags</h1>
-        <div className="flex gap-2 flex-wrap">
+        <SectionHeader>Tags</SectionHeader>
+#        <div className="flex gap-2 flex-wrap">
             {tags.map(tag => <TagLink key={tag} tag={tag} />)}
         </div>
     </>;
