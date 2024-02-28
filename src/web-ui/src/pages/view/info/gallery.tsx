@@ -23,9 +23,14 @@ export default function GalleryViewPage({ gallery }: { gallery: GalleryInfoEntry
             </div>
             <div className="grow text-xs">
                 <p className="text-xl">{gallery.displayName}</p>
-                <p>Path: {gallery.path}</p>
-                <p>Images: {gallery.meta.images.length}</p>
-                <p>Total Size: {humanize.fileSize(gallery.meta.images.reduce((size, image) => size + image.filesize, 0))}</p>
+                <div className="grid gap-x-2 grid-cols-kv">
+                    <span>Path</span>
+                    <span>{gallery.path}</span>
+                    <span>Images</span>
+                    <span>{humanize.intComma(gallery.meta.images.length)}</span>
+                    <span>Total Size</span>
+                    <span>{humanize.fileSize(gallery.meta.images.reduce((size, image) => size + image.filesize, 0))}</span>
+                </div>
                 <div className="flex gap-2 flex-wrap">
                     {gallery.tags.map(tag => <TagLink key={tag} tag={tag} />)}
                 </div>

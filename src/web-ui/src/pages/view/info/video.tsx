@@ -34,10 +34,16 @@ export default function VideoViewPage({ video }: { video: VideoInfoEntry }) {
             </div>
             <div className="grow text-xs">
                 <p className="text-xl">{video.displayName}</p>
-                <p>Path: {video.path}</p>
-                <p>Duration: {humanizeDuration(video.meta.duration * 1000, {largest: 2, round: true})}</p>
-                <p>Dimensions: {video.meta.width}x{video.meta.height}</p>
-                <p>Filesize: {humanize.fileSize(video.meta.filesize)}</p>
+                <div className="grid gap-x-2 grid-cols-kv">
+                    <span>Path</span>
+                    <span>{video.path}</span>
+                    <span>Duration</span>
+                    <span>{humanizeDuration(video.meta.duration * 1000, {largest: 2, round: true})}</span>
+                    <span>Dimensions</span>
+                    <span>{video.meta.width}x{video.meta.height}</span>
+                    <span>Filesize</span>
+                    <span>{humanize.fileSize(video.meta.filesize)}</span>
+                </div>
                 <div className="flex gap-2 flex-wrap">
                     {video.tags.map(tag => <TagLink key={tag} tag={tag} />)}
                 </div>

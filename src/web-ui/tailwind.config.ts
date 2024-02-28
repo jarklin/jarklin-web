@@ -40,7 +40,10 @@ export default {
         },
         dropShadow: {
             "highlight": "0px 0px 2px rgb(0 0 0 / 0.5)"
-        }
+        },
+        gridTemplateColumns: {
+            "kv": "auto, 1fr",
+        },
     },
   },
   plugins: [
