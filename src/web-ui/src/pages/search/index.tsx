@@ -1,6 +1,5 @@
 import useInfo from "~/hooks/useInfo";
 import {useCallback, useEffect, useMemo} from "react";
-import CardGrid from "~/components/CardGrid.tsx";
 import useDebounce from "~/hooks/useDebounce.ts";
 import InfoCard from "~/components/InfoCard";
 import {encodePath, extractTags} from "~/util";
@@ -73,13 +72,13 @@ export default function SearchPage() {
     const recommendedPages = [page-2, page-1, page, page+1, page+2].filter(p => p > 0 && p <= totalPages);
 
     return <>
-        <div className="w-full p-3 flex gap-1 justify-center">
-            <div className="p-px bg-white text-primary-light rounded-l-md rounded-r-sm">
-                <SearchIcon className="" />
+        <div className="w-full p-3 flex gap-px justify-center">
+            <div className="p-px bg-white text-primary-light rounded-l-lg rounded-r-sm">
+                <SearchIcon className="h-full w-full" />
             </div>
             <input
                 type="search"
-                className="block w-full max-w-screen-lg px-1 py-px bg-white text-black rounded-l-sm rounded-r-md placeholder:font-bold"
+                className="block w-full max-w-screen-lg px-1 py-px bg-white text-black rounded-l-sm rounded-r-lg placeholder:font-bold"
                 autoFocus  placeholder="Query"
                 value={queryValue}
                 onChange={e => setQueryValue(e.target.value)}
@@ -89,13 +88,15 @@ export default function SearchPage() {
         {!validEntries.length ? <>
             <p className="text-center text-xl">No entries found</p>
         </> : <>
-            <CardGrid>
+            <div className="flex flex-wrap gap-4 p-2 items-stretch">
                 {validEntries.slice((page-1) * PAGESIZE, page * PAGESIZE).map(entry => (
-                    <Link key={entry.path} to={`/view/${encodePath(entry.path)}`} className="m-auto hover:scale-105">
-                        <InfoCard className="max-h-60" key={entry.path} info={entry} />
-                    </Link>
+                    <div className="grow h-60">
+                        <Link key={entry.path} to={`/view/${encodePath(entry.path)}`} className="h-full hover:scale-105">
+                            <InfoCard className="w-full h-full" key={entry.path} info={entry} />
+                        </Link>
+                    </div>
                 ))}
-            </CardGrid>
+            </div>
             {recommendedPages.length > 1 && <>
                 <div className="flex justify-center py-1 gap-4">
                     {!recommendedPages.includes(1) && <>
