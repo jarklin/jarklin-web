@@ -14,7 +14,7 @@ export default function Index(props: Props) {
     return <>
         {/* fatal error */}
         <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
-            <div className="flex flex-col h-max">
+            <div className="flex flex-col min-h-screen">
                 <NavBar title={props.title} />
                 <main className="grow">
                     {/* error in requests or so */}
