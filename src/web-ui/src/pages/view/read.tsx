@@ -7,6 +7,8 @@ import {ArrowLeftIcon, ArrowUpFromDotIcon, ServerCrashIcon} from "lucide-react";
 import ScrollToMe from "~/components/ScrollToMe.tsx";
 import {GalleryInfoEntry} from "~/hooks/useInfo/types.ts";
 import useFullScreen from "~/hooks/useFullScreen.ts";
+import Image from "~/components/Image.tsx";
+import {twMerge} from "tailwind-merge";
 
 
 export default function ReadGalleryPage() {
@@ -38,7 +40,7 @@ export default function ReadGalleryPage() {
         <div className="flex flex-col items-center">
             {data.meta.images.map((image, i) => <Fragment key={image.filename}>
                 <ScrollToMe if={image.filename === currentImage} />
-                <Image data={data} image={image} i={i} />
+                <PreviewedImage data={data} image={image} i={i} />
             </Fragment>)}
         </div>
         <ScrollToTopButton />
@@ -53,7 +55,7 @@ interface ImageProps {
 }
 
 
-function Image({ data, image, i }: ImageProps) {
+function PreviewedImage({ data, image, i }: ImageProps) {
     const [failed, setFailed] = useState(false);
     // first load the preview-image as "low resolution" and then the original
     const [lowResLoaded, setLowResLoaded] = useState(false);
@@ -68,8 +70,8 @@ function Image({ data, image, i }: ImageProps) {
 
     return <>
         {/* real image that gets displayed */}
-        <img
-            className="w-full max-w-screen-lg"
+        <Image
+            className={twMerge("w-full max-w-screen-lg", highResLoaded ? "" : "blur-sm")}
             src={highResLoaded ? highResSrc : lowResSrc}
             alt=""
             width={image.width} height={image.height}

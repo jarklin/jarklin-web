@@ -8,6 +8,7 @@ import humanize from "humanize-plus";
 import TagLink from "~/components/TagLink.tsx";
 import SectionSeparator from "~/components/Section/Separator.tsx";
 import SectionHeader from "~/components/Section/Header.tsx";
+import Image from "~/components/Image.tsx";
 
 
 export default function VideoViewPage({ video }: { video: VideoInfoEntry }) {
@@ -25,14 +26,14 @@ export default function VideoViewPage({ video }: { video: VideoInfoEntry }) {
 
     return <>
         <div className="relative h-[50vh]">
-            <img className="w-full h-full object-cover blur-sm" src={getAnimatedPreview(video.path)} alt=""/>
+            <Image className="w-full h-full object-cover" src={getAnimatedPreview(video.path)} />
             <Link to={href} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[10vh] bg-accent/50 rounded-full p-2 transition-transform hover:scale-105">
                 <PlayCircleIcon className="w-full h-full"/>
             </Link>
         </div>
         <div className="flex px-[2vw] gap-[5vw] h-[35vh]">
             <div className="h-full">
-                <img className="mx-auto h-full rounded-md object-contain" src={getPreview(video.path)} alt=""/>
+                <Image className="mx-auto h-full rounded-md object-contain" src={getPreview(video.path)} />
             </div>
             <div className="grow text-xs">
                 <p className="text-xl">{video.displayName}</p>
@@ -59,7 +60,7 @@ export default function VideoViewPage({ video }: { video: VideoInfoEntry }) {
                     pathname: href,
                     search: new URLSearchParams({ initialTime: scene.startTime.toString() }).toString(),
                 }}>
-                    <img className="block aspect-video h-video-sm object-cover" src={getPreviewImage(video.path, i + 1)} alt="" />
+                    <Image className="block aspect-video h-video-sm object-cover" src={getPreviewImage(video.path, i + 1)} />
                     <p className="text-sm px-1">{scene.title}</p>
                 </Link>
             </>)}

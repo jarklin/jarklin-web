@@ -7,6 +7,7 @@ import humanize from "humanize-plus";
 import TagLink from "~/components/TagLink.tsx";
 import SectionHeader from "~/components/Section/Header.tsx";
 import SectionSeparator from "~/components/Section/Separator.tsx";
+import Image from "~/components/Image.tsx";
 
 
 export default function GalleryViewPage({ gallery }: { gallery: GalleryInfoEntry }) {
@@ -14,14 +15,14 @@ export default function GalleryViewPage({ gallery }: { gallery: GalleryInfoEntry
 
     return <>
         <div className="relative h-[50vh]">
-            <img className="w-full h-full object-cover blur-sm" src={getAnimatedPreview(gallery.path)} alt=""/>
+            <Image className="w-full h-full object-cover" src={getAnimatedPreview(gallery.path)} />
             <Link to={href} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[10vh] bg-accent/50 rounded-full p-2 transition-transform hover:scale-105">
                 <BookOpenTextIcon className="w-full h-full"/>
             </Link>
         </div>
         <div className="flex px-[2vw] gap-[5vw] h-[35vh]">
             <div className="h-full">
-                <img className="mx-auto h-full rounded-md object-contain" src={getPreview(gallery.path)} alt=""/>
+                <Image className="mx-auto h-full rounded-md object-contain" src={getPreview(gallery.path)} />
             </div>
             <div className="grow text-xs">
                 <p className="text-xl">{gallery.displayName}</p>
@@ -48,7 +49,7 @@ export default function GalleryViewPage({ gallery }: { gallery: GalleryInfoEntry
                         currentImage: image.filename,
                     }).toString()
                 }}>
-                    <img className="block aspect-portrait h-gallery-sm object-cover" src={getPreviewImage(gallery.path, i + 1)} alt=""/>
+                    <Image className="block aspect-portrait h-gallery-sm object-cover" src={getPreviewImage(gallery.path, i + 1)} />
                 </Link>
             </>)}
         </VerticalScrollArea>
