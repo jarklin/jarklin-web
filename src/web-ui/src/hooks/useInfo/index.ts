@@ -2,7 +2,8 @@ import {useQuery} from "react-query";
 import axios from "axios";
 import {useMemo} from "react";
 import {InfoEntry, RawInfoEntry} from "./types.ts";
-import {extractTags, formatFilename} from "~/util";
+import {extractTags} from "~/util";
+import humanize from "humanize-plus";
 
 
 export default function useInfo(): Array<InfoEntry> {
@@ -20,7 +21,7 @@ export default function useInfo(): Array<InfoEntry> {
         return <InfoEntry>{
             ...entry,
             type: entry.meta.type,
-            displayName: formatFilename(entry.name),
+            displayName: humanize.capitalizeAll(entry.name),
             tags: extractTags(entry.path),
         };
     }), [raw]);
