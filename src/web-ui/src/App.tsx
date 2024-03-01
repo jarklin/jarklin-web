@@ -1,20 +1,20 @@
-import {Routes, Route, useLocation} from "react-router-dom";
+import {Routes, Route, useLocation, Navigate} from "react-router-dom";
 import HomePage from "~/pages/home";
 import LoginPage from "~/pages/login";
 import LogoutPage from "~/pages/logout";
 import NotFound from "~/pages/404.tsx";
 import SimpleLayout from "src/layouts/SimpleLayout";
 import MainLayout from "src/layouts/MainLayout";
-import ConfigPage from "~/pages/config";
+import ConfigPage from "src/pages/panel";
 import SearchPage from "~/pages/search";
 import ViewPage from "~/pages/view";
 import ReadGalleryPage from "~/pages/view/read.tsx";
 import WatchVideoPage from "~/pages/view/watch.tsx";
 import {useEffect} from "react";
 import ScrollProgressFix from "~/components/ScrollProgressFix.tsx";
-import ConfigSettingsPage from "~/pages/config/settings";
-import ConfigProblemsPage from "~/pages/config/problems";
-import ConfigStatsPage from "~/pages/config/stats";
+import ConfigSettingsPage from "~/pages/panel/settings";
+import ConfigProblemsPage from "~/pages/panel/problems";
+import ConfigStatsPage from "~/pages/panel/stats";
 
 
 export default function App() {
@@ -34,8 +34,9 @@ export default function App() {
             </Route>
             <Route element={<MainLayout title={title} />}>
                 <Route index element={<HomePage />} />
-                <Route path="config" element={<ConfigPage />}>
-                    <Route index element={<ConfigSettingsPage />} />
+                <Route path="panel" element={<ConfigPage />}>
+                    <Route index element={<Navigate replace to="settings" />} />
+                    <Route path="settings" element={<ConfigSettingsPage />} />
                     <Route path="problems" element={<ConfigProblemsPage />} />
                     <Route path="stats" element={<ConfigStatsPage />} />
                 </Route>
@@ -54,5 +55,7 @@ const titleMap: Record<string, string | undefined> = {
     "/": "Home",
     "/login": "Login",
     "/logout": "Logout",
-    "/config": "Config",
+    "/panel/settings": "Settings",
+    "/panel/problems": "Problems",
+    "/panel/stats": "Statistics",
 }
