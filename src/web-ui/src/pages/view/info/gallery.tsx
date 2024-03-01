@@ -8,6 +8,7 @@ import TagLink from "~/components/TagLink.tsx";
 import SectionHeader from "~/components/Section/Header.tsx";
 import SectionSeparator from "~/components/Section/Separator.tsx";
 import Image from "~/components/Image.tsx";
+import LabelBox from "~/components/LabelBox.tsx";
 
 
 export default function GalleryViewPage({ gallery }: { gallery: GalleryInfoEntry }) {
@@ -26,16 +27,23 @@ export default function GalleryViewPage({ gallery }: { gallery: GalleryInfoEntry
             </div>
             <div className="grow text-xs">
                 <p className="text-xl">{gallery.displayName}</p>
-                <div className="grid gap-x-2 grid-cols-kv">
+                <div className="grid gap-x-2 gap-y-1 grid-cols-kv">
                     <span>Path</span>
                     <span>{gallery.path}</span>
                     <span>Images</span>
                     <span>{humanize.intComma(gallery.meta.images.length)}</span>
                     <span>Total Size</span>
                     <span>{humanize.fileSize(gallery.meta.images.reduce((size, image) => size + image.filesize, 0))}</span>
-                </div>
-                <div className="flex gap-2 flex-wrap">
-                    {gallery.tags.map(tag => <TagLink key={tag} tag={tag} />)}
+                    <span>Filetypes</span>
+                    <span className="flex gap-x-1 flex-wrap">
+                        {Array.from(new Set(gallery.meta.images.map(im => im.ext))).map(ext => (
+                            <LabelBox key={ext}>{ext}</LabelBox>
+                        ))}
+                    </span>
+                    <span>Tags</span>
+                    <div className="flex gap-2 flex-wrap">
+                        {gallery.tags.map(tag => <TagLink key={tag} tag={tag} />)}
+                    </div>
                 </div>
             </div>
         </div>

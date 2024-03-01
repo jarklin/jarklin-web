@@ -68,6 +68,7 @@ interface RawGalleryMeta {
     n_previews: number
     images: Array<{
         filename: string
+        ext: string
         width: number
         height: number
         filesize: number

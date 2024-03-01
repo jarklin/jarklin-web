@@ -9,6 +9,7 @@ import TagLink from "~/components/TagLink.tsx";
 import SectionSeparator from "~/components/Section/Separator.tsx";
 import SectionHeader from "~/components/Section/Header.tsx";
 import Image from "~/components/Image.tsx";
+import LabelBox from "~/components/LabelBox.tsx";
 
 
 export default function VideoViewPage({ video }: { video: VideoInfoEntry }) {
@@ -37,7 +38,7 @@ export default function VideoViewPage({ video }: { video: VideoInfoEntry }) {
             </div>
             <div className="grow text-xs">
                 <p className="text-xl">{video.displayName}</p>
-                <div className="grid gap-x-2 grid-cols-kv">
+                <div className="grid gap-x-2 gap-y-1 grid-cols-kv">
                     <span>Path</span>
                     <span>{video.path}</span>
                     <span>Duration</span>
@@ -46,9 +47,12 @@ export default function VideoViewPage({ video }: { video: VideoInfoEntry }) {
                     <span>{video.meta.width}x{video.meta.height}</span>
                     <span>Filesize</span>
                     <span>{humanize.fileSize(video.meta.filesize)}</span>
-                </div>
-                <div className="flex gap-2 flex-wrap">
-                    {video.tags.map(tag => <TagLink key={tag} tag={tag} />)}
+                    <span>Filetype</span>
+                    <span><LabelBox>{video.ext}</LabelBox></span>
+                    <span>Tags</span>
+                    <div className="flex gap-2 flex-wrap">
+                        {video.tags.map(tag => <TagLink key={tag} tag={tag} />)}
+                    </div>
                 </div>
             </div>
         </div>
