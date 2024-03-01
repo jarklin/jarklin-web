@@ -4,6 +4,12 @@ import useProblems from "~/hooks/useProblems.ts";
 export default function ConfigProblemsPage() {
     const problems = useProblems();
 
+    if (!problems.length) {
+        return <>
+            <p>If some Media could be detected but not processed, it would be displayed here. Lucky for you no problems were detected.</p>
+        </>;
+    }
+
     return <>
         <p>Some Media could not be processed. See here the details:</p>
         <div className="grow flex flex-col gap-2">
