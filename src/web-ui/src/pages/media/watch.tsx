@@ -6,7 +6,7 @@ import NotFound from "~/pages/404.tsx";
 const VideoPlayer = lazy(() => import("~/components/VideoPlayer"));
 
 
-export default function WatchVideoPage() {
+export default function MediaWatchVideoPage() {
     const info = useInfo();
     const { "*": path } = useParams();
 

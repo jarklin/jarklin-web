@@ -12,8 +12,8 @@ import Image from "~/components/Image.tsx";
 import LabelBox from "~/components/LabelBox.tsx";
 
 
-export default function VideoViewPage({ video }: { video: VideoInfoEntry }) {
-    const href = `/watch/${encodePath(video.path)}`;
+export default function MediaVideoInfo({ video }: { video: VideoInfoEntry }) {
+    const watchHref = `/media/watch/${encodePath(video.path)}`;
 
     const scenes = video.meta.chapters?.length
         ? video.meta.chapters.map(chapter => ({
@@ -28,7 +28,7 @@ export default function VideoViewPage({ video }: { video: VideoInfoEntry }) {
     return <>
         <div className="relative h-[50vh]">
             <Image className="w-full h-full object-cover" src={getAnimatedPreview(video.path)} />
-            <Link to={href} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[10vh] bg-accent/50 rounded-full p-2 transition-transform hover:scale-105">
+            <Link to={watchHref} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[10vh] bg-accent/50 rounded-full p-2 transition-transform hover:scale-105">
                 <PlayCircleIcon className="w-full h-full"/>
             </Link>
         </div>
@@ -61,7 +61,7 @@ export default function VideoViewPage({ video }: { video: VideoInfoEntry }) {
         <VerticalScrollArea>
             {scenes.map((scene, i) => <>
                 <Link key={i} className="flex flex-col min-w-fit bg-primary-light rounded-md overflow-hidden" to={{
-                    pathname: href,
+                    pathname: watchHref,
                     search: new URLSearchParams({ initialTime: scene.startTime.toString() }).toString(),
                 }}>
                     <Image className="block aspect-video h-video-sm object-cover" src={getPreviewImage(video.path, i + 1)} />

@@ -4,13 +4,13 @@ import NotFound from "~/pages/404.tsx";
 import {containSameElements, encodePath} from "~/util";
 import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
 import InfoCard from "~/components/InfoCard";
-import VideoViewPage from "~/pages/view/info/video.tsx";
-import GalleryViewPage from "~/pages/view/info/gallery.tsx";
+import MediaVideoInfo from "~/pages/media/info/_video.tsx";
+import MediaGalleryInfo from "~/pages/media/info/_gallery.tsx";
 import SectionSeparator from "~/components/Section/Separator.tsx";
 import SectionHeader from "~/components/Section/Header.tsx";
 
 
-export default function ViewPage() {
+export default function MediaInfoPage() {
     const info = useInfo();
     const { "*": path } = useParams();
 
@@ -24,9 +24,9 @@ export default function ViewPage() {
 
     let viewPage;
     if (data.type === "video") {
-        viewPage = <VideoViewPage video={data} />;
+        viewPage = <MediaVideoInfo video={data} />;
     } else if (data.type === "gallery") {
-        viewPage = <GalleryViewPage gallery={data} />;
+        viewPage = <MediaGalleryInfo gallery={data} />;
     } else {
         viewPage = <div>Fuck</div>;
     }
@@ -39,7 +39,7 @@ export default function ViewPage() {
                 <SectionHeader className="px-2">Related</SectionHeader>
                 <VerticalScrollArea>
                     {related.map(entry => <>
-                        <Link key={entry.path} to={`/view/${encodePath(entry.path)}`}>
+                        <Link key={entry.path} to={`/media/info/${encodePath(entry.path)}`}>
                             <InfoCard className="h-mixed" info={entry}/>
                         </Link>
                     </>)}

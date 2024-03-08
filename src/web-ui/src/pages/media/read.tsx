@@ -14,7 +14,7 @@ import {twMerge} from "tailwind-merge";
 const OFFSETSCROLLTOP = 50;
 
 
-export default function ReadGalleryPage() {
+export default function MediaReadGalleryPage() {
     const info = useInfo();
     const {"*": path} = useParams();
 

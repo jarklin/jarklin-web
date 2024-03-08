@@ -11,13 +11,13 @@ import Image from "~/components/Image.tsx";
 import LabelBox from "~/components/LabelBox.tsx";
 
 
-export default function GalleryViewPage({ gallery }: { gallery: GalleryInfoEntry }) {
-    const href = `/read/${encodePath(gallery.path)}`;
+export default function MediaGalleryInfo({ gallery }: { gallery: GalleryInfoEntry }) {
+    const readHref = `/media/read/${encodePath(gallery.path)}`;
 
     return <>
         <div className="relative h-[50vh]">
             <Image className="w-full h-full object-cover" src={getAnimatedPreview(gallery.path)} />
-            <Link to={href} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[10vh] bg-accent/50 rounded-full p-2 transition-transform hover:scale-105">
+            <Link to={readHref} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[10vh] bg-accent/50 rounded-full p-2 transition-transform hover:scale-105">
                 <BookOpenTextIcon className="w-full h-full"/>
             </Link>
         </div>
@@ -52,7 +52,7 @@ export default function GalleryViewPage({ gallery }: { gallery: GalleryInfoEntry
         <VerticalScrollArea>
             {gallery.meta.images.map((image, i) => <>
                 <Link key={i} className="min-w-fit bg-primary-light rounded-md overflow-hidden" to={{
-                    pathname: href,
+                    pathname: readHref,
                     search: new URLSearchParams({
                         currentImage: image.filename,
                     }).toString(),

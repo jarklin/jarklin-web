@@ -91,7 +91,7 @@ export default function SearchPage() {
             <div className="flex flex-wrap gap-4 p-2 items-stretch">
                 {validEntries.slice((page-1) * PAGESIZE, page * PAGESIZE).map(entry => (
                     <div key={entry.path} className="grow h-mixed">
-                        <Link to={`/view/${encodePath(entry.path)}`} className="h-full hover:scale-105">
+                        <Link to={`/media/info/${encodePath(entry.path)}`} className="h-full hover:scale-105">
                             <InfoCard className="w-full h-full" key={entry.path} info={entry} />
                         </Link>
                     </div>

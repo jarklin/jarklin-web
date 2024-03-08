@@ -1,21 +1,27 @@
 import {Routes, Route, useLocation, Navigate} from "react-router-dom";
 import {useEffect} from "react";
+
+import ScrollProgressFix from "~/components/ScrollProgressFix.tsx";
 import NotFound from "~/pages/404.tsx";
 import SimpleLayout from "src/layouts/SimpleLayout";
 import MainLayout from "src/layouts/MainLayout";
-import ScrollProgressFix from "~/components/ScrollProgressFix.tsx";
+
 import HomePage from "~/pages/home";
 import LoginPage from "~/pages/login";
 import LogoutPage from "~/pages/logout";
 import SearchPage from "~/pages/search";
 import TagsPage from "~/pages/tags";
-import ViewPage from "~/pages/view";
-import ReadGalleryPage from "~/pages/view/read.tsx";
-import WatchVideoPage from "~/pages/view/watch.tsx";
+
 import PanelLayout from "src/pages/panel";
 import ConfigSettingsPage from "~/pages/panel/settings";
 import ConfigProblemsPage from "~/pages/panel/problems";
 import ConfigStatsPage from "~/pages/panel/stats";
+
+import MediaLayout from "~/pages/media";
+import MediaListPage from "~/pages/media/list.tsx";
+import MediaInfoPage from "~/pages/media/info";
+import MediaReadGalleryPage from "~/pages/media/read.tsx";
+import MediaWatchVideoPage from "~/pages/media/watch.tsx";
 
 
 export default function App() {
@@ -35,17 +41,21 @@ export default function App() {
             </Route>
             <Route element={<MainLayout title={title} />}>
                 <Route index element={<HomePage />} />
+                <Route path="search" element={<SearchPage />} />
+                <Route path="tags" element={<TagsPage />} />
                 <Route path="panel" element={<PanelLayout />}>
                     <Route index element={<Navigate replace to="settings" />} />
                     <Route path="settings" element={<ConfigSettingsPage />} />
                     <Route path="problems" element={<ConfigProblemsPage />} />
                     <Route path="stats" element={<ConfigStatsPage />} />
                 </Route>
-                <Route path="search" element={<SearchPage />} />
-                <Route path="tags" element={<TagsPage />} />
-                <Route path="view/*" element={<ViewPage />} />
-                <Route path="read/*" element={<ReadGalleryPage />} />
-                <Route path="watch/*" element={<WatchVideoPage />} />
+                <Route path="media" element={<MediaLayout />}>
+                    <Route index element={<Navigate replace to="list" />} />
+                    <Route path="list" element={<MediaListPage />} />
+                    <Route path="info/*" element={<MediaInfoPage />} />
+                    <Route path="read/*" element={<MediaReadGalleryPage />} />
+                    <Route path="watch/*" element={<MediaWatchVideoPage />} />
+                </Route>
                 <Route path="*" element={<NotFound />} />
             </Route>
         </Routes>
