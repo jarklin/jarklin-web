@@ -1,6 +1,6 @@
 import {useQuery} from "react-query";
 import axios from "axios";
-import { ApiConfig } from "~/types";
+import type { ApiConfig } from "~/types";
 
 
 export default function useApiConfig(): ApiConfig {

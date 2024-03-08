@@ -1,4 +1,4 @@
-import type {GalleryInfoEntry} from "~/hooks/useInfo/types.ts";
+import type {GalleryInfoEntry} from "~/types/info.ts";
 import {twMerge} from "tailwind-merge";
 import {getPreview} from "~/util";
 import {GalleryVerticalEndIcon} from "lucide-react";

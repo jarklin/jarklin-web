@@ -12,23 +12,23 @@ export default function LogoutPage() {
         () => axios.post("/auth/logout"),
         { onSuccess: () => {
             queryClient.removeQueries();
-            navigate("/")
-        } }
+            navigate("/");
+        } },
     );
 
     useEffect(() => {
         logout.mutate();
-    }, []);
+    }, [logout]);
 
     return <div className="h-full grid place-content-center text-2xl gap-2 text-center">
         {logout.isError
-        ? <>
-            <p>Something went wrong</p>
-            <p className="opacity-50 text-sm">{`${logout.error}`}</p>
-            <button className="border rounded-md bg-primary-light hover:text-accent" onClick={() => logout.mutate()}>retry</button>
-        </>
-        : <>
+            ? <>
+                <p>Something went wrong</p>
+                <p className="opacity-50 text-sm">{`${logout.error}`}</p>
+                <button className="border rounded-md bg-primary-light hover:text-accent" onClick={() => logout.mutate()}>retry</button>
+            </>
+            : <>
             Logging out...
-        </>}
+            </>}
     </div>;
 }

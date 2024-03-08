@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 
 
 // synced between all uses in the current and other tabs
-export default function useGlobalState<T>(key: string, defaultValue?: T | any): [T, (v: T) => void] {
+export default function useGlobalState<T>(key: string, defaultValue?: T): [T, (v: T) => void] {
     const [value, setStateValue] = useState<T>(() => {
         const stored = localStorage.getItem(key);
         if (stored === null) {
@@ -16,20 +16,20 @@ export default function useGlobalState<T>(key: string, defaultValue?: T | any): 
     useEffect(() => {
         const controller = new AbortController();
 
-        window.addEventListener('storage', (event) => {
+        window.addEventListener("storage", (event) => {
             const { key: storeKey, newValue } = event;
             if (storeKey !== key) { return; }
             setStateValue(newValue === null ? defaultValue : JSON.parse(newValue));
         }, { signal: controller.signal });
 
-        window.addEventListener('globalState', (event) => {
+        window.addEventListener("globalState", (event) => {
             const { key: storeKey, newValue } = (event as CustomEvent<{key: string, newValue: T}>).detail;
             if (storeKey === key) { return; }
             setStateValue(newValue);
         }, { signal: controller.signal });
 
         return () => controller.abort();
-    })
+    });
 
     function setValue(newValue: T) {
         // setValueDirect(newValue);  // set for this hook (done via event)
@@ -39,5 +39,5 @@ export default function useGlobalState<T>(key: string, defaultValue?: T | any): 
         localStorage.setItem(key, JSON.stringify(value));  // set for new hooks (and other tabs)
     }
 
-    return [value, setValue]
+    return [value, setValue];
 }

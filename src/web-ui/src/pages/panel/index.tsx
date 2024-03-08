@@ -5,7 +5,7 @@ const links = [
     { href: "/panel/settings", label: "Settings" },
     { href: "/panel/problems", label: "Problems" },
     { href: "/panel/stats", label: "Statistics" },
-]
+];
 
 
 export default function ConfigPage() {

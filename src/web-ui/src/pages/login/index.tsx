@@ -14,7 +14,7 @@ export default function LoginPage() {
         { onSuccess: () => {
             queryClient.removeQueries();
             navigate(searchParams.get("redirect") ?? "/", { replace: true });
-        } }
+        } },
     );
 
     return <>

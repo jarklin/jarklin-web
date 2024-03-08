@@ -12,11 +12,11 @@ interface Props {
 
 
 export default function PageNavBar(props: Props) {
-    const avatar = useMemo(() => createAvatar( "⚙", undefined, 'black'), []);
+    const avatar = useMemo(() => createAvatar( "⚙", undefined, "black"), []);
 
     return <>
         <div className="bg-primary-light p-1 flex gap-2 items-stretch content-baseline">
-            {/* @ts-ignore useNavigate() allows -1 to go back */}
+            {/* @ts-expect-error useNavigate() allows -1 to go back */}
             <Link to={-1}>
                 <ArrowLeftIcon className="w-8 h-8 rounded-md" />
             </Link>

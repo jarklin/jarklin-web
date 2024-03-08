@@ -12,7 +12,7 @@ export default function ConfigSettingsPage() {
             <div className="px-5 h-px bg-accent/20"/>
             <div className="flex gap-x-2">
                 <input type="checkbox" disabled checked className="cursor-not-allowed"/>
-                <label>Optimize Content</label>
+                <span>Optimize Content</span>
             </div>
             <p className="text-white/50">
                 The Server allows just-in-time optimization of supported media.

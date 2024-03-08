@@ -1,4 +1,4 @@
-import useInfo from "~/hooks/useInfo";
+import useInfo from "~/hooks/useInfo.ts";
 import {useCallback, useEffect, useMemo} from "react";
 import useDebounce from "~/hooks/useDebounce.ts";
 import InfoCard from "~/components/InfoCard";
@@ -8,6 +8,8 @@ import {SearchIcon} from "lucide-react";
 
 
 const PAGESIZE = 24;  // "best" page size
+const SCOREPERCENTMIN = 0.8;
+const DEBOUNCEDELAYMS = 300;
 
 
 export default function SearchPage() {
@@ -15,7 +17,7 @@ export default function SearchPage() {
     const [searchParams, setSearchParams] = useSearchParams();
     const queryValue = searchParams.get("query") ?? "";
     const page = +(searchParams.get("page") ?? 1);
-    const query = useDebounce(queryValue.trim().toLowerCase(), 300);
+    const query = useDebounce(queryValue.trim().toLowerCase(), DEBOUNCEDELAYMS);
 
     const setQueryValue = useCallback((next: string) => {
         setSearchParams((prev) => ({ ...Object.fromEntries(prev.entries()), query: next }));
@@ -35,37 +37,35 @@ export default function SearchPage() {
     // }, [rawEntries]);
 
     const possibleEntries = useMemo(() => {
-        const tag = searchParams.get("tag")
+        const tag = searchParams.get("tag");
         return rawEntries
-            .filter(entry => tag === null || extractTags(entry.path).includes(tag))
+            .filter(entry => tag === null || extractTags(entry.path).includes(tag));
     }, [rawEntries, searchParams]);
 
-    const validEntries = useMemo(() => {
-        return possibleEntries
-            .map((entry) => {
-                const name = entry.name.toLowerCase();
-                let score: number = 0;
-                let pos = 0;
-                for (let n = 0; n < query.length; n++) {
-                    const character = query.charAt(n);
-                    const nextPos = name.indexOf(character, pos);
-                    if (nextPos === -1) {
-                        break;
-                    } else {
-                        score++;
-                        score -= (nextPos - pos) / 100;
-                        pos = nextPos;
-                    }
+    const validEntries = useMemo(() => possibleEntries
+        .map((entry) => {
+            const name = entry.name.toLowerCase();
+            let score: number = 0;
+            let pos = 0;
+            for (let n = 0; n < query.length; n++) {
+                const character = query.charAt(n);
+                const nextPos = name.indexOf(character, pos);
+                if (nextPos === -1) {
+                    break;
+                } else {
+                    score++;
+                    score -= (nextPos - pos) / 100;
+                    pos = nextPos;
                 }
-                return {
-                    value: entry,
-                    score: score,
-                }
-            })
-            .filter(element => element.score >= (query.length * 0.8))
-            .sort((a, b) => b.score - a.score)
-            .map(element => element.value)
-    }, [possibleEntries, query]);
+            }
+            return {
+                value: entry,
+                score: score,
+            };
+        })
+        .filter(element => element.score >= (query.length * SCOREPERCENTMIN))
+        .sort((a, b) => b.score - a.score)
+        .map(element => element.value), [possibleEntries, query]);
 
     const totalPages = Math.ceil(validEntries.length / PAGESIZE);
 
@@ -90,8 +90,8 @@ export default function SearchPage() {
         </> : <>
             <div className="flex flex-wrap gap-4 p-2 items-stretch">
                 {validEntries.slice((page-1) * PAGESIZE, page * PAGESIZE).map(entry => (
-                    <div className="grow h-mixed">
-                        <Link key={entry.path} to={`/view/${encodePath(entry.path)}`} className="h-full hover:scale-105">
+                    <div key={entry.path} className="grow h-mixed">
+                        <Link to={`/view/${encodePath(entry.path)}`} className="h-full hover:scale-105">
                             <InfoCard className="w-full h-full" key={entry.path} info={entry} />
                         </Link>
                     </div>
@@ -104,7 +104,7 @@ export default function SearchPage() {
                         <p className="cursor-default py-2">...</p>
                     </>}
                     {recommendedPages.map(recommendedPage => (
-                        <button className="p-2" onClick={() => setPage(recommendedPage)}>{recommendedPage}</button>
+                        <button key={recommendedPage} className="p-2" onClick={() => setPage(recommendedPage)}>{recommendedPage}</button>
                     ))}
                     {!recommendedPages.includes(totalPages) && <>
                         <p className="cursor-default py-2">...</p>

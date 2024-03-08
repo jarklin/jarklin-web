@@ -15,5 +15,5 @@ export default function TagLink(props: Props) {
             search: new URLSearchParams({ tag: tag }).toString(),
         }}>
         {tag}
-    </Link>
+    </Link>;
 }

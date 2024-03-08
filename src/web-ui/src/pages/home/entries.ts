@@ -1,4 +1,4 @@
-import {InfoEntry} from "~/hooks/useInfo/types.ts";
+import type {InfoEntry} from "~/types/info.ts";
 import {seededRandom, shuffled} from "~/util";
 
 
@@ -16,7 +16,7 @@ export const homeEntries: Entry[] = [
         filter: (entries) => shuffled(
             entries
                 .filter(entry => entry.type === "gallery")
-            , seededRandom()
+            , seededRandom(),
         ),
     },
     {
@@ -24,7 +24,7 @@ export const homeEntries: Entry[] = [
         filter: (entries) =>  shuffled(
             entries
                 .filter(entry => entry.type === "video")
-            , seededRandom()
+            , seededRandom(),
         ),
     },
     {
@@ -32,7 +32,7 @@ export const homeEntries: Entry[] = [
         larger: true,
         filter: (entries) => (
             entries
-                .filter(entry => entry.modification_time != entry.creation_time)  // attempt to avoid adding newest
+                .filter(entry => entry.modification_time !== entry.creation_time)  // attempt to avoid adding newest
                 .filter(entry => entry.type === "gallery")
                 .sort((a, b) => b.modification_time - a.modification_time)
         ),
@@ -58,4 +58,4 @@ export const homeEntries: Entry[] = [
                 .sort((a, b) => b.creation_time - a.creation_time)
         ),
     },
-]
+];

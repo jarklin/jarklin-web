@@ -1,7 +1,7 @@
 import {encodePath} from "~/util/encoding.ts";
 
 
-const ROOT = `./files`
+const ROOT = "./files";
 
 
 export function getSource(path: string): string {

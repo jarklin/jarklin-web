@@ -1,5 +1,5 @@
 import {Link, useParams} from "react-router-dom";
-import useInfo from "~/hooks/useInfo";
+import useInfo from "~/hooks/useInfo.ts";
 import NotFound from "~/pages/404.tsx";
 import {containSameElements, encodePath} from "~/util";
 import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
@@ -22,14 +22,18 @@ export default function ViewPage() {
 
     const related = info.filter(entry => data.path !== entry.path && containSameElements(data.tags, entry.tags));
 
+    let viewPage;
+    if (data.type === "video") {
+        viewPage = <VideoViewPage video={data} />;
+    } else if (data.type === "gallery") {
+        viewPage = <GalleryViewPage gallery={data} />;
+    } else {
+        viewPage = <div>Fuck</div>;
+    }
+
     return <>
         <div className="flex flex-col gap-2">
-            {data.type === "video"
-                ? <VideoViewPage video={data} />
-                : data.type === "gallery"
-                ? <GalleryViewPage gallery={data} />
-                : <div>Fuck</div>
-            }
+            {viewPage}
             {related.length !== 0 && <>
                 <SectionSeparator />
                 <SectionHeader className="px-2">Related</SectionHeader>

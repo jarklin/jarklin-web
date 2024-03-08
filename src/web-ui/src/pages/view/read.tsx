@@ -1,29 +1,43 @@
-import useInfo from "~/hooks/useInfo";
+import useInfo from "~/hooks/useInfo.ts";
 import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import NotFound from "~/pages/404.tsx";
 import {getPreviewImage, getSource} from "~/util";
 import {Fragment, useEffect, useState} from "react";
 import {ArrowLeftIcon, ArrowUpFromDotIcon, ServerCrashIcon} from "lucide-react";
 import ScrollToMe from "~/components/ScrollToMe.tsx";
-import {GalleryInfoEntry} from "~/hooks/useInfo/types.ts";
+import type {GalleryInfoEntry} from "~/types/info.ts";
 import useFullScreen from "~/hooks/useFullScreen.ts";
 import Image from "~/components/Image.tsx";
 import {twMerge} from "tailwind-merge";
 
 
+const OFFSETSCROLLTOP = 50;
+
+
 export default function ReadGalleryPage() {
     const info = useInfo();
-    const [searchParams] = useSearchParams();
-    const { "*": path } = useParams();
+    const {"*": path} = useParams();
 
     const data = info.find(entry => entry.path === path);
 
     if (data === undefined) {
-        return <NotFound />
+        return <NotFound/>;
     }
     if (data.type !== "gallery") {
-        throw new Error("not a gallery")
+        throw new Error("not a gallery");
     }
+
+    return <ReadGalleryPageContent data={data}/>;
+}
+
+
+interface ContentProps {
+    data: GalleryInfoEntry
+}
+
+
+function ReadGalleryPageContent({ data }: ContentProps) {
+    const [searchParams] = useSearchParams();
 
     useFullScreen({
         autoFullScreen: true,
@@ -50,7 +64,7 @@ export default function ReadGalleryPage() {
 
 interface ImageProps {
     data: GalleryInfoEntry,
-    image: GalleryInfoEntry['meta']['images'][number],
+    image: GalleryInfoEntry["meta"]["images"][number],
     i: number
 }
 
@@ -96,7 +110,7 @@ function PreviewedImage({ data, image, i }: ImageProps) {
                 setFailed(true);
             }}
         />}
-    </>
+    </>;
 }
 
 
@@ -117,7 +131,7 @@ function ScrollProgress() {
 
     return <div className="sticky top-0">
         <div className="bg-accent-light h-1" style={{width: `${progress * 100}%`}} />
-    </div>
+    </div>;
 }
 
 
@@ -128,8 +142,11 @@ function ScrollToTopButton() {
         const controller = new AbortController();
 
         window.addEventListener("scroll", () => {
-            setVisible(document.body.scrollTop > 50 || document.documentElement.scrollTop > 50);
-        })
+            setVisible(
+                document.body.scrollTop > OFFSETSCROLLTOP
+                || document.documentElement.scrollTop > OFFSETSCROLLTOP,
+            );
+        });
 
         return () => controller.abort();
     }, []);
@@ -153,7 +170,7 @@ function EndExitButton() {
 
         window.addEventListener("scroll", () => {
             setEnd((window.innerHeight + window.scrollY) >= document.body.offsetHeight);
-        })
+        });
 
         return () => controller.abort();
     }, []);

@@ -42,8 +42,8 @@ export default function useFullScreen(config: Config) {
     useEffect(() => {
         const controller = new AbortController();
 
-        window.addEventListener('fullscreenchange', () => {
-            setElement(document.fullscreenElement)
+        window.addEventListener("fullscreenchange", () => {
+            setElement(document.fullscreenElement);
             if (document.fullscreenElement !== null) {
                 config.onFullScreenEnter?.();
             } else {
@@ -51,10 +51,10 @@ export default function useFullScreen(config: Config) {
             }
         }, { signal: controller.signal });
 
-        if (!!config.bindKey) {
+        if (config.bindKey) {
             const desiredKey = typeof config.bindKey === "string" ? config.bindKey : "f";
 
-            window.addEventListener('keydown', (event) => {
+            window.addEventListener("keydown", (event) => {
                 if (event.key === desiredKey) {
                     toggleFullScreen();
                 }
@@ -62,7 +62,7 @@ export default function useFullScreen(config: Config) {
         }
 
         return () => controller.abort();
-    }, [config.onFullScreenEnter, config.onFullScreenLeave]);
+    }, [config, toggleFullScreen]);
 
     return { isFullscreen: !!element, fullscreenElement: element, enterFullScreen, exitFullScreen, toggleFullScreen } as const;
 }

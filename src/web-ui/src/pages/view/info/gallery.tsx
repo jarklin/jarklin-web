@@ -1,4 +1,4 @@
-import {GalleryInfoEntry} from "~/hooks/useInfo/types.ts";
+import type {GalleryInfoEntry} from "~/types/info.ts";
 import {encodePath, getAnimatedPreview, getPreview, getPreviewImage} from "~/util";
 import {Link} from "react-router-dom";
 import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
@@ -12,7 +12,7 @@ import LabelBox from "~/components/LabelBox.tsx";
 
 
 export default function GalleryViewPage({ gallery }: { gallery: GalleryInfoEntry }) {
-    const href = `/read/${encodePath(gallery.path)}`
+    const href = `/read/${encodePath(gallery.path)}`;
 
     return <>
         <div className="relative h-[50vh]">
@@ -55,7 +55,7 @@ export default function GalleryViewPage({ gallery }: { gallery: GalleryInfoEntry
                     pathname: href,
                     search: new URLSearchParams({
                         currentImage: image.filename,
-                    }).toString()
+                    }).toString(),
                 }}>
                     <Image className="block aspect-portrait h-gallery-sm object-cover" src={getPreviewImage(gallery.path, i + 1)} />
                 </Link>

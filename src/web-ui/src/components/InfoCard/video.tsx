@@ -1,4 +1,4 @@
-import type {VideoInfoEntry} from "~/hooks/useInfo/types.ts";
+import type {VideoInfoEntry} from "~/types/info.ts";
 import {twMerge} from "tailwind-merge";
 import {getPreview} from "~/util";
 import {FilmIcon} from "lucide-react";

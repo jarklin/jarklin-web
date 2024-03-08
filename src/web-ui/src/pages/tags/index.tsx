@@ -12,7 +12,7 @@ export default function TagsPage() {
         () => Array.from(new Set(
             entries
                 .map(entry => entry.tags)
-                .flat()
+                .flat(),
         )).sort((a, b) => a.localeCompare(b)),
         [entries],
     );

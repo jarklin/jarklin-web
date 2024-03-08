@@ -1,4 +1,4 @@
-import {LucideIcon} from "lucide-react";
+import type {LucideIcon} from "lucide-react";
 
 type Option<T> = {
     key: T
@@ -8,7 +8,7 @@ type Option<T> = {
 
 interface Props<T> {
     current: T
-    options: Option<T>[]
+    options: Array<Option<T>>
     onSwitch: (v: T) => void
 }
 
@@ -19,7 +19,7 @@ export default function OptionSwitch<T>(props: Props<T>) {
         <div
             className="absolute inset-y-0 bg-accent transition-[left] duration-300 -z-10"
             style={{
-                width: `${wf * 100}%`, left: `${wf * props.options.findIndex(el => el.key === props.current) * 100}%`
+                width: `${wf * 100}%`, left: `${wf * props.options.findIndex(el => el.key === props.current) * 100}%`,
             }}
         />
         {props.options.map(opt =>

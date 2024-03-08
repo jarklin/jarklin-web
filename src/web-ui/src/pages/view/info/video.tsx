@@ -1,4 +1,4 @@
-import {VideoInfoEntry} from "~/hooks/useInfo/types.ts";
+import type {VideoInfoEntry} from "~/types/info.ts";
 import {encodePath, getAnimatedPreview, getPreview, getPreviewImage} from "~/util";
 import {Link} from "react-router-dom";
 import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";

@@ -60,4 +60,4 @@ const titleMap: Record<string, string | undefined> = {
     "/panel/settings": "Settings",
     "/panel/problems": "Problems",
     "/panel/stats": "Statistics",
-}
+};

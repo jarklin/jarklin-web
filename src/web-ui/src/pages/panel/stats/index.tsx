@@ -1,7 +1,7 @@
-import useInfo from "~/hooks/useInfo";
+import useInfo from "~/hooks/useInfo.ts";
 import useProblems from "~/hooks/useProblems.ts";
 import {useMemo} from "react";
-import {GalleryInfoEntry, VideoInfoEntry} from "~/hooks/useInfo/types.ts";
+import type {GalleryInfoEntry, VideoInfoEntry} from "~/types/info.ts";
 import humanizeDuration from "humanize-duration";
 import humanize from "humanize-plus";
 
@@ -37,7 +37,7 @@ export default function ConfigStatsPage() {
                             galleries.reduce((n, e) => n + e.meta.images.length, 0),
                         ),
                     },
-                ]
+                ],
             },
             {
                 category: "Videos",
@@ -70,9 +70,9 @@ export default function ConfigStatsPage() {
                     {
                         label: "Total Tags",
                         value: humanize.intComma(Array.from(new Set(info.flatMap(e => e.tags))).length),
-                    }
+                    },
                 ],
-            }
+            },
         ];
     }, [info, problems]);
 
@@ -86,5 +86,5 @@ export default function ConfigStatsPage() {
                 </>)}
             </>)}
         </div>
-    </>
+    </>;
 }
