@@ -17,7 +17,7 @@ export default function HomePage() {
             <Feed key={entry.title} {...entry} />
             <SectionSeparator />
         </Fragment>)}
-        <AllTags />
+        <TopTags />
     </div>;
 }
 
@@ -47,20 +47,25 @@ function Feed({ title, larger, filter }: { title: string, larger?: boolean, filt
 }
 
 
-function AllTags() {
+function TopTags() {
     const entries = useInfo();
 
     const tags = useMemo(
-        () => Array.from(new Set(
-            entries
-                .map(entry => entry.tags)
-                .flat()
-            )).sort((a, b) => a.localeCompare(b)),
+        () => Array
+            .from(new Set(
+                entries.flatMap(entry => entry.tags)
+            ))
+            .map(tag => (
+                { tag, count: entries.filter(e => e.tags.includes(tag)).length }
+            ))
+            .sort((a, b) => b.count - a.count)
+            .map(i => i.tag)
+            .slice(0, 20),
         [entries],
     );
 
     return <>
-        <SectionHeader>Tags</SectionHeader>
+        <SectionHeader>Top Tags</SectionHeader>
         <div className="flex flex-wrap gap-2 p-2">
             {tags.map(tag => <TagLink key={tag} tag={tag} />)}
         </div>
