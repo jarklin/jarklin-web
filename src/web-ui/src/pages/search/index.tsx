@@ -5,9 +5,9 @@ import InfoCard from "~/components/InfoCard";
 import {encodePath, extractTags} from "~/util";
 import {Link, useSearchParams} from "react-router-dom";
 import {SearchIcon} from "lucide-react";
+import usePagination from "~/hooks/usePagination.tsx";
 
 
-const PAGESIZE = 24;  // "best" page size
 const SCOREPERCENTMIN = 0.8;
 const DEBOUNCEDELAYMS = 300;
 
@@ -16,33 +16,24 @@ export default function SearchPage() {
     const rawEntries = useInfo();
     const [searchParams, setSearchParams] = useSearchParams();
     const queryValue = searchParams.get("query") ?? "";
-    const page = +(searchParams.get("page") ?? 1);
     const query = useDebounce(queryValue.trim().toLowerCase(), DEBOUNCEDELAYMS);
 
-    const setQueryValue = useCallback((next: string) => {
-        setSearchParams((prev) => ({ ...Object.fromEntries(prev.entries()), query: next }));
+    const setQueryValue = useCallback((nextQuery: string) => {
+        setSearchParams((prev) => {
+            const next = new URLSearchParams(prev);
+            next.set("query", nextQuery);
+            return next;
+        });
     }, [setSearchParams]);
 
-    const setPage = useCallback((next: number) => {
-        setSearchParams((prev) => ({ ...Object.fromEntries(prev.entries()), page: `${next}` }));
-        document.documentElement.scrollTo({ top: 0, behavior: "instant" });
-    }, [setSearchParams]);
+    const searchParamsTag = searchParams.get("tag");
+    const preFilteredEntries = useMemo(() => (
+        searchParamsTag === null
+            ? rawEntries
+            : rawEntries.filter(entry => extractTags(entry.path).includes(searchParamsTag))
+    ), [rawEntries, searchParamsTag]);
 
-    useEffect(() => {
-        setPage(1);
-    }, [query, setPage]);
-
-    // const allTags = useMemo(() => {
-    //     return Array.from(new Set(rawEntries.flatMap(e => e.tags)));
-    // }, [rawEntries]);
-
-    const possibleEntries = useMemo(() => {
-        const tag = searchParams.get("tag");
-        return rawEntries
-            .filter(entry => tag === null || extractTags(entry.path).includes(tag));
-    }, [rawEntries, searchParams]);
-
-    const validEntries = useMemo(() => possibleEntries
+    const matchingEntries = useMemo(() => preFilteredEntries
         .map((entry) => {
             const name = entry.name.toLowerCase();
             let score: number = 0;
@@ -65,11 +56,16 @@ export default function SearchPage() {
         })
         .filter(element => element.score >= (query.length * SCOREPERCENTMIN))
         .sort((a, b) => b.score - a.score)
-        .map(element => element.value), [possibleEntries, query]);
+        .map(element => element.value)
+    , [preFilteredEntries, query]);
 
-    const totalPages = Math.ceil(validEntries.length / PAGESIZE);
+    const pagination = usePagination(matchingEntries);
+    const { setPage, values: pageEntries } = pagination;
 
-    const recommendedPages = [page-2, page-1, page, page+1, page+2].filter(p => p > 0 && p <= totalPages);
+    useEffect(() => {
+        setPage(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [query]);
 
     return <>
         <div className="w-full p-3 flex gap-px justify-center">
@@ -85,11 +81,11 @@ export default function SearchPage() {
                 enterKeyHint="search"
             />
         </div>
-        {!validEntries.length ? <>
+        {!matchingEntries.length ? <>
             <p className="text-center text-xl">No entries found</p>
         </> : <>
             <div className="flex flex-wrap gap-4 p-2 items-stretch">
-                {validEntries.slice((page-1) * PAGESIZE, page * PAGESIZE).map(entry => (
+                {pageEntries.map(entry => (
                     <div key={entry.path} className="grow h-mixed">
                         <Link to={`/media/info/${encodePath(entry.path)}`} className="h-full hover:scale-105">
                             <InfoCard className="w-full h-full" key={entry.path} info={entry} />
@@ -97,21 +93,7 @@ export default function SearchPage() {
                     </div>
                 ))}
             </div>
-            {recommendedPages.length > 1 && <>
-                <div className="flex justify-center py-1 gap-4">
-                    {!recommendedPages.includes(1) && <>
-                        <button className="p-2" onClick={() => setPage(1)}>1</button>
-                        <p className="cursor-default py-2">...</p>
-                    </>}
-                    {recommendedPages.map(recommendedPage => (
-                        <button key={recommendedPage} className="p-2" onClick={() => setPage(recommendedPage)}>{recommendedPage}</button>
-                    ))}
-                    {!recommendedPages.includes(totalPages) && <>
-                        <p className="cursor-default py-2">...</p>
-                        <button className="p-2" onClick={() => setPage(totalPages)}>{totalPages}</button>
-                    </>}
-                </div>
-            </>}
+            {pagination.component}
         </>}
     </>;
 }
