@@ -1,7 +1,7 @@
 import {useQuery} from "react-query";
 import axios from "axios";
 import {useMemo} from "react";
-import {InfoEntry, RawInfoEntry} from "./types.ts";
+import {InfoEntry, RawInfoEntry} from "~/types";
 import {extractTags} from "~/util";
 import humanize from "humanize-plus";
 

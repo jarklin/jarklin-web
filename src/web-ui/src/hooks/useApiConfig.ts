@@ -1,13 +1,13 @@
 import {useQuery} from "react-query";
 import axios from "axios";
-import {Problems} from "~/types";
+import { ApiConfig } from "~/types";
 
 
-export default function useProblems(): Array<Problems> {
+export default function useApiConfig(): ApiConfig {
     const query = useQuery(
-        [".jarklin", "problems.json"],
+        ["api", "config"],
         ({ signal }) => axios
-            .get<Array<Problems>>("/files/.jarklin/problems.json", { signal })
+            .get<ApiConfig>("/api/config", { signal })
             .then(r => r.data),
         { refetchOnMount: false, suspense: true },
     );

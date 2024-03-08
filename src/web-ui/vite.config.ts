@@ -10,6 +10,7 @@ export default defineConfig({
     proxy: {
       '/files/': 'http://localhost:5000',
       '/auth/': 'http://localhost:5000',
+      '/api/': 'http://localhost:5000',
     }
   }
 });
