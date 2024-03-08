@@ -1,9 +1,9 @@
 import {Link} from "react-router-dom";
 import {createAvatar} from "~/util";
-import jarklinIconSrc from "~/assets/jarklin.svg";
 import {useIsFetching} from "react-query";
 import {ArrowLeftIcon, ScanSearchIcon} from "lucide-react";
 import {useMemo} from "react";
+import jarklinIconSrc from "~/assets/jarklin.svg";
 
 
 interface Props {

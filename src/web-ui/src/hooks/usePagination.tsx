@@ -11,7 +11,7 @@ const defaultOptions: Configuration = {
     pageSize: 24,  // "best" page size for different numbers of rows
     pageDiff: 2,
     scrollReset: true,
-}
+};
 type Config = Partial<Configuration>
 
 

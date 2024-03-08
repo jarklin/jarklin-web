@@ -8,24 +8,24 @@ import sortBy from "sort-by";
 
 
 export default function MediaListPage() {
-    const entries = useInfo();
+    let entries = useInfo();
     const [searchParams] = useSearchParams();
 
-    const filterValue = searchParams.get("filter");
-    const filteredEntries = useMemo(() => {
-        return entries;
-    }, [entries, filterValue]);
+    // const filterValue = searchParams.get("filter");
+    // entries = useMemo(() => {
+    //     return entries;
+    // }, [entries, filterValue]);
 
     const sortValues = searchParams.getAll("sort");
-    const sortedEntries = useMemo(() => {
+    entries = useMemo(() => {
         if (sortValues.includes("__random__")) {
-            return shuffled(filteredEntries, seededRandom());
+            return shuffled(entries, seededRandom());
         } else {
-            return [...filteredEntries].sort(sortBy(...sortValues, (_, v) => typeof v === "string" ? v.toLowerCase() : v));
+            return [...entries].sort(sortBy(...sortValues, (_, v) => typeof v === "string" ? v.toLowerCase() : v));
         }
-    }, [filteredEntries, sortValues]);
+    }, [entries, sortValues]);
 
-    const pagination = usePagination(sortedEntries);
+    const pagination = usePagination(entries);
     const { values: pageEntries } = pagination;
 
     return <>

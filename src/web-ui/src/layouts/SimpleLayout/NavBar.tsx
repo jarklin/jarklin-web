@@ -1,5 +1,5 @@
-import jarklinIconSrc from "~/assets/jarklin.svg";
 import {useIsFetching} from "react-query";
+import jarklinIconSrc from "~/assets/jarklin.svg";
 
 
 interface Props {
