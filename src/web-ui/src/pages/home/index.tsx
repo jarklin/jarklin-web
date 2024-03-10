@@ -4,11 +4,10 @@ import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
 import InfoCard from "src/components/InfoCard";
 import {Link} from "react-router-dom";
 import {encodePath} from "~/util";
-import type {InfoEntry} from "~/types";
-import {homeEntries} from "~/pages/home/entries.ts";
+import {homeEntries, type HomeEntry} from "~/pages/home/entries.ts";
 import TagLink from "~/components/TagLink.tsx";
-import SectionHeader from "~/components/Section/Header.tsx";
 import SectionSeparator from "~/components/Section/Separator.tsx";
+import SectionHeaderLink from "~/components/Section/HeaderLink.tsx";
 
 
 const MAXENTRIES = 20;
@@ -25,7 +24,7 @@ export default function HomePage() {
 }
 
 
-function Feed({ title, larger, filter }: { title: string, larger?: boolean, filter: ((entries: InfoEntry[]) => InfoEntry[]) }) {
+function Feed({ title, largerHeight, filterId, filter }: HomeEntry) {
     const entries = useInfo();
 
     const visible = useMemo(
@@ -38,11 +37,16 @@ function Feed({ title, larger, filter }: { title: string, larger?: boolean, filt
     }
 
     return <>
-        <SectionHeader>{title}</SectionHeader>
+        <SectionHeaderLink to={{
+            pathname: "/media/list",
+            search: new URLSearchParams({
+                filter: filterId,
+            }).toString(),
+        }}>{title}</SectionHeaderLink>
         <VerticalScrollArea>
             {visible.map(info => (
                 <Link className="hover:scale-105 transition-transform" key={info.path} to={`/media/info/${encodePath(info.path)}`}>
-                    <InfoCard className={larger ? "h-gallery" : "h-video"} info={info}/>
+                    <InfoCard className={largerHeight ? "h-gallery" : "h-video"} info={info}/>
                 </Link>
             ))}
         </VerticalScrollArea>
@@ -68,7 +72,7 @@ function TopTags() {
     );
 
     return <>
-        <SectionHeader>Top Tags</SectionHeader>
+        <SectionHeaderLink to={"/tags"}>Top Tags</SectionHeaderLink>
         <div className="flex flex-wrap gap-2 p-2">
             {tags.map(tag => <TagLink key={tag} tag={tag} />)}
         </div>

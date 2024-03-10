@@ -18,7 +18,7 @@ import ConfigProblemsPage from "~/pages/panel/problems";
 import ConfigStatsPage from "~/pages/panel/stats";
 
 import MediaLayout from "~/pages/media";
-import MediaListPage from "~/pages/media/list.tsx";
+import MediaListPage from "~/pages/media/list";
 import MediaInfoPage from "~/pages/media/info";
 import MediaReadGalleryPage from "~/pages/media/read.tsx";
 import MediaWatchVideoPage from "~/pages/media/watch.tsx";

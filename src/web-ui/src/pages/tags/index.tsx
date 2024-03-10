@@ -18,7 +18,7 @@ export default function TagsPage() {
     );
 
     return <>
-        <SectionHeader>Tags</SectionHeader>
+        <SectionHeader className="px-2">Tags</SectionHeader>
         <div className="flex flex-wrap gap-2 p-2">
             {tags.map(tag => <TagLink key={tag} tag={tag} />)}
         </div>

@@ -5,16 +5,27 @@ import usePagination from "~/hooks/usePagination.tsx";
 import useInfo from "~/hooks/useInfo.ts";
 import {useMemo} from "react";
 import sortBy from "sort-by";
+import * as filtersFunctions from "./filters.ts";
+
+
+const filters = {
+    "random-galleries": filtersFunctions.filterRandomGalleries,
+    "random-videos": filtersFunctions.filterRandomVideos,
+    "recently-updated-galleries": filtersFunctions.filterRecentlyUpdatedGalleries,
+    "newest-galleries": filtersFunctions.filterNewestGalleries,
+    "newest-videos": filtersFunctions.filterNewestVideos,
+};
 
 
 export default function MediaListPage() {
     let entries = useInfo();
     const [searchParams] = useSearchParams();
 
-    // const filterValue = searchParams.get("filter");
-    // entries = useMemo(() => {
-    //     return entries;
-    // }, [entries, filterValue]);
+    const filterValue = searchParams.get("filter");
+    entries = useMemo(() => {
+        const filterFunction = filters[filterValue as keyof typeof filters];
+        return filterFunction ? filterFunction(entries) : entries;
+    }, [entries, filterValue]);
 
     const sortValues = searchParams.getAll("sort");
     entries = useMemo(() => {

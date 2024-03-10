@@ -1,41 +1,33 @@
 import type {InfoEntry} from "~/types/info.ts";
-import {seededRandom, shuffled} from "~/util";
+import * as filters from "~/pages/media/list/filters.ts";
 
 
-interface Entry {
+export interface HomeEntry {
     title: string
-    larger?: boolean
+    largerHeight: boolean
+    filterId: string
     filter: (entries: InfoEntry[]) => InfoEntry[]
 }
 
 
-export const homeEntries: Entry[] = [
+export const homeEntries: HomeEntry[] = [
     {
         title: "Random Galleries",
-        larger: true,
-        filter: (entries) => shuffled(
-            entries
-                .filter(entry => entry.type === "gallery")
-            , seededRandom(),
-        ),
+        largerHeight: true,
+        filterId: "random-galleries",
+        filter: filters.filterRandomGalleries,
     },
     {
         title: "Random Videos",
-        filter: (entries) =>  shuffled(
-            entries
-                .filter(entry => entry.type === "video")
-            , seededRandom(),
-        ),
+        largerHeight: false,
+        filterId: "random-videos",
+        filter: filters.filterRandomVideos,
     },
     {
         title: "Recently Updated Galleries",
-        larger: true,
-        filter: (entries) => (
-            entries
-                .filter(entry => entry.modification_time !== entry.creation_time)  // attempt to avoid adding newest
-                .filter(entry => entry.type === "gallery")
-                .sort((a, b) => b.modification_time - a.modification_time)
-        ),
+        largerHeight: true,
+        filterId: "recently-updated-galleries",
+        filter: filters.filterRecentlyUpdatedGalleries,
     },
     // {
     //     title: "Random Collection",
@@ -43,19 +35,14 @@ export const homeEntries: Entry[] = [
     // },
     {
         title: "Newest Galleries",
-        larger: true,
-        filter: (entries) => (
-            entries
-                .filter(entry => entry.type === "gallery")
-                .sort((a, b) => b.creation_time - a.creation_time)
-        ),
+        largerHeight: true,
+        filterId: "newest-galleries",
+        filter: filters.filterNewestGalleries,
     },
     {
         title: "Newest Videos",
-        filter: (entries) => (
-            entries
-                .filter(entry => entry.type === "video")
-                .sort((a, b) => b.creation_time - a.creation_time)
-        ),
+        largerHeight: false,
+        filterId: "newest-videos",
+        filter: filters.filterNewestVideos,
     },
 ];
