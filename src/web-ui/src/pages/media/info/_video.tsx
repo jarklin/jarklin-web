@@ -45,18 +45,20 @@ export default function MediaVideoInfo({ video }: { video: VideoInfoEntry }) {
                     <span>{humanizeDuration(video.meta.duration * 1000, {largest: 2, round: true})}</span>
                     <span>Dimensions</span>
                     <span>{video.meta.width}x{video.meta.height}</span>
+                    <span>Resolution</span>
+                    <span>{height2resulution(video.meta.height)}</span>
                     <span>Filesize</span>
                     <span>{humanize.fileSize(video.meta.filesize)}</span>
                     <span>Filetype</span>
                     <span><LabelBox>{video.ext}</LabelBox></span>
                     <span>Tags</span>
                     <div className="flex gap-2 flex-wrap">
-                        {video.tags.map(tag => <TagLink key={tag} tag={tag} />)}
+                        {video.tags.map(tag => <TagLink key={tag} tag={tag}/>)}
                     </div>
                 </div>
             </div>
         </div>
-        <SectionSeparator />
+        <SectionSeparator/>
         <SectionHeader className="px-2">{video.meta.chapters?.length ? "Chapters" : "Scenes"}</SectionHeader>
         <VerticalScrollArea>
             {scenes.map((scene, i) => <>
@@ -70,4 +72,25 @@ export default function MediaVideoInfo({ video }: { video: VideoInfoEntry }) {
             </>)}
         </VerticalScrollArea>
     </>;
+}
+
+
+function height2resulution(height: number): string {
+    const closest = Object
+        .keys(videoResolutionMap)
+        .map(res => +res)
+        .reduce((prev, curr) => (
+            (Math.abs(curr - height) < Math.abs(prev - height)) ? curr : prev
+        ))
+    return videoResolutionMap[closest];
+}
+
+
+const videoResolutionMap: Record<number, string> = {
+    480: "SD",
+    720: "HD",
+    1080: "Full-HD",
+    1440: "2k",
+    2160: "Ultra HD",
+    4320: "Full Ultra HD",
 }
