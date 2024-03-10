@@ -7,7 +7,7 @@ import type {VideoInfoEntry} from "~/types/info.ts";
 import {getPreviewImage, getSource} from "~/util";
 import {useMemo} from "react";
 import {useSearchParams} from "react-router-dom";
-import LoadingSpinner from "~/components/LoadingSpinner.tsx";
+// import LoadingSpinner from "~/components/LoadingSpinner.tsx";
 
 
 interface Props {
@@ -56,9 +56,9 @@ export default function VideoPlayer(props: Props) {
                 style={{
                     "--video-brand": "#f5f5f5",
                 }}
-                slots={{
-                    bufferingIndicator: <LoadingSpinner className="absolute inset-0 transition-opacity opacity-0 media-buffering:opacity-100 ease-linear"/>,
-                }}
+                // slots={{
+                //     bufferingIndicator: <LoadingSpinner className="absolute inset-0 transition-opacity opacity-0 media-buffering:opacity-100 ease-linear"/>,
+                // }}
                 noScrubGesture={false}
                 thumbnails={thumbnails}
             />
