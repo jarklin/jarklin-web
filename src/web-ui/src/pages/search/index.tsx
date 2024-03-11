@@ -9,6 +9,7 @@ import usePagination from "~/hooks/usePagination.tsx";
 
 
 const SCOREPERCENTMIN = 0.8;
+const NEXTCHARMAXDIFF = 4;
 const DEBOUNCEDELAYMS = 300;
 
 
@@ -37,16 +38,17 @@ export default function SearchPage() {
         .map((entry) => {
             const name = entry.name.toLowerCase();
             let score: number = 0;
-            let pos = 0;
+            let lastPos = -1;
             for (let n = 0; n < query.length; n++) {
                 const character = query.charAt(n);
-                const nextPos = name.indexOf(character, pos);
-                if (nextPos === -1) {
+                const pos = name.indexOf(character, lastPos+1);
+                const posDiff = pos - lastPos;
+                if (pos === -1 || posDiff >= NEXTCHARMAXDIFF) {
                     break;
                 } else {
                     score++;
-                    score -= (nextPos - pos) / 100;
-                    pos = nextPos;
+                    score -= posDiff / 100;
+                    lastPos = pos;
                 }
             }
             return {
