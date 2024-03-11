@@ -20,13 +20,13 @@ export default function usePagination<T>(values: T[], config?: Config) {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const pageNumber = +(searchParams.get("page") ?? 1);
-    const pageIndex = pageNumber - 1;
     const totalPages = Math.ceil(values.length / pageSize);
 
     const possiblePages = (
         Array(pageDiff*2 + 1)
             .fill(null)
             .map((_, i) => i-pageDiff)
+            .map(offset => pageNumber + offset)
     );
     const recommendedPages = possiblePages.filter(p => p > 0 && p <= totalPages);
 
@@ -44,7 +44,7 @@ export default function usePagination<T>(values: T[], config?: Config) {
     return {
         page: pageNumber,
         setPage,
-        values: values.slice(pageIndex * pageSize, pageNumber * pageSize),
+        values: values.slice((pageNumber - 1) * pageSize, pageNumber * pageSize),
         component: <>
             {recommendedPages.length > 1 && <>
                 <div className="flex justify-center py-1 gap-4">
@@ -53,7 +53,7 @@ export default function usePagination<T>(values: T[], config?: Config) {
                         <p className="cursor-default py-2">...</p>
                     </>}
                     {recommendedPages.map(recommendedPage => (
-                        <button key={recommendedPage} className="p-2" onClick={() => setPage(recommendedPage)}>{recommendedPage}</button>
+                        <button key={recommendedPage} className="p-2 disabled:underline" disabled={pageNumber === recommendedPage} onClick={() => setPage(recommendedPage)}>{recommendedPage}</button>
                     ))}
                     {!recommendedPages.includes(totalPages) && <>
                         <p className="cursor-default py-2">...</p>
