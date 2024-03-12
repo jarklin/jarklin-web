@@ -42,8 +42,9 @@ export default function usePagination<T>(values: T[], config?: Config) {
     }, [setSearchParams, scrollReset]);
 
     return {
-        page: pageNumber,
-        setPage,
+        currentPage: pageNumber,
+        totalPages: totalPages,
+        setPage: setPage,
         values: values.slice((pageNumber - 1) * pageSize, pageNumber * pageSize),
         component: <>
             {recommendedPages.length > 1 && <>

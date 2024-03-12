@@ -2,14 +2,13 @@ import useInfo from "~/hooks/useInfo.ts";
 import {useCallback, useEffect, useMemo} from "react";
 import useDebounce from "~/hooks/useDebounce.ts";
 import InfoCard from "~/components/InfoCard";
-import {encodePath, extractTags} from "~/util";
+import {encodePath} from "~/util";
 import {Link, useSearchParams} from "react-router-dom";
 import {SearchIcon} from "lucide-react";
 import usePagination from "~/hooks/usePagination.tsx";
+import * as JsSearch from "js-search";
 
 
-const SCOREPERCENTMIN = 0.8;
-const NEXTCHARMAXDIFF = 4;
 const DEBOUNCEDELAYMS = 300;
 
 
@@ -27,39 +26,15 @@ export default function SearchPage() {
         });
     }, [setSearchParams]);
 
-    const searchParamsTag = searchParams.get("tag");
-    const preFilteredEntries = useMemo(() => (
-        searchParamsTag === null
-            ? rawEntries
-            : rawEntries.filter(entry => extractTags(entry.path).includes(searchParamsTag))
-    ), [rawEntries, searchParamsTag]);
+    const search = useMemo(() => {
+        const s = new JsSearch.Search("path");
+        s.addIndex("name")
+        s.addIndex("tags")
+        s.addDocuments(rawEntries);
+        return s;
+    }, [rawEntries]);
 
-    const matchingEntries = useMemo(() => preFilteredEntries
-        .map((entry) => {
-            const name = entry.name.toLowerCase();
-            let score: number = 0;
-            let lastPos = -1;
-            for (let n = 0; n < query.length; n++) {
-                const character = query.charAt(n);
-                const pos = name.indexOf(character, lastPos+1);
-                const posDiff = pos - lastPos;
-                if (pos === -1 || posDiff >= NEXTCHARMAXDIFF) {
-                    break;
-                } else {
-                    score++;
-                    score -= posDiff / 100;
-                    lastPos = pos;
-                }
-            }
-            return {
-                value: entry,
-                score: score,
-            };
-        })
-        .filter(element => element.score >= (query.length * SCOREPERCENTMIN))
-        .sort((a, b) => b.score - a.score)
-        .map(element => element.value)
-    , [preFilteredEntries, query]);
+    const matchingEntries = search.search(query) as typeof rawEntries;
 
     const pagination = usePagination(matchingEntries);
     const { setPage, values: pageEntries } = pagination;
@@ -84,8 +59,13 @@ export default function SearchPage() {
             />
         </div>
         {!matchingEntries.length ? <>
-            <p className="text-center text-xl">No entries found</p>
+            <p className="text-center text-xl">
+                No media found
+            </p>
         </> : <>
+            <p className="text-center text-xl">
+                {matchingEntries.length} results found
+            </p>
             <div className="flex flex-wrap gap-4 p-2 items-stretch">
                 {pageEntries.map(entry => (
                     <div key={entry.path} className="grow h-mixed">
