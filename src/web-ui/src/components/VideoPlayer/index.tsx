@@ -3,7 +3,7 @@ import "@vidstack/react/player/styles/default/layouts/video.css";
 import {twMerge} from "tailwind-merge";
 import {MediaPlayer, MediaProvider, type ThumbnailImageInit} from "@vidstack/react";
 import { defaultLayoutIcons, DefaultVideoLayout } from "@vidstack/react/player/layouts/default";
-import type {VideoInfoEntry} from "~/types/info.ts";
+import type {VideoMediaEntry} from "~/types/media.ts";
 import {getPreviewImage, getSource} from "~/util";
 import {useMemo} from "react";
 import {useSearchParams} from "react-router-dom";
@@ -12,35 +12,35 @@ import {useSearchParams} from "react-router-dom";
 
 interface Props {
     className?: string
-    info: VideoInfoEntry
+    media: VideoMediaEntry
 }
 
 
 export default function VideoPlayer(props: Props) {
     const [searchParams] = useSearchParams();
-    const { info } = props;
+    const { media } = props;
 
     const thumbnails = useMemo<ThumbnailImageInit[]>(() => {
-        if (info.meta.chapters.length) {
-            return info.meta.chapters.map<ThumbnailImageInit>((chapter, i) => ({
+        if (media.meta.chapters.length) {
+            return media.meta.chapters.map<ThumbnailImageInit>((chapter, i) => ({
                 startTime: chapter.start_time,
-                url: getPreviewImage(info.path, i+1),
+                url: getPreviewImage(media.path, i+1),
             }));
         } else {
-            return [...Array(info.meta.n_previews)].map((_, i) => ({
-                startTime: Math.floor(info.meta.duration / info.meta.n_previews * i),
-                url: getPreviewImage(info.path, i+1),
+            return [...Array(media.meta.n_previews)].map((_, i) => ({
+                startTime: Math.floor(media.meta.duration / media.meta.n_previews * i),
+                url: getPreviewImage(media.path, i+1),
             }));
         }
-    }, [info]);
+    }, [media]);
 
     return <>
         <MediaPlayer
             className={twMerge("", props.className)}
-            autoPlay src={getSource(info.path)}
-            title={info.displayName}
+            autoPlay src={getSource(media.path)}
+            title={media.displayName}
             viewType="video" streamType="on-demand" load="eager"
-            duration={info.meta.duration}
+            duration={media.meta.duration}
             currentTime={parseFloat(searchParams.get("initialTime") ?? "0")}
             keyTarget="document"  // maybe player but document seems better for now
         >

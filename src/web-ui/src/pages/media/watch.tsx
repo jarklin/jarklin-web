@@ -1,16 +1,16 @@
 import "@vidstack/react/player/styles/base.css";
 import {lazy} from "react";
 import {useParams} from "react-router-dom";
-import useInfo from "~/hooks/useInfo.ts";
+import useMedia from "~/hooks/useMedia.ts";
 import NotFound from "~/pages/404.tsx";
 const VideoPlayer = lazy(() => import("~/components/VideoPlayer"));
 
 
 export default function MediaWatchVideoPage() {
-    const info = useInfo();
+    const media = useMedia();
     const { "*": path } = useParams();
 
-    const data = info.find(entry => entry.path === path);
+    const data = media.find(entry => entry.path === path);
 
     if (data === undefined) {
         return <NotFound />;
@@ -22,7 +22,7 @@ export default function MediaWatchVideoPage() {
     return <>
         <VideoPlayer
             className="h-full"
-            info={data}
+            media={data}
         />
     </>;
 }

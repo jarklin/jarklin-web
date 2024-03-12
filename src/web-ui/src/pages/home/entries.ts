@@ -1,4 +1,4 @@
-import type {InfoEntry} from "~/types/info.ts";
+import type {MediaEntry} from "~/types/media.ts";
 import * as filters from "~/pages/media/list/filters.ts";
 
 
@@ -6,7 +6,7 @@ export interface HomeEntry {
     title: string
     largerHeight: boolean
     filterId: string
-    filter: (entries: InfoEntry[]) => InfoEntry[]
+    filter: (entries: MediaEntry[]) => MediaEntry[]
 }
 
 

@@ -1,15 +1,15 @@
-import type {InfoEntry} from "~/types";
+import type {MediaEntry} from "~/types";
 import {seededRandom, shuffled} from "~/util";
 
 
-export function filterRandomGalleries(entries: InfoEntry[]): InfoEntry[] {
+export function filterRandomGalleries(entries: MediaEntry[]): MediaEntry[] {
     return shuffled(
         entries.filter(entry => entry.type === "gallery")
         , seededRandom(),
     );
 }
 
-export function filterRandomVideos(entries: InfoEntry[]): InfoEntry[] {
+export function filterRandomVideos(entries: MediaEntry[]): MediaEntry[] {
     return shuffled(
         entries.filter(entry => entry.type === "video")
         , seededRandom(),
@@ -17,7 +17,7 @@ export function filterRandomVideos(entries: InfoEntry[]): InfoEntry[] {
 }
 
 
-export function filterRecentlyUpdatedGalleries(entries: InfoEntry[]): InfoEntry[] {
+export function filterRecentlyUpdatedGalleries(entries: MediaEntry[]): MediaEntry[] {
     return entries
         .filter(entry => entry.modification_time !== entry.creation_time)  // attempt to avoid adding newest
         .filter(entry => entry.type === "gallery")
@@ -25,14 +25,14 @@ export function filterRecentlyUpdatedGalleries(entries: InfoEntry[]): InfoEntry[
 }
 
 
-export function filterNewestGalleries(entries: InfoEntry[]): InfoEntry[] {
+export function filterNewestGalleries(entries: MediaEntry[]): MediaEntry[] {
     return entries
         .filter(entry => entry.type === "gallery")
         .sort((a, b) => b.creation_time - a.creation_time);
 }
 
 
-export function filterNewestVideos(entries: InfoEntry[]): InfoEntry[] {
+export function filterNewestVideos(entries: MediaEntry[]): MediaEntry[] {
     return entries
         .filter(entry => entry.type === "video")
         .sort((a, b) => b.creation_time - a.creation_time);

@@ -1,23 +1,23 @@
 import {useQuery} from "react-query";
 import axios from "axios";
 import {useMemo} from "react";
-import type {InfoEntry, RawInfoEntry} from "~/types";
+import type {MediaEntry, RawMediaEntry} from "~/types";
 import {extractTags} from "~/util";
 import humanize from "humanize-plus";
 
 
-export default function useInfo(): InfoEntry[] {
+export default function useMedia(): MediaEntry[] {
     const query = useQuery(
-        [".jarklin", "info.json"],
+        [".jarklin", "media.json"],
         ({ signal }) => axios
-            .get<RawInfoEntry[]>("/files/.jarklin/info.json", { signal })
+            .get<RawMediaEntry[]>("/files/.jarklin/media.json", { signal })
             .then(r => r.data),
         { refetchOnMount: false, suspense: true },
     );
 
     const raw = query.data!;
 
-    return useMemo(() => raw.map((entry) => <InfoEntry>{
+    return useMemo(() => raw.map((entry) => <MediaEntry>{
         ...entry,
         type: entry.meta.type,
         displayName: humanize.capitalizeAll(entry.name),

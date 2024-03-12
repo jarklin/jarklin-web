@@ -1,7 +1,7 @@
-import useInfo from "~/hooks/useInfo";
+import useMedia from "~/hooks/useMedia.ts";
 import {useMemo, Fragment} from "react";
 import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
-import InfoCard from "src/components/InfoCard";
+import MediaCard from "src/components/MediaCard";
 import {Link} from "react-router-dom";
 import {encodePath} from "~/util";
 import {homeEntries, type HomeEntry} from "~/pages/home/entries.ts";
@@ -25,7 +25,7 @@ export default function HomePage() {
 
 
 function Feed({ title, largerHeight, filterId, filter }: HomeEntry) {
-    const entries = useInfo();
+    const entries = useMedia();
 
     const visible = useMemo(
         () => filter(entries).slice(0, MAXENTRIES),
@@ -46,7 +46,7 @@ function Feed({ title, largerHeight, filterId, filter }: HomeEntry) {
         <VerticalScrollArea>
             {visible.map(info => (
                 <Link className="hover:scale-105 transition-transform" key={info.path} to={`/media/info/${encodePath(info.path)}`}>
-                    <InfoCard className={largerHeight ? "h-gallery" : "h-video"} info={info}/>
+                    <MediaCard className={largerHeight ? "h-gallery" : "h-video"} media={info}/>
                 </Link>
             ))}
         </VerticalScrollArea>
@@ -55,7 +55,7 @@ function Feed({ title, largerHeight, filterId, filter }: HomeEntry) {
 
 
 function TopTags() {
-    const entries = useInfo();
+    const entries = useMedia();
 
     const tags = useMemo(
         () => Array

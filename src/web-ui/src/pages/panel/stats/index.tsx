@@ -1,7 +1,7 @@
-import useInfo from "~/hooks/useInfo.ts";
+import useMedia from "~/hooks/useMedia.ts";
 import useProblems from "~/hooks/useProblems.ts";
 import {useMemo} from "react";
-import type {GalleryInfoEntry, VideoInfoEntry} from "~/types/info.ts";
+import type {GalleryMediaEntry, VideoMediaEntry} from "~/types/media.ts";
 import humanizeDuration from "humanize-duration";
 import humanize from "humanize-plus";
 
@@ -16,12 +16,12 @@ type Index = Array<{
 
 
 export default function ConfigStatsPage() {
-    const info = useInfo();
+    const info = useMedia();
     const problems = useProblems();
 
     const categories = useMemo<Index>(() => {
-        const galleries = info.filter(e => e.type === "gallery") as GalleryInfoEntry[];
-        const videos = info.filter(e => e.type === "video") as VideoInfoEntry[];
+        const galleries = info.filter(e => e.type === "gallery") as GalleryMediaEntry[];
+        const videos = info.filter(e => e.type === "video") as VideoMediaEntry[];
 
         return [
             {

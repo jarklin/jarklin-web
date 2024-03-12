@@ -1,4 +1,4 @@
-export type RawInfoEntry = {
+export type RawMediaEntry = {
     path: string
     name: string
     ext: string
@@ -8,7 +8,7 @@ export type RawInfoEntry = {
 }
 
 
-type ExtendedInfoEntry = RawInfoEntry & {
+type ExtendedMediaEntry = RawMediaEntry & {
     type: "video" | "gallery"
     displayName: string
     tags: string[]
@@ -16,19 +16,19 @@ type ExtendedInfoEntry = RawInfoEntry & {
 }
 
 
-export type VideoInfoEntry = ExtendedInfoEntry & {
+export type VideoMediaEntry = ExtendedMediaEntry & {
     type: "video"
     meta: RawVideoMeta
 }
 
 
-export type GalleryInfoEntry = ExtendedInfoEntry & {
+export type GalleryMediaEntry = ExtendedMediaEntry & {
     type: "gallery"
     meta: RawGalleryMeta
 }
 
 
-export type InfoEntry = VideoInfoEntry | GalleryInfoEntry
+export type MediaEntry = VideoMediaEntry | GalleryMediaEntry
 
 
 interface RawVideoMeta {

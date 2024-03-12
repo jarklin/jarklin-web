@@ -1,11 +1,11 @@
-import useInfo from "~/hooks/useInfo.ts";
+import useMedia from "~/hooks/useMedia.ts";
 import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import NotFound from "~/pages/404.tsx";
 import {getPreviewImage, getSource} from "~/util";
 import {Fragment, useEffect, useState} from "react";
 import {ArrowLeftIcon, ArrowUpFromDotIcon, ServerCrashIcon} from "lucide-react";
 import ScrollToMe from "~/components/ScrollToMe.tsx";
-import type {GalleryInfoEntry} from "~/types/info.ts";
+import type {GalleryMediaEntry} from "~/types/media.ts";
 import useFullScreen from "~/hooks/useFullScreen.ts";
 import Image from "~/components/Image.tsx";
 import {twMerge} from "tailwind-merge";
@@ -15,10 +15,10 @@ const OFFSETSCROLLTOP = 50;
 
 
 export default function MediaReadGalleryPage() {
-    const info = useInfo();
+    const media = useMedia();
     const {"*": path} = useParams();
 
-    const data = info.find(entry => entry.path === path);
+    const data = media.find(entry => entry.path === path);
 
     if (data === undefined) {
         return <NotFound/>;
@@ -32,7 +32,7 @@ export default function MediaReadGalleryPage() {
 
 
 interface ContentProps {
-    data: GalleryInfoEntry
+    data: GalleryMediaEntry
 }
 
 
@@ -63,8 +63,8 @@ function ReadGalleryPageContent({ data }: ContentProps) {
 }
 
 interface ImageProps {
-    data: GalleryInfoEntry,
-    image: GalleryInfoEntry["meta"]["images"][number],
+    data: GalleryMediaEntry,
+    image: GalleryMediaEntry["meta"]["images"][number],
     i: number
 }
 

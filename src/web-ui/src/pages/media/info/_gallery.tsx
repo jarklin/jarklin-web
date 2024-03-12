@@ -1,4 +1,4 @@
-import type {GalleryInfoEntry} from "~/types/info.ts";
+import type {GalleryMediaEntry} from "~/types/media.ts";
 import {encodePath, getAnimatedPreview, getPreview, getPreviewImage} from "~/util";
 import {Link} from "react-router-dom";
 import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
@@ -11,7 +11,7 @@ import Image from "~/components/Image.tsx";
 import LabelBox from "~/components/LabelBox.tsx";
 
 
-export default function MediaGalleryInfo({ gallery }: { gallery: GalleryInfoEntry }) {
+export default function MediaGalleryInfo({ gallery }: { gallery: GalleryMediaEntry }) {
     const readHref = `/media/read/${encodePath(gallery.path)}`;
 
     return <>

@@ -1,9 +1,9 @@
 import {Link, useParams} from "react-router-dom";
-import useInfo from "~/hooks/useInfo.ts";
+import useMedia from "~/hooks/useMedia.ts";
 import NotFound from "~/pages/404.tsx";
 import {containSameElements, encodePath} from "~/util";
 import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
-import InfoCard from "~/components/InfoCard";
+import MediaCard from "src/components/MediaCard";
 import MediaVideoInfo from "~/pages/media/info/_video.tsx";
 import MediaGalleryInfo from "~/pages/media/info/_gallery.tsx";
 import SectionSeparator from "~/components/Section/Separator.tsx";
@@ -11,7 +11,7 @@ import SectionHeader from "~/components/Section/Header.tsx";
 
 
 export default function MediaInfoPage() {
-    const info = useInfo();
+    const info = useMedia();
     const { "*": path } = useParams();
 
     const data = info.find(entry => entry.path === path);
@@ -40,7 +40,7 @@ export default function MediaInfoPage() {
                 <VerticalScrollArea>
                     {related.map(entry => <>
                         <Link key={entry.path} to={`/media/info/${encodePath(entry.path)}`}>
-                            <InfoCard className="h-mixed" info={entry}/>
+                            <MediaCard className="h-mixed" media={entry}/>
                         </Link>
                     </>)}
                 </VerticalScrollArea>

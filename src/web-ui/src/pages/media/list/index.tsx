@@ -1,8 +1,8 @@
 import {Link, useSearchParams} from "react-router-dom";
 import {encodePath, seededRandom, shuffled} from "~/util";
-import InfoCard from "~/components/InfoCard";
+import MediaCard from "src/components/MediaCard";
 import usePagination from "~/hooks/usePagination.tsx";
-import useInfo from "~/hooks/useInfo.ts";
+import useMedia from "~/hooks/useMedia.ts";
 import {useMemo} from "react";
 import sortBy from "sort-by";
 import * as filtersFunctions from "./filters.ts";
@@ -18,7 +18,7 @@ const filters = {
 
 
 export default function MediaListPage() {
-    let entries = useInfo();
+    let entries = useMedia();
     const [searchParams] = useSearchParams();
 
     const filterValue = searchParams.get("filter");
@@ -44,7 +44,7 @@ export default function MediaListPage() {
             {pageEntries.map(entry => (
                 <div key={entry.path} className="grow h-mixed">
                     <Link to={`/media/info/${encodePath(entry.path)}`} className="h-full hover:scale-105">
-                        <InfoCard className="w-full h-full" key={entry.path} info={entry} />
+                        <MediaCard className="w-full h-full" key={entry.path} media={entry} />
                     </Link>
                 </div>
             ))}

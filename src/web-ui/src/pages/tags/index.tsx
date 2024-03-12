@@ -1,4 +1,4 @@
-import useInfo from "~/hooks/useInfo";
+import useMedia from "~/hooks/useMedia.ts";
 import {useMemo} from "react";
 import SectionHeader from "~/components/Section/Header.tsx";
 import TagLink from "~/components/TagLink.tsx";
@@ -6,7 +6,7 @@ import TagLink from "~/components/TagLink.tsx";
 
 export default function TagsPage() {
 
-    const entries = useInfo();
+    const entries = useMedia();
 
     const tags = useMemo(
         () => Array.from(new Set(

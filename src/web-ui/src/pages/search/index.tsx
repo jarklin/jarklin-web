@@ -1,7 +1,7 @@
-import useInfo from "~/hooks/useInfo.ts";
+import useMedia from "~/hooks/useMedia.ts";
 import {useCallback, useEffect, useMemo} from "react";
 import useDebounce from "~/hooks/useDebounce.ts";
-import InfoCard from "~/components/InfoCard";
+import MediaCard from "src/components/MediaCard";
 import {encodePath} from "~/util";
 import {Link, useSearchParams} from "react-router-dom";
 import {SearchIcon} from "lucide-react";
@@ -13,7 +13,7 @@ const DEBOUNCEDELAYMS = 300;
 
 
 export default function SearchPage() {
-    const rawEntries = useInfo();
+    const rawEntries = useMedia();
     const [searchParams, setSearchParams] = useSearchParams();
     const queryValue = searchParams.get("query") ?? "";
     const query = useDebounce(queryValue.trim().toLowerCase(), DEBOUNCEDELAYMS);
@@ -70,7 +70,7 @@ export default function SearchPage() {
                 {pageEntries.map(entry => (
                     <div key={entry.path} className="grow h-mixed">
                         <Link to={`/media/info/${encodePath(entry.path)}`} className="h-full hover:scale-105">
-                            <InfoCard className="w-full h-full" key={entry.path} info={entry} />
+                            <MediaCard className="w-full h-full" key={entry.path} media={entry} />
                         </Link>
                     </div>
                 ))}

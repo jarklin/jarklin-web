@@ -1,4 +1,4 @@
-import type {VideoInfoEntry} from "~/types/info.ts";
+import type {VideoMediaEntry} from "~/types/media.ts";
 import {encodePath, getAnimatedPreview, getPreview, getPreviewImage} from "~/util";
 import {Link} from "react-router-dom";
 import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
@@ -12,7 +12,7 @@ import Image from "~/components/Image.tsx";
 import LabelBox from "~/components/LabelBox.tsx";
 
 
-export default function MediaVideoInfo({ video }: { video: VideoInfoEntry }) {
+export default function MediaVideoInfo({ video }: { video: VideoMediaEntry }) {
     const watchHref = `/media/watch/${encodePath(video.path)}`;
 
     const scenes = video.meta.chapters?.length
