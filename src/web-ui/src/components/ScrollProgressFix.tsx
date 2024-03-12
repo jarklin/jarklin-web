@@ -23,7 +23,7 @@ export default function ScrollProgressFix() {
             setTimeout(() => {
                 const pageHeight = getPageHeight();
                 const scrollPos = percentageScrolled * pageHeight;
-                document.documentElement.scrollTo({ left: 0, top: scrollPos });
+                document.documentElement.scrollTo({ left: 0, top: scrollPos, behavior: "instant" });
             }, 100);
         });
 
