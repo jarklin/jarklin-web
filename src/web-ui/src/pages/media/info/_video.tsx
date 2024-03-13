@@ -33,7 +33,7 @@ export default function MediaVideoInfo({ video }: { video: VideoMediaEntry }) {
             </Link>
         </div>
         <div className="flex px-[2vw] gap-[5vw] min-h-[35vh]">
-            <div className="h-full">
+            <div className="h-[25vw]">
                 <Image className="mx-auto h-full rounded-md object-contain" src={getPreview(video.path)} />
             </div>
             <div className="grow text-xs">
