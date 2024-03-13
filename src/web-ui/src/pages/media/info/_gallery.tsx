@@ -21,7 +21,7 @@ export default function MediaGalleryInfo({ gallery }: { gallery: GalleryMediaEnt
                 <BookOpenTextIcon className="w-full h-full"/>
             </Link>
         </div>
-        <div className="flex px-[2vw] gap-[5vw] h-[35vh]">
+        <div className="flex px-[2vw] gap-[5vw] min-h-[35vh]">
             <div className="h-full">
                 <Image className="mx-auto h-full rounded-md object-contain" src={getPreview(gallery.path)} />
             </div>

@@ -1,5 +1,5 @@
 import type {VideoMediaEntry} from "~/types/media.ts";
-import {encodePath, getAnimatedPreview, getPreview, getPreviewImage} from "~/util";
+import {encodePath, getAnimatedPreview, getPreview, getPreviewImage, height2resolution} from "~/util";
 import {Link} from "react-router-dom";
 import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
 import {PlayCircleIcon} from "lucide-react";
@@ -32,7 +32,7 @@ export default function MediaVideoInfo({ video }: { video: VideoMediaEntry }) {
                 <PlayCircleIcon className="w-full h-full"/>
             </Link>
         </div>
-        <div className="flex px-[2vw] gap-[5vw] h-[35vh]">
+        <div className="flex px-[2vw] gap-[5vw] min-h-[35vh]">
             <div className="h-full">
                 <Image className="mx-auto h-full rounded-md object-contain" src={getPreview(video.path)} />
             </div>
@@ -46,7 +46,7 @@ export default function MediaVideoInfo({ video }: { video: VideoMediaEntry }) {
                     <span>Dimensions</span>
                     <span>{video.meta.width}x{video.meta.height}</span>
                     <span>Resolution</span>
-                    <span>{height2resulution(video.meta.height)}</span>
+                    <span>{height2resolution(video.meta.height)}</span>
                     <span>Filesize</span>
                     <span>{humanize.fileSize(video.meta.filesize)}</span>
                     <span>Filetype</span>
@@ -72,25 +72,4 @@ export default function MediaVideoInfo({ video }: { video: VideoMediaEntry }) {
             </>)}
         </VerticalScrollArea>
     </>;
-}
-
-
-function height2resulution(height: number): string {
-    const closest = Object
-        .keys(videoResolutionMap)
-        .map(res => +res)
-        .reduce((prev, curr) => (
-            (Math.abs(curr - height) < Math.abs(prev - height)) ? curr : prev
-        ))
-    return videoResolutionMap[closest];
-}
-
-
-const videoResolutionMap: Record<number, string> = {
-    480: "SD",
-    720: "HD",
-    1080: "Full-HD",
-    1440: "2k",
-    2160: "Ultra HD",
-    4320: "Full Ultra HD",
 }
