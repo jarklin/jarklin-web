@@ -46,7 +46,7 @@ export default function MediaVideoInfo({ video }: { video: VideoMediaEntry }) {
                     <span>Dimensions</span>
                     <span>{video.meta.width}x{video.meta.height}</span>
                     <span>Resolution</span>
-                    <span>{height2resolution(video.meta.height)}</span>
+                    <span>{height2resolution(Math.min(video.meta.width, video.meta.height))}</span>
                     <span>Filesize</span>
                     <span>{humanize.fileSize(video.meta.filesize)}</span>
                     <span>Filetype</span>
