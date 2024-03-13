@@ -22,7 +22,7 @@ export default function MediaGalleryInfo({ gallery }: { gallery: GalleryMediaEnt
             </Link>
         </div>
         <div className="flex px-[2vw] gap-[5vw] min-h-[35vh]">
-            <div className="h-[25vw]">
+            <div className="h-[35vh]">
                 <Image className="mx-auto h-full rounded-md object-contain" src={getPreview(gallery.path)} />
             </div>
             <div className="grow text-xs">
