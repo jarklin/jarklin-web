@@ -26,8 +26,8 @@ export default function MediaGalleryInfo({ gallery }: { gallery: GalleryMediaEnt
                 <Image className="mx-auto h-full rounded-md object-contain" src={getPreview(gallery.path)} />
             </div>
             <div className="grow text-xs">
-                <p className="text-xl">{gallery.displayName}</p>
-                <div className="grid gap-x-2 gap-y-1 grid-cols-kv">
+                <p className="text-xl font-bold">{gallery.displayName}</p>
+                <div className="grid gap-x-2 gap-y-1 grid-cols-kv odd:[&>*]:font-semibold">
                     <span>Path</span>
                     <span>{gallery.path}</span>
                     <span>Images</span>

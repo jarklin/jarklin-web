@@ -37,8 +37,8 @@ export default function MediaVideoInfo({ video }: { video: VideoMediaEntry }) {
                 <Image className="mx-auto h-full rounded-md object-contain" src={getPreview(video.path)} />
             </div>
             <div className="grow text-xs">
-                <p className="text-xl">{video.displayName}</p>
-                <div className="grid gap-x-2 gap-y-1 grid-cols-kv">
+                <p className="text-xl font-bold">{video.displayName}</p>
+                <div className="grid gap-x-2 gap-y-1 grid-cols-kv odd:[&>*]:font-semibold">
                     <span>Path</span>
                     <span>{video.path}</span>
                     <span>Duration</span>
