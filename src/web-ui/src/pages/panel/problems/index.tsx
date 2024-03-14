@@ -14,7 +14,7 @@ export default function ConfigProblemsPage() {
         <p>Some Media could not be processed. See here the details:</p>
         <div className="grow flex flex-col gap-2">
             {problems.map(problem => <>
-                <div className="group font-mono bg-primary-light p-2 rounded-md text-sm">
+                <div className="group font-mono leading-none bg-primary-light p-2 rounded-md text-sm">
                     <p className="text-accent">{problem.file}</p>
                     <div className="h-px bg-primary/50"/>
                     <details>

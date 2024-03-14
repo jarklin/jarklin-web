@@ -10,7 +10,7 @@ const links = [
 
 export default function ConfigPage() {
     return <>
-        <div className="flex flex-col h-full gap-2 p-4">
+        <div className="flex flex-col h-full gap-2 p-4 mx-auto max-w-screen-2xl">
             <div className="flex justify-center gap-4 p-2">
                 {links.map((link, i) => <>
                     {i !== 0 && <div className="bg-accent/20 w-px h-5 my-auto" />}
