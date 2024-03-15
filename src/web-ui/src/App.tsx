@@ -7,8 +7,8 @@ import SimpleLayout from "src/layouts/SimpleLayout";
 import MainLayout from "src/layouts/MainLayout";
 
 import HomePage from "~/pages/home";
-import LoginPage from "~/pages/login";
-import LogoutPage from "~/pages/logout";
+import LoginPage from "src/pages/auth/login";
+import LogoutPage from "src/pages/auth/logout";
 import SearchPage from "~/pages/search";
 import TagsPage from "~/pages/tags";
 
@@ -36,8 +36,10 @@ export default function App() {
         <ScrollProgressFix />
         <Routes key={pathname}>
             <Route element={<SimpleLayout title={title} />}>
-                <Route path="login" element={<LoginPage />} />
-                <Route path="logout" element={<LogoutPage />} />
+                <Route path="auth">
+                    <Route path="login" element={<LoginPage />} />
+                    <Route path="logout" element={<LogoutPage />} />
+                </Route>
             </Route>
             <Route element={<MainLayout title={title} />}>
                 <Route index element={<HomePage />} />
@@ -65,8 +67,8 @@ export default function App() {
 
 const titleMap: Record<string, string | undefined> = {
     "/": "Home",
-    "/login": "Login",
-    "/logout": "Logout",
+    "/auth/login": "Login",
+    "/auth/logout": "Logout",
     "/panel/settings": "Settings",
     "/panel/problems": "Problems",
     "/panel/stats": "Statistics",

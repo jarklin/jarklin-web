@@ -8,7 +8,7 @@ export function ErrorBoundaryFallback({ error }: FallbackProps) {
 
     if (error instanceof AxiosError && error.response?.status === HttpStatusCode.Unauthorized) {
         return <Navigate to={{
-            pathname: "/login",
+            pathname: "/auth/login",
             search: new URLSearchParams({ redirect: `${location.pathname}${location.hash}${location.search}` }).toString(),
         }} />;
     }

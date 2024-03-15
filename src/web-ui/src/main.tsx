@@ -9,7 +9,7 @@ import ContextsProvider from "~/contexts";
 
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = "./";  // todo: validate if this works with changed server baseurl
+axios.defaults.baseURL = "./";
 
 const retryStatus: number[] = [
     HttpStatusCode.RequestTimeout,
