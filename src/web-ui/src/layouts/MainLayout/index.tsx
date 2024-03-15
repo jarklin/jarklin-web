@@ -5,16 +5,18 @@ import NavBar from "./NavBar.tsx";
 import Footer from "../SimpleLayout/Footer.tsx";
 import {Suspense} from "react";
 import LoadingSpinner from "~/components/LoadingSpinner.tsx";
+import {twMerge} from "tailwind-merge";
 
 interface Props {
     title: string
+    heightAware?: boolean
 }
 
 export default function Index(props: Props) {
     return <>
         {/* fatal error */}
         <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
-            <div className="flex flex-col min-h-screen">
+            <div className={twMerge("flex flex-col", props.heightAware ? "min-h-screen" : "h-screen")}>
                 <NavBar title={props.title} />
                 <main className="grow">
                     {/* error in requests or so */}

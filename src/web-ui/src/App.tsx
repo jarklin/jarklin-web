@@ -17,7 +17,6 @@ import ConfigSettingsPage from "~/pages/panel/settings";
 import ConfigProblemsPage from "~/pages/panel/problems";
 import ConfigStatsPage from "~/pages/panel/stats";
 
-import MediaLayout from "~/pages/media";
 import MediaListPage from "~/pages/media/list";
 import MediaInfoPage from "~/pages/media/info";
 import MediaReadGalleryPage from "~/pages/media/read.tsx";
@@ -51,15 +50,21 @@ export default function App() {
                     <Route path="problems" element={<ConfigProblemsPage />} />
                     <Route path="stats" element={<ConfigStatsPage />} />
                 </Route>
-                <Route path="media" element={<MediaLayout />}>
+                <Route path="media">
                     <Route index element={<Navigate replace to="list" />} />
                     <Route path="list" element={<MediaListPage />} />
                     <Route path="info/*" element={<MediaInfoPage />} />
-                    <Route path="read/*" element={<MediaReadGalleryPage />} />
                     <Route path="watch/*" element={<MediaWatchVideoPage />} />
+                    {/* see below */}
+                    {/*<Route path="read/*" element={<MediaReadGalleryPage />} />*/}
                 </Route>
-                <Route path="*" element={<NotFound />} />
             </Route>
+            <Route element={<MainLayout heightAware title={title} /> }>
+                <Route path="media">
+                    <Route path="read/*" element={<MediaReadGalleryPage />} />
+                </Route>
+            </Route>
+            <Route path="*" element={<NotFound />} />
         </Routes>
     </>;
 }
