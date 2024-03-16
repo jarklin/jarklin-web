@@ -26,8 +26,7 @@ export default function ConfigSettingsPage() {
         {apiConfig.requires_auth && <>
             <div className="px-5 h-px bg-accent/20" />
             <div className="grid place-content-center">
-                <Link
-                    className="px-2 py-1 bg-white text-black rounded-lg hover:cursor-pointer disabled:cursor-not-allowed" to="/logout">
+                <Link className="px-2 py-1 bg-white text-black rounded-lg hover:cursor-pointer" to="/auth/logout">
                     <LogOutIcon className="inline-block h-5" /> Logout
                 </Link>
             </div>
