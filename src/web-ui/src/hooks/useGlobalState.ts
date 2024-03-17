@@ -35,12 +35,12 @@ export default function useGlobalState<T>(key: string, defaultValue?: T): [T, (v
         }, { signal: controller.signal });
 
         return () => controller.abort();
-    }, [key, setStateValue]);
+    }, [key, defaultValue, setStateValue]);
 
     const setValue = useCallback((newValue: T) => {
         // setValueDirect(newValue);  // set for this hook (done via event)
         window.dispatchEvent(  // update this and other hooks
-            new CustomEvent<globalStateEventDetails<T>>("globalState", { detail: { key, newValue } })
+            new CustomEvent<globalStateEventDetails<T>>("globalState", { detail: { key, newValue } }),
         );
         localStorage.setItem(key, JSON.stringify(newValue));  // set for new hooks (and other tabs)
     }, [key]);
