@@ -6,7 +6,7 @@ const videoResolutionMap: Record<number, string> = {
     1440: "2k",
     2160: "Ultra HD",
     4320: "Full Ultra HD",
-}
+};
 
 
 export function height2resolution(height: number): string {
@@ -15,6 +15,6 @@ export function height2resolution(height: number): string {
         .map(res => +res)
         .reduce((prev, curr) => (
             (Math.abs(curr - height) < Math.abs(prev - height)) ? curr : prev
-        ))
+        ));
     return videoResolutionMap[closest];
 }

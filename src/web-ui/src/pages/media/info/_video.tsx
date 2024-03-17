@@ -1,5 +1,5 @@
 import type {VideoMediaEntry} from "~/types/media.ts";
-import {encodePath, getAnimatedPreview, getPreview, getPreviewImage, height2resolution} from "~/util";
+import {encodePath, getAnimatedPreview, getPreviewImage, height2resolution} from "~/util";
 import {Link} from "react-router-dom";
 import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
 import {PlayCircleIcon} from "lucide-react";
@@ -34,7 +34,7 @@ export default function MediaVideoInfo({ video }: { video: VideoMediaEntry }) {
         </div>
         <div className="flex px-[2vw] gap-[5vw] min-h-[35vh]">
             <div className="h-[35vh]">
-                <Image className="mx-auto h-full rounded-md object-contain" src={getPreview(video.path)} />
+                <Image className="mx-auto h-full rounded-md object-contain" src={getPreviewImage(video.path)} />
             </div>
             <div className="grow text-xs">
                 <p className="text-xl font-bold">{video.displayName}</p>

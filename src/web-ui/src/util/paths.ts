@@ -5,17 +5,18 @@ const ROOT = "./files";
 
 
 export function getSource(path: string): string {
-    return `${ROOT}/${encodePath(path)}?optimize`;
+    const optimize = JSON.parse(localStorage.getItem("optimization") ?? "false");
+    const url = `${ROOT}/${encodePath(path)}`;
+    return optimize ? `${url}?optimize` : url;
 }
 
-export function getPreview(path: string): string {
-    return `${ROOT}/.jarklin/cache/${encodePath(path)}/preview.webp`;
+export function getPreviewImage(path: string, n?: number): string {
+    return (n === undefined
+        ? `${ROOT}/.jarklin/cache/${encodePath(path)}/preview.webp`
+        : `${ROOT}/.jarklin/cache/${encodePath(path)}/previews/${n}.webp`
+    );
 }
 
 export function getAnimatedPreview(path: string): string {
     return `${ROOT}/.jarklin/cache/${encodePath(path)}/animated.webp`;
-}
-
-export function getPreviewImage(path: string, n: number): string {
-    return `${ROOT}/.jarklin/cache/${encodePath(path)}/previews/${n}.webp`;
 }

@@ -1,5 +1,5 @@
 import type {GalleryMediaEntry} from "~/types/media.ts";
-import {encodePath, getAnimatedPreview, getPreview, getPreviewImage} from "~/util";
+import {encodePath, getAnimatedPreview, getPreviewImage} from "~/util";
 import {Link} from "react-router-dom";
 import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
 import {BookOpenTextIcon} from "lucide-react";
@@ -23,7 +23,7 @@ export default function MediaGalleryInfo({ gallery }: { gallery: GalleryMediaEnt
         </div>
         <div className="flex px-[2vw] gap-[5vw] min-h-[35vh]">
             <div className="h-[35vh]">
-                <Image className="mx-auto h-full rounded-md object-contain" src={getPreview(gallery.path)} />
+                <Image className="mx-auto h-full rounded-md object-contain" src={getPreviewImage(gallery.path)} />
             </div>
             <div className="grow text-xs">
                 <p className="text-xl font-bold">{gallery.displayName}</p>

@@ -28,8 +28,8 @@ export default function SearchPage() {
 
     const search = useMemo(() => {
         const s = new JsSearch.Search("path");
-        s.addIndex("name")
-        s.addIndex("tags")
+        s.addIndex("name");
+        s.addIndex("tags");
         s.addDocuments(rawEntries);
         return s;
     }, [rawEntries]);
