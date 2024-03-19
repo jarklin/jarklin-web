@@ -27,10 +27,11 @@ export default function MediaListPage() {
         return filterFunction ? filterFunction(mediaList) : mediaList;
     }, [mediaList, filterValue]);
 
-    const tagValue = searchParams.get("tag")
-    mediaList = useMemo(() => {
-        return tagValue === null ? mediaList : mediaList.filter(media => media.tags.includes(tagValue));
-    }, [mediaList, tagValue]);
+    const tagValue = searchParams.get("tag");
+    mediaList = useMemo(
+        () => tagValue === null ? mediaList : mediaList.filter(media => media.tags.includes(tagValue)),
+        [mediaList, tagValue],
+    );
 
     const sortValues = searchParams.getAll("sort");
     mediaList = useMemo(() => {

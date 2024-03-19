@@ -1,7 +1,7 @@
 import useMedia from "~/hooks/useMedia.ts";
 import {useCallback, useEffect, useMemo, useState} from "react";
 import useDebounce from "~/hooks/useDebounce.ts";
-import MediaCard from "src/components/MediaCard";
+import MediaCard from "~/components/MediaCard";
 import {encodePath} from "~/util";
 import {Link, useSearchParams} from "react-router-dom";
 import {SearchIcon} from "lucide-react";

@@ -9,8 +9,8 @@ import MainLayout from "src/layouts/MainLayout";
 import HomePage from "~/pages/home";
 import LoginPage from "src/pages/auth/login";
 import LogoutPage from "src/pages/auth/logout";
-import SearchPage from "~/pages/search";
-import TagsPage from "~/pages/tags";
+import SearchPage from "src/pages/media/search";
+import TagsPage from "src/pages/media/tags";
 
 import PanelLayout from "src/pages/panel";
 import ConfigSettingsPage from "~/pages/panel/settings";
@@ -19,9 +19,10 @@ import ConfigStatsPage from "~/pages/panel/stats";
 
 import MediaListPage from "~/pages/media/list";
 import MediaInfoPage from "~/pages/media/info";
-import MediaCollectionPage from "~/pages/media/collection.tsx";
-import MediaReadGalleryPage from "~/pages/media/read.tsx";
-import MediaWatchVideoPage from "~/pages/media/watch.tsx";
+import MediaCollectionsListPage from "~/pages/media/collection";
+import MediaCollectionInfoPage from "~/pages/media/collection/info.tsx";
+import MediaReadGalleryPage from "~/pages/media/read";
+import MediaWatchVideoPage from "~/pages/media/watch";
 
 
 export default function App() {
@@ -55,7 +56,8 @@ export default function App() {
                     <Route index element={<Navigate replace to="list" />} />
                     <Route path="list" element={<MediaListPage />} />
                     <Route path="info/*" element={<MediaInfoPage />} />
-                    <Route path="collection/*" element={<MediaCollectionPage />} />
+                    <Route path="collections" element={<MediaCollectionsListPage />} />
+                    <Route path="collection/*" element={<MediaCollectionInfoPage />} />
                     <Route path="watch/*" element={<MediaWatchVideoPage />} />
                     {/* see below */}
                     {/* <Route path="read/*" element={<MediaReadGalleryPage />} />*/}
