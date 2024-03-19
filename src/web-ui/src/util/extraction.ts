@@ -1,4 +1,4 @@
-import type { MediaEntry } from "~/types";
+import type {Collection, MediaEntry} from "~/types";
 import {containSameElements} from "~/util/itertools.ts";
 import humanize from "humanize-plus";
 import {getPreviewImage} from "~/util/paths.ts";
@@ -25,14 +25,6 @@ export function extractTags(path: string): string[] {
 }
 
 
-interface Collection {
-    name: string
-    tags: string[]
-    previewUrl: string
-    mediaList: MediaEntry[]
-}
-
-
 export function extractCollections(mediaList: MediaEntry[]): Collection[] {
     const collections: Collection[] = [];
 
@@ -41,8 +33,10 @@ export function extractCollections(mediaList: MediaEntry[]): Collection[] {
         if (collection === undefined) {
             const pathParts = media.path.split(/[/\\]/g).filter(p => !!p.length);
             const name = pathParts[Math.max(0, pathParts.length - 2)];
+            const path = pathParts.slice(0, pathParts.length-1).join("/");
             collections.push(<Collection>{
-                name: humanize.capitalizeAll(name),
+                path: path,
+                displayName: humanize.capitalizeAll(name),
                 tags: media.tags,
                 previewUrl: getPreviewImage(media.path),
                 mediaList: [media],

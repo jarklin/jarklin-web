@@ -8,6 +8,8 @@ import {homeEntries, type HomeEntry} from "~/pages/home/entries.ts";
 import TagLink from "~/components/TagLink.tsx";
 import SectionSeparator from "~/components/Section/Separator.tsx";
 import SectionHeaderLink from "~/components/Section/HeaderLink.tsx";
+import SectionHeader from "~/components/Section/Header.tsx";
+import CollectionCard from "~/components/CollectionCard.tsx";
 
 
 const MAXENTRIES = 20;
@@ -19,6 +21,7 @@ export default function HomePage() {
             <Feed key={entry.title} {...entry} />
             <SectionSeparator />
         </Fragment>)}
+        <Collections />
         <TopTags />
     </div>;
 }
@@ -53,6 +56,30 @@ function Feed({ title, largerHeight, filterId, filter }: HomeEntry) {
     </>;
 }
 
+
+function Collections() {
+    const { collections } = useMedia();
+
+    const visible = useMemo(
+        () => collections.slice(0, MAXENTRIES),
+        [collections],
+    );
+
+    if (!visible.length) {
+        return null;
+    }
+
+    return <>
+        <SectionHeader>Collections</SectionHeader>
+        <VerticalScrollArea>
+            {visible.map(collection => (
+                <Link className="hover:scale-105 transition-transform" key={collection.path} to={`/media/collection/${encodePath(collection.path)}`}>
+                    <CollectionCard className="h-mixed" collection={collection}/>
+                </Link>
+            ))}
+        </VerticalScrollArea>
+    </>;
+}
 
 function TopTags() {
     const { mediaList } = useMedia();
