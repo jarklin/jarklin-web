@@ -29,7 +29,9 @@ export default function MediaListPage() {
 
     const sortValues = searchParams.getAll("sort");
     mediaList = useMemo(() => {
-        if (sortValues.includes("__random__")) {
+        if (!sortValues.length) {
+            return mediaList;
+        } else if (sortValues.includes("__random__")) {
             return shuffled(mediaList, seededRandom());
         } else {
             return [...mediaList].sort(sortBy(...sortValues, (_, v) => typeof v === "string" ? v.toLowerCase() : v));
