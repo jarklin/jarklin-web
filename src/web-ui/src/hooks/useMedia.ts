@@ -2,11 +2,11 @@ import {useQuery} from "react-query";
 import axios from "axios";
 import {useMemo} from "react";
 import type {MediaEntry, RawMediaEntry} from "~/types";
-import {extractTags} from "~/util";
+import {extractCollections, extractTags} from "~/util";
 import humanize from "humanize-plus";
 
 
-export default function useMedia(): MediaEntry[] {
+export default function useMedia() {
     const query = useQuery(
         [".jarklin", "media.json"],
         ({ signal }) => axios
@@ -17,10 +17,14 @@ export default function useMedia(): MediaEntry[] {
 
     const raw = query.data!;
 
-    return useMemo(() => raw.map((entry) => <MediaEntry>{
-        ...entry,
-        type: entry.meta.type,
-        displayName: humanize.capitalizeAll(entry.name),
-        tags: extractTags(entry.path),
-    }), [raw]);
+    return useMemo(() => {
+        const mediaList = raw.map((entry) => <MediaEntry>{
+            ...entry,
+            type: entry.meta.type,
+            displayName: humanize.capitalizeAll(entry.name),
+            tags: extractTags(entry.path),
+        });
+        const collections = extractCollections(mediaList);
+        return { mediaList, collections } as const;
+    }, [raw]);
 }

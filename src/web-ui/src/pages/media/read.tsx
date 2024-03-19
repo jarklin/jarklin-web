@@ -15,28 +15,28 @@ const OFFSETSCROLLTOP = 50;
 
 
 export default function MediaReadGalleryPage() {
-    const media = useMedia();
+    const { mediaList: mediaList } = useMedia();
     const {"*": path} = useParams();
 
-    const data = media.find(entry => entry.path === path);
+    const media = mediaList.find(media => media.path === path);
 
-    if (data === undefined) {
+    if (media === undefined) {
         return <NotFound/>;
     }
-    if (data.type !== "gallery") {
+    if (media.type !== "gallery") {
         throw new Error("not a gallery");
     }
 
-    return <ReadGalleryPageContent data={data}/>;
+    return <ReadGalleryPageContent media={media}/>;
 }
 
 
 interface ContentProps {
-    data: GalleryMediaEntry
+    media: GalleryMediaEntry
 }
 
 
-function ReadGalleryPageContent({ data }: ContentProps) {
+function ReadGalleryPageContent({ media }: ContentProps) {
     const [searchParams] = useSearchParams();
 
     useFullScreen({
@@ -52,9 +52,9 @@ function ReadGalleryPageContent({ data }: ContentProps) {
     return <>
         <ScrollProgress />
         <div className="flex flex-col items-center">
-            {data.meta.images.map((image, i) => <Fragment key={image.filename}>
+            {media.meta.images.map((image, i) => <Fragment key={image.filename}>
                 <ScrollToMe if={image.filename === currentImage} />
-                <PreviewedImage data={data} image={image} i={i} />
+                <PreviewedImage media={media} image={image} i={i} />
             </Fragment>)}
         </div>
         <ScrollToTopButton />
@@ -63,20 +63,20 @@ function ReadGalleryPageContent({ data }: ContentProps) {
 }
 
 interface ImageProps {
-    data: GalleryMediaEntry,
+    media: GalleryMediaEntry,
     image: GalleryMediaEntry["meta"]["images"][number],
     i: number
 }
 
 
-function PreviewedImage({ data, image, i }: ImageProps) {
+function PreviewedImage({ media, image, i }: ImageProps) {
     const [failed, setFailed] = useState(false);
     // first load the preview-image as "low resolution" and then the original
     const [lowResLoaded, setLowResLoaded] = useState(false);
     const [highResLoaded, setHighResLoaded] = useState(false);
 
-    const highResSrc = getSource(`${data.path}/${image.filename}`);
-    const lowResSrc = getPreviewImage(data.path, i + 1);
+    const highResSrc = getSource(`${media.path}/${image.filename}`);
+    const lowResSrc = getPreviewImage(media.path, i + 1);
 
     if (failed) {
         return <ServerCrashIcon className="w-full max-w-screen-lg" />;

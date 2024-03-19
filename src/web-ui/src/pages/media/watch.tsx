@@ -7,22 +7,22 @@ const VideoPlayer = lazy(() => import("~/components/VideoPlayer"));
 
 
 export default function MediaWatchVideoPage() {
-    const media = useMedia();
+    const { mediaList } = useMedia();
     const { "*": path } = useParams();
 
-    const data = media.find(entry => entry.path === path);
+    const media = mediaList.find(media => media.path === path);
 
-    if (data === undefined) {
+    if (media === undefined) {
         return <NotFound />;
     }
-    if (data.type !== "video") {
+    if (media.type !== "video") {
         throw new Error("not a video");
     }
 
     return <>
         <VideoPlayer
             className="h-full"
-            media={data}
+            media={media}
         />
     </>;
 }

@@ -25,11 +25,11 @@ export default function HomePage() {
 
 
 function Feed({ title, largerHeight, filterId, filter }: HomeEntry) {
-    const entries = useMedia();
+    const { mediaList } = useMedia();
 
     const visible = useMemo(
-        () => filter(entries).slice(0, MAXENTRIES),
-        [entries, filter],
+        () => filter(mediaList).slice(0, MAXENTRIES),
+        [mediaList, filter],
     );
 
     if (!visible.length) {
@@ -55,20 +55,20 @@ function Feed({ title, largerHeight, filterId, filter }: HomeEntry) {
 
 
 function TopTags() {
-    const entries = useMedia();
+    const { mediaList } = useMedia();
 
     const tags = useMemo(
         () => Array
             .from(new Set(
-                entries.flatMap(entry => entry.tags),
+                mediaList.flatMap(media => media.tags),
             ))
             .map(tag => (
-                { tag, count: entries.filter(e => e.tags.includes(tag)).length }
+                { tag, count: mediaList.filter(e => e.tags.includes(tag)).length }
             ))
             .sort((a, b) => b.count - a.count)
             .map(i => i.tag)
             .slice(0, MAXENTRIES),
-        [entries],
+        [mediaList],
     );
 
     return <>

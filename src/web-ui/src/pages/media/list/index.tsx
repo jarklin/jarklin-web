@@ -18,25 +18,25 @@ const filters = {
 
 
 export default function MediaListPage() {
-    let entries = useMedia();
+    let { mediaList } = useMedia();
     const [searchParams] = useSearchParams();
 
     const filterValue = searchParams.get("filter");
-    entries = useMemo(() => {
+    mediaList = useMemo(() => {
         const filterFunction = filters[filterValue as keyof typeof filters];
-        return filterFunction ? filterFunction(entries) : entries;
-    }, [entries, filterValue]);
+        return filterFunction ? filterFunction(mediaList) : mediaList;
+    }, [mediaList, filterValue]);
 
     const sortValues = searchParams.getAll("sort");
-    entries = useMemo(() => {
+    mediaList = useMemo(() => {
         if (sortValues.includes("__random__")) {
-            return shuffled(entries, seededRandom());
+            return shuffled(mediaList, seededRandom());
         } else {
-            return [...entries].sort(sortBy(...sortValues, (_, v) => typeof v === "string" ? v.toLowerCase() : v));
+            return [...mediaList].sort(sortBy(...sortValues, (_, v) => typeof v === "string" ? v.toLowerCase() : v));
         }
-    }, [entries, sortValues]);
+    }, [mediaList, sortValues]);
 
-    const pagination = usePagination(entries);
+    const pagination = usePagination(mediaList);
     const { values: pageEntries } = pagination;
 
     return <>

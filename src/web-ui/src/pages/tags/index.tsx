@@ -5,16 +5,15 @@ import TagLink from "~/components/TagLink.tsx";
 
 
 export default function TagsPage() {
-
-    const entries = useMedia();
+    const { mediaList } = useMedia();
 
     const tags = useMemo(
         () => Array.from(new Set(
-            entries
+            mediaList
                 .map(entry => entry.tags)
                 .flat(),
         )).sort((a, b) => a.localeCompare(b)),
-        [entries],
+        [mediaList],
     );
 
     return <>

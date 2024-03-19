@@ -16,12 +16,12 @@ type Index = Array<{
 
 
 export default function ConfigStatsPage() {
-    const info = useMedia();
+    const { mediaList } = useMedia();
     const problems = useProblems();
 
     const categories = useMemo<Index>(() => {
-        const galleries = info.filter(e => e.type === "gallery") as GalleryMediaEntry[];
-        const videos = info.filter(e => e.type === "video") as VideoMediaEntry[];
+        const galleries = mediaList.filter(media => media.type === "gallery") as GalleryMediaEntry[];
+        const videos = mediaList.filter(media => media.type === "video") as VideoMediaEntry[];
 
         return [
             {
@@ -69,12 +69,12 @@ export default function ConfigStatsPage() {
                 stats: [
                     {
                         label: "Total Tags",
-                        value: humanize.intComma(Array.from(new Set(info.flatMap(e => e.tags))).length),
+                        value: humanize.intComma(Array.from(new Set(mediaList.flatMap(e => e.tags))).length),
                     },
                 ],
             },
         ];
-    }, [info, problems]);
+    }, [mediaList, problems]);
 
     return <>
         <div className="grid grid-cols-[auto,1fr] gap-4">

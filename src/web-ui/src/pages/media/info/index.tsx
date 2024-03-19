@@ -11,16 +11,16 @@ import SectionHeader from "~/components/Section/Header.tsx";
 
 
 export default function MediaInfoPage() {
-    const info = useMedia();
+    const { mediaList } = useMedia();
     const { "*": path } = useParams();
 
-    const data = info.find(entry => entry.path === path);
+    const data = mediaList.find(entry => entry.path === path);
 
     if (data === undefined) {
         return <NotFound />;
     }
 
-    const related = info.filter(entry => data.path !== entry.path && containSameElements(data.tags, entry.tags));
+    const related = mediaList.filter(entry => data.path !== entry.path && containSameElements(data.tags, entry.tags));
 
     let viewPage;
     if (data.type === "video") {

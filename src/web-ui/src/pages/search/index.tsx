@@ -13,7 +13,7 @@ const DEBOUNCEDELAYMS = 300;
 
 
 export default function SearchPage() {
-    const rawEntries = useMedia();
+    const { mediaList: rawMediaList } = useMedia();
     const [searchParams, setSearchParams] = useSearchParams();
     const queryValue = searchParams.get("query") ?? "";
     const query = useDebounce(queryValue.trim().toLowerCase(), DEBOUNCEDELAYMS);
@@ -30,13 +30,13 @@ export default function SearchPage() {
         const s = new JsSearch.Search("path");
         s.addIndex("name");
         s.addIndex("tags");
-        s.addDocuments(rawEntries);
+        s.addDocuments(rawMediaList);
         return s;
-    }, [rawEntries]);
+    }, [rawMediaList]);
 
-    const matchingEntries = search.search(query) as typeof rawEntries;
+    const matchingMedia = search.search(query) as typeof rawMediaList;
 
-    const pagination = usePagination(matchingEntries);
+    const pagination = usePagination(matchingMedia);
     const { setPage, values: pageEntries } = pagination;
 
     useEffect(() => {
@@ -58,13 +58,13 @@ export default function SearchPage() {
                 enterKeyHint="search"
             />
         </div>
-        {!matchingEntries.length ? <>
+        {!matchingMedia.length ? <>
             <p className="text-center text-xl">
                 No media found
             </p>
         </> : <>
             <p className="text-center text-xl">
-                {matchingEntries.length} results found
+                {matchingMedia.length} results found
             </p>
             <div className="flex flex-wrap gap-4 p-2 items-stretch">
                 {pageEntries.map(entry => (
