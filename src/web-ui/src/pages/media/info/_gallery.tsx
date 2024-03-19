@@ -50,7 +50,7 @@ export default function MediaGalleryInfo({ gallery }: { gallery: GalleryMediaEnt
         <SectionSeparator />
         <SectionHeader className="px-2">Images</SectionHeader>
         <VerticalScrollArea>
-            {gallery.meta.images.map((image, i) => <>
+            {gallery.meta.images.map((image, i) => (
                 <Link key={i} className="min-w-fit bg-primary-light rounded-md overflow-hidden" to={{
                     pathname: readHref,
                     search: new URLSearchParams({
@@ -59,7 +59,7 @@ export default function MediaGalleryInfo({ gallery }: { gallery: GalleryMediaEnt
                 }}>
                     <Image className="block aspect-portrait h-gallery-sm object-cover" src={getPreviewImage(gallery.path, i + 1)} />
                 </Link>
-            </>)}
+            ))}
         </VerticalScrollArea>
     </>;
 }

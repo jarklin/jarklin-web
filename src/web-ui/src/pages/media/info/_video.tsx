@@ -61,7 +61,7 @@ export default function MediaVideoInfo({ video }: { video: VideoMediaEntry }) {
         <SectionSeparator/>
         <SectionHeader className="px-2">{video.meta.chapters?.length ? "Chapters" : "Scenes"}</SectionHeader>
         <VerticalScrollArea>
-            {scenes.map((scene, i) => <>
+            {scenes.map((scene, i) => (
                 <Link key={i} className="flex flex-col min-w-fit bg-primary-light rounded-md overflow-hidden" to={{
                     pathname: watchHref,
                     search: new URLSearchParams({ initialTime: scene.startTime.toString() }).toString(),
@@ -69,7 +69,7 @@ export default function MediaVideoInfo({ video }: { video: VideoMediaEntry }) {
                     <Image className="block aspect-video h-video-sm object-cover" src={getPreviewImage(video.path, i + 1)} />
                     <p className="text-sm px-1">{scene.title}</p>
                 </Link>
-            </>)}
+            ))}
         </VerticalScrollArea>
     </>;
 }

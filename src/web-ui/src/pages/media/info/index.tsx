@@ -38,11 +38,11 @@ export default function MediaInfoPage() {
                 <SectionSeparator />
                 <SectionHeader className="px-2">Related</SectionHeader>
                 <VerticalScrollArea>
-                    {related.map(entry => <>
+                    {related.map(entry => (
                         <Link key={entry.path} to={`/media/info/${encodePath(entry.path)}`}>
                             <MediaCard className="h-mixed" media={entry}/>
                         </Link>
-                    </>)}
+                    ))}
                 </VerticalScrollArea>
             </>}
         </div>
