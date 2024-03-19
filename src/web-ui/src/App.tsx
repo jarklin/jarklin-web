@@ -19,6 +19,7 @@ import ConfigStatsPage from "~/pages/panel/stats";
 
 import MediaListPage from "~/pages/media/list";
 import MediaInfoPage from "~/pages/media/info";
+import MediaCollectionPage from "~/pages/media/collection.tsx";
 import MediaReadGalleryPage from "~/pages/media/read.tsx";
 import MediaWatchVideoPage from "~/pages/media/watch.tsx";
 
@@ -54,6 +55,7 @@ export default function App() {
                     <Route index element={<Navigate replace to="list" />} />
                     <Route path="list" element={<MediaListPage />} />
                     <Route path="info/*" element={<MediaInfoPage />} />
+                    <Route path="collection/*" element={<MediaCollectionPage />} />
                     <Route path="watch/*" element={<MediaWatchVideoPage />} />
                     {/* see below */}
                     {/* <Route path="read/*" element={<MediaReadGalleryPage />} />*/}
