@@ -10,6 +10,9 @@ export interface HomeEntry {
 }
 
 
+export const MAXENTRIES = 20;
+
+
 export const homeEntries: HomeEntry[] = [
     {
         title: "Random Galleries",
