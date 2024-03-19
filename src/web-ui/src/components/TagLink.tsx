@@ -11,8 +11,8 @@ export default function TagLink(props: Props) {
     return <Link
         className={twMerge("bg-accent hover:bg-accent-light text-primary rounded-lg px-1 py-px", props.className)}
         to={{
-            pathname: "/search",
-            search: new URLSearchParams({ query: tag }).toString(),
+            pathname: "/media/list",
+            search: new URLSearchParams({ tag: tag }).toString(),
         }}>
         {tag}
     </Link>;
