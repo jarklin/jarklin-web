@@ -1,5 +1,5 @@
 import useMedia from "~/hooks/useMedia.ts";
-import {useCallback, useEffect, useMemo} from "react";
+import {useCallback, useEffect, useMemo, useState} from "react";
 import useDebounce from "~/hooks/useDebounce.ts";
 import MediaCard from "src/components/MediaCard";
 import {encodePath} from "~/util";
@@ -15,10 +15,10 @@ const DEBOUNCEDELAYMS = 300;
 export default function SearchPage() {
     const { mediaList: rawMediaList } = useMedia();
     const [searchParams, setSearchParams] = useSearchParams();
-    const queryValue = searchParams.get("query") ?? "";
+    const [queryValue, setQueryValue] = useState<string>(() => (searchParams.get("query") ?? ""));
     const query = useDebounce(queryValue.trim().toLowerCase(), DEBOUNCEDELAYMS);
 
-    const setQueryValue = useCallback((nextQuery: string) => {
+    const setUrlQuery = useCallback((nextQuery: string) => {
         setSearchParams((prev) => {
             const next = new URLSearchParams(prev);
             next.set("query", nextQuery);
@@ -34,13 +34,19 @@ export default function SearchPage() {
         return s;
     }, [rawMediaList]);
 
-    const matchingMedia = search.search(query) as typeof rawMediaList;
+    const matchingMedia = useMemo(
+        () => search.search(query) as typeof rawMediaList,
+        [search, query],
+    );
 
     const pagination = usePagination(matchingMedia);
     const { setPage, values: pageEntries } = pagination;
 
     useEffect(() => {
-        setPage(1);
+        if (pagination.currentPage !== 1) {
+            setPage(1);
+        }
+        setUrlQuery(query);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query]);
 
