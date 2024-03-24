@@ -6,6 +6,7 @@ import useMedia from "~/hooks/useMedia.ts";
 import {useMemo} from "react";
 import sortBy from "sort-by";
 import * as filtersFunctions from "./filters.ts";
+import FlexGrid from "~/components/FlexGrid.tsx";
 
 
 const filters = {
@@ -48,15 +49,13 @@ export default function MediaListPage() {
     const { values: pageEntries } = pagination;
 
     return <>
-        <div className="flex flex-wrap gap-4 p-2 items-stretch">
+        <FlexGrid>
             {pageEntries.map(entry => (
-                <div key={entry.path} className="grow h-mixed">
-                    <Link to={`/media/info/${encodePath(entry.path)}`} className="h-full hover:scale-105">
-                        <MediaCard className="w-full h-full" key={entry.path} media={entry} />
-                    </Link>
-                </div>
+                <Link key={entry.path} to={`/media/info/${encodePath(entry.path)}`} className="grow h-mixed transition-transform hover:scale-105">
+                    <MediaCard className="size-full" key={entry.path} media={entry} />
+                </Link>
             ))}
-        </div>
+        </FlexGrid>
         {pagination.component}
     </>;
 }

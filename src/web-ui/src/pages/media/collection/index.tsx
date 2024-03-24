@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import {encodePath} from "~/util";
 import SectionHeader from "~/components/Section/Header.tsx";
 import CollectionCard from "~/components/CollectionCard.tsx";
+import FlexGrid from "~/components/FlexGrid.tsx";
 
 
 export default function MediaCollectionsListPage() {
@@ -14,13 +15,13 @@ export default function MediaCollectionsListPage() {
 
     return <>
         <SectionHeader className="px-2">Collections</SectionHeader>
-        <div className="flex flex-wrap gap-4 p-2 items-stretch">
+        <FlexGrid>
             {pageCollections.map(collection => (
-                <Link className="hover:scale-105 transition-transform" key={collection.path} to={`/media/collection/${encodePath(collection.path)}`}>
-                    <CollectionCard className="h-mixed" collection={collection}/>
+                <Link key={collection.path} to={`/media/collection/${encodePath(collection.path)}`} className="grow h-mixed transition-transform hover:scale-105">
+                    <CollectionCard className="size-full" collection={collection}/>
                 </Link>
             ))}
-        </div>
+        </FlexGrid>
         {pagination.component}
     </>;
 }

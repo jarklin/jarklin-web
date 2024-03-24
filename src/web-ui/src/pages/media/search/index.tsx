@@ -7,6 +7,7 @@ import {Link, useSearchParams} from "react-router-dom";
 import {SearchIcon} from "lucide-react";
 import usePagination from "~/hooks/usePagination.tsx";
 import * as JsSearch from "js-search";
+import FlexGrid from "~/components/FlexGrid.tsx";
 
 
 const DEBOUNCEDELAYMS = 300;
@@ -71,15 +72,13 @@ export default function SearchPage() {
             <p className="text-center text-xl">
                 {matchingMedia.length} results found
             </p>
-            <div className="flex flex-wrap gap-4 p-2 items-stretch">
+            <FlexGrid>
                 {pageEntries.map(entry => (
-                    <div key={entry.path} className="grow h-mixed">
-                        <Link to={`/media/info/${encodePath(entry.path)}`} className="h-full hover:scale-105">
-                            <MediaCard className="w-full h-full" key={entry.path} media={entry} />
-                        </Link>
-                    </div>
+                    <Link key={entry.path} to={`/media/info/${encodePath(entry.path)}`} className="grow h-mixed transition-transform hover:scale-105">
+                        <MediaCard className="size-full" key={entry.path} media={entry}/>
+                    </Link>
                 ))}
-            </div>
+            </FlexGrid>
             {pagination.component}
         </>}
     </>;
