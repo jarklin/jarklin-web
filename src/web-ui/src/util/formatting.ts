@@ -12,7 +12,7 @@ const videoResolutionMap: Record<number, string> = {
 export function height2resolution(height: number): string {
     const closest = Object
         .keys(videoResolutionMap)
-        .map(res => +res)
+        .map(res => +res)  // converts string-keys to integers
         .reduce((prev, curr) => (
             (Math.abs(curr - height) < Math.abs(prev - height)) ? curr : prev
         ));

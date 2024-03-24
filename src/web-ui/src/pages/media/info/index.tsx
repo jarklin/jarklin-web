@@ -21,7 +21,6 @@ export default function MediaInfoPage() {
     }
 
     const collection = collections.find(collection => collection.mediaList.includes(data));
-    // const related = mediaList.filter(entry => data.path !== entry.path && containSameElements(data.tags, entry.tags));
 
     let viewPage;
     if (data.type === "video") {
@@ -42,10 +41,11 @@ export default function MediaInfoPage() {
                     {collection.mediaList
                         .filter(media => media.path !== data.path)
                         .map(media => (
-                        <Link key={media.path} to={`/media/info/${encodePath(media.path)}`}>
-                            <MediaCard className="h-mixed" media={media}/>
-                        </Link>
-                    ))}
+                            <Link key={media.path} to={`/media/info/${encodePath(media.path)}`}>
+                                <MediaCard className="h-mixed" media={media}/>
+                            </Link>
+                        ))
+                    }
                 </VerticalScrollArea>
             </>}
         </div>
