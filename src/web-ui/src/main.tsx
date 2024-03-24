@@ -30,6 +30,7 @@ const queryClient = new QueryClient({
                 }
                 return false;
             },
+            staleTime: 60,
         },
     },
 });
