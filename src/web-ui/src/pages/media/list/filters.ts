@@ -17,9 +17,12 @@ export function filterRandomVideos(entries: MediaEntry[]): MediaEntry[] {
 }
 
 
+const ONE_DAY = 60*60*24;
+
+
 export function filterRecentlyUpdatedGalleries(entries: MediaEntry[]): MediaEntry[] {
     return entries
-        .filter(entry => entry.modification_time !== entry.creation_time)  // attempt to avoid adding newest
+        .filter(entry => entry.modification_time > (entry.creation_time + ONE_DAY))
         .filter(entry => entry.type === "gallery")
         .sort((a, b) => b.modification_time - a.modification_time);
 }
