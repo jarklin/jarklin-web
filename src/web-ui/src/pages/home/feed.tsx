@@ -1,7 +1,7 @@
 import {type HomeEntry, MAXENTRIES} from "~/pages/home/entries.ts";
 import useMedia from "~/hooks/useMedia.ts";
 import {useMemo} from "react";
-import SectionHeaderLink from "~/components/Section/HeaderLink.tsx";
+import SectionHeader from "~/components/Section/Header.tsx";
 import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
 import {Link} from "react-router-dom";
 import {encodePath} from "~/util";
@@ -21,12 +21,12 @@ export default function HomepageFeed({ title, largerHeight, filterId, filter }: 
     }
 
     return <>
-        <SectionHeaderLink to={{
+        <SectionHeader to={{
             pathname: "/media/list",
             search: new URLSearchParams({
                 filter: filterId,
             }).toString(),
-        }}>{title}</SectionHeaderLink>
+        }}>{title}</SectionHeader>
         <VerticalScrollArea>
             {visible.map(info => (
                 <Link className="hover:scale-105 transition-transform" key={info.path} to={`/media/info/${encodePath(info.path)}`}>

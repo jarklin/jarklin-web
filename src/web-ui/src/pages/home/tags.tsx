@@ -1,7 +1,7 @@
 import {MAXENTRIES} from "~/pages/home/entries.ts";
 import useMedia from "~/hooks/useMedia.ts";
 import {useMemo} from "react";
-import SectionHeaderLink from "~/components/Section/HeaderLink.tsx";
+import SectionHeader from "~/components/Section/Header.tsx";
 import TagLink from "~/components/TagLink.tsx";
 
 
@@ -23,7 +23,7 @@ export default function HomepageTopTags() {
     );
 
     return <>
-        <SectionHeaderLink to={"/tags"}>Top Tags</SectionHeaderLink>
+        <SectionHeader to={"/tags"}>Top Tags</SectionHeader>
         <div className="flex flex-wrap gap-2 p-2">
             {tags.map(tag => <TagLink key={tag} tag={tag} />)}
         </div>

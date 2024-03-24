@@ -1,7 +1,7 @@
 import {MAXENTRIES} from "~/pages/home/entries.ts";
 import useMedia from "~/hooks/useMedia.ts";
 import {useMemo} from "react";
-import SectionHeaderLink from "~/components/Section/HeaderLink.tsx";
+import SectionHeader from "~/components/Section/Header.tsx";
 import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
 import {Link} from "react-router-dom";
 import {encodePath, shuffled} from "~/util";
@@ -21,7 +21,7 @@ export default function HomepageCollections() {
     }
 
     return <>
-        <SectionHeaderLink to={"/media/collections"}>Collections</SectionHeaderLink>
+        <SectionHeader to={"/media/collections"}>Collections</SectionHeader>
         <VerticalScrollArea>
             {visible.map(collection => (
                 <Link className="hover:scale-105 transition-transform" key={collection.path} to={`/media/collection/${encodePath(collection.path)}`}>
