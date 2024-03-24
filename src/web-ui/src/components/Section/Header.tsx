@@ -13,7 +13,7 @@ export default function SectionHeader(props: Props) {
     return <h1 {...props} className={twMerge("text-2xl font-bold", props.to !== undefined && "hover:text-accent", props.className)}>
         {to !== undefined ? <>
             <Link reloadDocument={reloadDocument} replace={replace} state={state} preventScrollReset={preventScrollReset} relative={relative} to={to}>
-                {props.children} <ChevronRightIcon className="inline size-5" />
+                {props.children} <ChevronRightIcon className="inline-block size-5 -mt-1"/>
             </Link>
         </> : <>
             {props.children}
