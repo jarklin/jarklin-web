@@ -2,7 +2,15 @@ import type {VideoMediaEntry} from "~/types/media.ts";
 import {encodePath, getAnimatedPreview, getPreviewImage, height2resolution} from "~/util";
 import {Link} from "react-router-dom";
 import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
-import {PlayCircleIcon} from "lucide-react";
+import {
+    BookmarkIcon, BookmarkXIcon,
+    CaptionsIcon,
+    CaptionsOffIcon,
+    PlayCircleIcon,
+    VideoIcon, VideoOffIcon,
+    Volume2Icon,
+    VolumeXIcon,
+} from "lucide-react";
 import humanizeDuration from "humanize-duration";
 import humanize from "humanize-plus";
 import TagLink from "~/components/TagLink.tsx";
@@ -10,20 +18,38 @@ import SectionSeparator from "~/components/Section/Separator.tsx";
 import SectionHeader from "~/components/Section/Header.tsx";
 import Image from "~/components/Image.tsx";
 import LabelBox from "~/components/LabelBox.tsx";
+import {useMemo} from "react";
 
 
 export default function MediaVideoInfo({ video }: { video: VideoMediaEntry }) {
     const watchHref = `/media/watch/${encodePath(video.path)}`;
 
-    const scenes = video.meta.chapters?.length
-        ? video.meta.chapters.map(chapter => ({
-            startTime: Math.floor(chapter.start_time),
-            title: chapter.title,
-        }))
-        : [...Array(video.meta.n_previews)].map((_, i) => ({
-            startTime: Math.floor(video.meta.duration / video.meta.n_previews * i),
-            title: `Scene ${i+1}`,
-        }));
+    const scenes = useMemo(() => (
+        video.meta.chapters.length
+            ? video.meta.chapters.map(chapter => ({
+                startTime: Math.floor(chapter.start_time),
+                title: chapter.title,
+            }))
+            : [...Array(video.meta.n_previews)].map((_, i) => ({
+                startTime: Math.floor(video.meta.duration / video.meta.n_previews * i),
+                title: `Scene ${i+1}`,
+            }))
+    ), [video]);
+
+    const videoFeatures = useMemo(() => [
+        video.meta.video_streams.length
+            ? <span title="Has Video"><VideoIcon className="size-5" /></span>
+            : <span title="No Video"><VideoOffIcon className="size-5" /></span>,
+        video.meta.audio_streams.length
+            ? <span title="Has Audio"><Volume2Icon className="size-5" /></span>
+            : <span title="No Audio"><VolumeXIcon className="size-5" /></span>,
+        video.meta.subtitles.length
+            ? <span title="Has Captions"><CaptionsIcon className="size-5" /></span>
+            : <span title="No Captions"><CaptionsOffIcon className="size-5" /></span>,
+        video.meta.chapters.length
+            ? <span title="Has Chapters"><BookmarkIcon className="size-5" /></span>
+            : <span title="No Chapters"><BookmarkXIcon className="size-5" /></span>,
+    ], [video]);
 
     return <>
         <div className="relative h-[50vh]">
@@ -41,12 +67,14 @@ export default function MediaVideoInfo({ video }: { video: VideoMediaEntry }) {
                 <div className="grid gap-x-2 gap-y-1 grid-cols-kv odd:[&>*]:font-semibold">
                     <span>Path</span>
                     <span>{video.path}</span>
+                    <span>Features</span>
+                    <span className="flex gap-x-2">{videoFeatures}</span>
                     <span>Duration</span>
                     <span>{humanizeDuration(video.meta.duration * 1000, {largest: 2, round: true})}</span>
                     <span>Dimensions</span>
                     <span>{video.meta.width}x{video.meta.height}</span>
                     <span>Resolution</span>
-                    <span>{height2resolution(Math.min(video.meta.width, video.meta.height))}</span>
+                    <span><LabelBox>{height2resolution(Math.min(video.meta.width, video.meta.height))}</LabelBox></span>
                     <span>Filesize</span>
                     <span>{humanize.fileSize(video.meta.filesize)}</span>
                     <span>Filetype</span>

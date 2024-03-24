@@ -47,8 +47,7 @@ export default function SearchPage() {
             setPage(1);
         }
         setUrlQuery(query);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [query]);
+    }, [query]);  // eslint-disable-line react-hooks/exhaustive-deps
 
     return <>
         <div className="w-full p-3 flex gap-px justify-center">
