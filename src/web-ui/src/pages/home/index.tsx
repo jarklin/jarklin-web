@@ -10,7 +10,6 @@ export default function HomePage() {
     return <div className="p-2">
         {homeEntries.map((entry) => <Fragment key={entry.title}>
             <HomepageFeed key={entry.title} {...entry} />
-            <SectionSeparator />
         </Fragment>)}
         <HomepageCollections />
         <SectionSeparator />

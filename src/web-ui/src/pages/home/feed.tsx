@@ -6,6 +6,7 @@ import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
 import {Link} from "react-router-dom";
 import {encodePath} from "~/util";
 import MediaCard from "~/components/MediaCard";
+import SectionSeparator from "~/components/Section/Separator.tsx";
 
 
 export default function HomepageFeed({ title, largerHeight, filterId, filter }: HomeEntry) {
@@ -34,5 +35,6 @@ export default function HomepageFeed({ title, largerHeight, filterId, filter }: 
                 </Link>
             ))}
         </VerticalScrollArea>
+        <SectionSeparator />
     </>;
 }
