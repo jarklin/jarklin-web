@@ -1,7 +1,7 @@
 import {Link, useParams} from "react-router-dom";
 import useMedia from "~/hooks/useMedia.ts";
 import NotFound from "~/pages/404.tsx";
-import {containSameElements, encodePath} from "~/util";
+import {encodePath} from "~/util";
 import VerticalScrollArea from "~/components/VerticalScrollArea.tsx";
 import MediaCard from "src/components/MediaCard";
 import MediaVideoInfo from "~/pages/media/info/_video.tsx";
@@ -11,7 +11,7 @@ import SectionHeader from "~/components/Section/Header.tsx";
 
 
 export default function MediaInfoPage() {
-    const { mediaList } = useMedia();
+    const { mediaList, collections } = useMedia();
     const { "*": path } = useParams();
 
     const data = mediaList.find(entry => entry.path === path);
@@ -20,7 +20,8 @@ export default function MediaInfoPage() {
         return <NotFound />;
     }
 
-    const related = mediaList.filter(entry => data.path !== entry.path && containSameElements(data.tags, entry.tags));
+    const collection = collections.find(collection => collection.mediaList.includes(data));
+    // const related = mediaList.filter(entry => data.path !== entry.path && containSameElements(data.tags, entry.tags));
 
     let viewPage;
     if (data.type === "video") {
@@ -34,13 +35,15 @@ export default function MediaInfoPage() {
     return <>
         <div className="flex flex-col gap-2">
             {viewPage}
-            {related.length !== 0 && <>
+            {collection && collection.mediaList.length > 0 && <>
                 <SectionSeparator />
-                <SectionHeader className="px-2">Related</SectionHeader>
+                <SectionHeader to={`/media/collection/${encodePath(collection.path)}`} className="px-2">Related</SectionHeader>
                 <VerticalScrollArea>
-                    {related.map(entry => (
-                        <Link key={entry.path} to={`/media/info/${encodePath(entry.path)}`}>
-                            <MediaCard className="h-mixed" media={entry}/>
+                    {collection.mediaList
+                        .filter(media => media.path !== data.path)
+                        .map(media => (
+                        <Link key={media.path} to={`/media/info/${encodePath(media.path)}`}>
+                            <MediaCard className="h-mixed" media={media}/>
                         </Link>
                     ))}
                 </VerticalScrollArea>
