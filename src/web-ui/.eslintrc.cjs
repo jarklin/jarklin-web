@@ -31,6 +31,8 @@ module.exports = {
     "@typescript-eslint/require-array-sort-compare": "error",
     "@typescript-eslint/no-non-null-assertion": "off",
 
+    "jsx-a11y/media-has-caption": "off",
+
     "no-duplicate-imports": "warn",
     // "no-use-before-define": ["warn", {
     //   "functions": false,

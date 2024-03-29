@@ -23,9 +23,9 @@ export default function NativeVideoPlayer(props: Props) {
     >
         <source src={getSource(media.path)} />
         <track default kind="chapters" src={chaptersVTTUrl} srcLang="en" label="Chapters" />
-        {/*{media.meta.subtitles.map(subtitle => (*/}
+        {/* {media.meta.subtitles.map(subtitle => (*/}
         {/*    <track key={subtitle.language} kind="subtitles" srcLang={subtitle.language} label={subtitle.language} />*/}
-        {/*))}*/}
+        {/* ))}*/}
     </video>;
 }
 

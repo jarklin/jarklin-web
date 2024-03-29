@@ -1,4 +1,4 @@
-import {VideoMediaEntry} from "~/types";
+import type {VideoMediaEntry} from "~/types";
 import {getPreviewImage} from "~/util";
 
 
