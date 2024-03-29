@@ -4,9 +4,10 @@ import {twMerge} from "tailwind-merge";
 import {MediaPlayer, MediaProvider, type ThumbnailImageInit} from "@vidstack/react";
 import { defaultLayoutIcons, DefaultVideoLayout } from "@vidstack/react/player/layouts/default";
 import type {VideoMediaEntry} from "~/types/media.ts";
-import {getPreviewImage, getSource} from "~/util";
+import {getSource} from "~/util";
 import {useMemo} from "react";
 import {useSearchParams} from "react-router-dom";
+import {extractChapterInformation} from "~/components/VideoPlayer/common.ts";
 // import LoadingSpinner from "~/components/LoadingSpinner.tsx";
 
 
@@ -20,19 +21,10 @@ export default function VidStackVideoPlayer(props: Props) {
     const [searchParams] = useSearchParams();
     const { media } = props;
 
-    const thumbnails = useMemo<ThumbnailImageInit[]>(() => {
-        if (media.meta.chapters.length) {
-            return media.meta.chapters.map<ThumbnailImageInit>((chapter, i) => ({
-                startTime: chapter.start_time,
-                url: getPreviewImage(media.path, i+1),
-            }));
-        } else {
-            return [...Array(media.meta.n_previews)].map((_, i) => ({
-                startTime: Math.floor(media.meta.duration / media.meta.n_previews * i),
-                url: getPreviewImage(media.path, i+1),
-            }));
-        }
-    }, [media]);
+    const thumbnails = useMemo<ThumbnailImageInit[]>(
+        () => extractChapterInformation(media),
+        [media],
+    );
 
     return <>
         <MediaPlayer
@@ -40,6 +32,7 @@ export default function VidStackVideoPlayer(props: Props) {
             autoPlay src={getSource(media.path)}
             title={media.displayName}
             viewType="video" streamType="on-demand" load="eager"
+            storage="vidstack"
             duration={media.meta.duration}
             currentTime={parseFloat(searchParams.get("initialTime") ?? "0")}
             keyTarget="document"  // maybe player but document seems better for now
