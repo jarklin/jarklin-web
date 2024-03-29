@@ -1,9 +1,8 @@
 import "@vidstack/react/player/styles/base.css";
-import {lazy} from "react";
 import {useParams} from "react-router-dom";
 import useMedia from "~/hooks/useMedia.ts";
 import NotFound from "~/pages/404.tsx";
-const VideoPlayer = lazy(() => import("~/components/VideoPlayer"));
+import VideoPlayer from "~/components/VideoPlayer";
 
 
 export default function MediaWatchVideoPage() {
