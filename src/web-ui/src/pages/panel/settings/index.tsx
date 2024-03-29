@@ -1,7 +1,8 @@
 import {Link} from "react-router-dom";
-import {LogOutIcon} from "lucide-react";
+import {AppWindowIcon, ClapperboardIcon, FileIcon, FileMinusIcon, LogOutIcon} from "lucide-react";
 import useApiConfig from "~/hooks/useApiConfig.ts";
 import useGlobalState from "~/hooks/useGlobalState.ts";
+import OptionSwitch from "~/components/OptionsSwitch.tsx";
 
 
 export default function ConfigSettingsPage() {
@@ -34,16 +35,14 @@ function SettingVideoPlayer() {
 
     return <>
         <SettingsSeparator />
-        <div className="flex gap-x-2">
-            <input type="checkbox" checked={value} onChange={(event) => {
-                setValue(event.target.checked);
-            }} />
-            <span>Native Player</span>
-        </div>
+        <OptionSwitch current={value} options={[
+            { key: false, text: "Custom Video Player", icon: ClapperboardIcon },
+            { key: true, text: "Native Video Player", icon: AppWindowIcon },
+        ]} onSwitch={setValue} />
         <p className="text-gray-400">
-            Jarklin's WEB-UI has a custom video player.
-            Maybe you don't like it or it doesn't work on your device.
-            That's why you can toggle here to the native browser-videoplayer.
+            Jarkli&apos;s WEB-UI has a custom video player.
+            Maybe you don&apos;t like it or it doesn&apos;t work on your device.
+            That&apos;s why you can toggle here to the native browser-video-player.
         </p>
     </>;
 }
@@ -54,12 +53,10 @@ function SettingOptimization() {
 
     return <>
         <SettingsSeparator />
-        <div className="flex gap-x-2">
-            <input type="checkbox" checked={value} onChange={(event) => {
-                setValue(event.target.checked);
-            }} />
-            <span>Optimize Content</span>
-        </div>
+        <OptionSwitch current={value} options={[
+            { key: false, text: "Raw media", icon: FileIcon },
+            { key: true, text: "Optimized media", icon: FileMinusIcon },
+        ]} onSwitch={setValue} />
         <p className="text-gray-400">
             The Server allows just-in-time optimization of supported media.
             This reduces the required amount of data that has to be downloaded.
