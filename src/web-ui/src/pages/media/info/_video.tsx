@@ -19,22 +19,13 @@ import SectionHeader from "~/components/Section/Header.tsx";
 import Image from "~/components/Image.tsx";
 import LabelBox from "~/components/LabelBox.tsx";
 import {useMemo} from "react";
+import {extractChapterInformation} from "~/components/VideoPlayer/common.ts";
 
 
 export default function MediaVideoInfo({ video }: { video: VideoMediaEntry }) {
     const watchHref = `/media/watch/${encodePath(video.path)}`;
 
-    const scenes = useMemo(() => (
-        video.meta.chapters.length
-            ? video.meta.chapters.map(chapter => ({
-                startTime: Math.floor(chapter.start_time),
-                title: chapter.title,
-            }))
-            : [...Array(video.meta.n_previews)].map((_, i) => ({
-                startTime: Math.floor(video.meta.duration / video.meta.n_previews * i),
-                title: `Scene ${i+1}`,
-            }))
-    ), [video]);
+    const scenes = useMemo(() => extractChapterInformation(video), [video]);
 
     const videoFeatures = useMemo(() => [
         video.meta.video_streams.length
