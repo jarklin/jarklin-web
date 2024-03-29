@@ -17,6 +17,7 @@ export function filterRandomVideos(entries: MediaEntry[]): MediaEntry[] {
 }
 
 
+// eslint-disable-next-line no-magic-numbers
 const ONE_DAY = 60*60*24;
 
 

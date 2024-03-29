@@ -13,7 +13,6 @@ interface Props {
 
 export default function VideoPlayer(props: Props) {
     const [useNativeVideoPlayer] = useGlobalState("use-native-video-player", false);
-    console.log({useNativeVideoPlayer});
 
     return useNativeVideoPlayer
         ? <NativeVideoPlayer media={props.media} />

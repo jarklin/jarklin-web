@@ -15,5 +15,5 @@ export default function NativeVideoPlayer(props: Props) {
         controls autoPlay autoFocus disablePictureInPicture disableRemotePlayback
     >
         <source src={getSource(props.media.path)} />
-    </video>
+    </video>;
 }
