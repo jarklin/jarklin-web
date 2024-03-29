@@ -9,6 +9,7 @@ export default function ConfigSettingsPage() {
 
     return <>
         <h1 className="text-2xl">Settings</h1>
+        {!(apiConfig.allows_optimization || apiConfig.requires_auth) && <p>Nothing to Configure here</p>}
         {apiConfig.allows_optimization && <SettingOptimization />}
         <div className="grow"/>
         {apiConfig.requires_auth && <>
