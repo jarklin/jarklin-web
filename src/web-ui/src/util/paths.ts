@@ -1,11 +1,12 @@
 import {encodePath} from "~/util/encoding.ts";
+import {getGlobalState} from "~/util/globalState.ts";
 
 
 const ROOT = "./files";
 
 
 export function getSource(path: string): string {
-    const optimize = JSON.parse(localStorage.getItem("optimization") ?? "false");
+    const optimize = getGlobalState<boolean>("optimization", false);
     const url = `${ROOT}/${encodePath(path)}`;
     return optimize ? `${url}?optimize` : url;
 }
