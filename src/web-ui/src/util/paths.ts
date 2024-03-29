@@ -1,5 +1,5 @@
-import {encodePath} from "~/util/encoding.ts";
-import {getGlobalState} from "~/util/globalState.ts";
+import {encodePath} from "./encoding.ts";
+import {getGlobalState} from "./globalState.ts";
 
 
 const ROOT = "./files";
