@@ -31,28 +31,28 @@ export default function LoginPage() {
                         ? <div className="px-1 bg-white text-red-500 text-center rounded-sm">
                             Bad Credentials Provided
                         </div>
-                        : <div className="bg-white text-red-500 text-centerrounded-sm">
+                        : <div className="!bg-white text-red-500 text-centerrounded-sm">
                             <p className="text-xl">Login Failed for some Reason</p>
                             <p className="opacity-50 text-xs">({(login.error as Error).name}: {(login.error as Error).message})</p>
                         </div>
                 )}
                 <input
                     required type="text" name="username"
-                    className="rounded-sm px-1 py-px bg-white text-black disabled:cursor-not-allowed"
+                    className="rounded-sm px-1 py-px !bg-white text-black disabled:cursor-not-allowed"
                     placeholder="Username"
                     disabled={login.isLoading}
                     enterKeyHint="next"
                 />
                 <input
                     required type="password" name="password"
-                    className="rounded-sm px-1 py-px bg-white text-black disabled:cursor-not-allowed"
+                    className="rounded-sm px-1 py-px !bg-white text-black disabled:cursor-not-allowed"
                     placeholder="Password"
                     disabled={login.isLoading}
                     enterKeyHint="done"
                 />
                 <input
                     type="submit"
-                    className="bg-white text-black rounded-t-sm rounded-b-lg hover:cursor-pointer disabled:cursor-not-allowed"
+                    className="rounded-t-sm rounded-b-lg !bg-white text-black hover:cursor-pointer disabled:cursor-not-allowed"
                     disabled={login.isLoading}
                     value="Login"
                 />

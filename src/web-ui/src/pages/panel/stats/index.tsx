@@ -50,7 +50,7 @@ export default function ConfigStatsPage() {
                         label: "Total Duration",
                         value: humanizeDuration(
                             videos.reduce((n, e) => n + e.meta.duration, 0)*1000,
-                            { largest: 2 },
+                            { largest: 2, round: true },
                         ),
                     },
                 ],

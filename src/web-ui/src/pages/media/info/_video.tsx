@@ -61,7 +61,7 @@ export default function MediaVideoInfo({ video }: { video: VideoMediaEntry }) {
                     <span>Features</span>
                     <span className="flex gap-x-2">{videoFeatures}</span>
                     <span>Duration</span>
-                    <span>{humanizeDuration(video.meta.duration * 1000, {largest: 2, round: true})}</span>
+                    <span>{humanizeDuration(video.meta.duration * 1000, { largest: 2, round: true })}</span>
                     <span>Dimensions</span>
                     <span>{video.meta.width}x{video.meta.height}</span>
                     <span>Resolution</span>
