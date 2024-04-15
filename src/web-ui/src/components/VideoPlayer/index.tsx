@@ -1,7 +1,7 @@
 import {lazy} from "react";
 import type {VideoMediaEntry} from "~/types";
 import useGlobalState from "~/hooks/useGlobalState.ts";
-import NativeVideoPlayer from "~/components/VideoPlayer/NativeVideoPlayer.tsx";
+import NativeVideoPlayer from "~/components/VideoPlayer/NativeVideoPlayer";
 const VidStackVideoPlayer = lazy(() => import("~/components/VideoPlayer/VidStackVideoPlayer"));
 
 
