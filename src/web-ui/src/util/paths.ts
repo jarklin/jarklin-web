@@ -19,11 +19,11 @@ export function getCacheUrl(path: string, resource: string): string {
 
 export function getPreviewImage(path: string, n?: number): string {
     return (n === undefined
-        ? getCacheUrl(path, `preview.webp`)
+        ? getCacheUrl(path, "preview.webp")
         : getCacheUrl(path, `previews/${n}.webp`)
     );
 }
 
 export function getAnimatedPreview(path: string): string {
-    return getCacheUrl(path, `animated.webp`)
+    return getCacheUrl(path, "animated.webp");
 }

@@ -28,7 +28,7 @@ export default function VidStackVideoPlayer(props: Props) {
 
     return <>
         <MediaPlayer
-            className={twMerge("size-full max-h-full bg-black", props.className)}
+            className={twMerge("size-full bg-black", props.className)}
             autoPlay src={getSource(media.path)}
             title={media.displayName}
             viewType="video" streamType="on-demand" load="eager"
