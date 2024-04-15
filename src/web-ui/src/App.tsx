@@ -58,14 +58,10 @@ export default function App() {
                     <Route path="info/*" element={<MediaInfoPage />} />
                     <Route path="collections" element={<MediaCollectionsListPage />} />
                     <Route path="collection/*" element={<MediaCollectionInfoPage />} />
+                    <Route path="read/*" element={<MediaReadGalleryPage />} />
                     <Route path="watch/*" element={<MediaWatchVideoPage />} />
                     {/* see below */}
                     {/* <Route path="read/*" element={<MediaReadGalleryPage />} />*/}
-                </Route>
-            </Route>
-            <Route element={<MainLayout heightAware title={title} /> }>
-                <Route path="media">
-                    <Route path="read/*" element={<MediaReadGalleryPage />} />
                 </Route>
             </Route>
             <Route path="*" element={<NotFound />} />
