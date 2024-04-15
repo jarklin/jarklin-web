@@ -58,7 +58,7 @@ function ReadGalleryPageContent({ media }: ContentProps) {
             </Fragment>)}
         </div>
         <ScrollToTopButton />
-        <EndExitButton />
+        <ExitButton />
     </>;
 }
 
@@ -161,15 +161,18 @@ function ScrollToTopButton() {
 }
 
 
-function EndExitButton() {
+function ExitButton() {
     const navigate = useNavigate();
-    const [end, setEnd] = useState(false);
+    const [visible, setVisible] = useState(false);
 
     useEffect(() => {
         const controller = new AbortController();
 
         window.addEventListener("scroll", () => {
-            setEnd((window.innerHeight + window.scrollY) >= document.body.offsetHeight);
+            setVisible(
+                document.body.scrollTop > OFFSETSCROLLTOP
+                || document.documentElement.scrollTop > OFFSETSCROLLTOP,
+            );
         });
 
         return () => controller.abort();
@@ -178,7 +181,7 @@ function EndExitButton() {
     return <>
         <button title="Back" className="fixed bottom-2 right-1 bg-accent/50 grid place-content-center p-2 rounded-full transition-opacity" onClick={() => {
             navigate(-1);
-        }} style={{opacity: end ? "100%" : "0%"}}>
+        }} style={{opacity: visible ? "100%" : "0%"}}>
             <ArrowLeftIcon />
         </button>
     </>;
