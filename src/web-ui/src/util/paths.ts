@@ -11,13 +11,19 @@ export function getSource(path: string): string {
     return optimize ? `${url}?optimize` : url;
 }
 
+
+export function getCacheUrl(path: string, resource: string): string {
+    return `${ROOT}/.jarklin/cache/${encodePath(path)}/${encodePath(resource)}`;
+}
+
+
 export function getPreviewImage(path: string, n?: number): string {
     return (n === undefined
-        ? `${ROOT}/.jarklin/cache/${encodePath(path)}/preview.webp`
-        : `${ROOT}/.jarklin/cache/${encodePath(path)}/previews/${n}.webp`
+        ? getCacheUrl(path, `preview.webp`)
+        : getCacheUrl(path, `previews/${n}.webp`)
     );
 }
 
 export function getAnimatedPreview(path: string): string {
-    return `${ROOT}/.jarklin/cache/${encodePath(path)}/animated.webp`;
+    return getCacheUrl(path, `animated.webp`)
 }
