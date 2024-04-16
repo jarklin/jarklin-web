@@ -18,7 +18,8 @@ export default function SimpleLayout(props: Props) {
         <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
             <div className="flex flex-col h-screen">
                 <NavBar title={props.title} />
-                <main className="grow">
+                {/* don't ask why. but this h-1 is necessary for children to use h-full */}
+                <main className="h-1 grow">
                     {/* error in requests or so */}
                     <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
                         <Suspense fallback={<LoadingSpinner className="h-full" />}>
