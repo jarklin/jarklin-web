@@ -7,17 +7,12 @@ import NavBar from "./NavBar.tsx";
 import Footer from "../MainLayout/Footer.tsx";
 
 
-interface Props {
-    title: string
-}
-
-
-export default function SimpleLayout(props: Props) {
+export default function SimpleLayout() {
     return <>
         {/* fatal error */}
         <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
             <div className="flex flex-col h-screen">
-                <NavBar title={props.title} />
+                <NavBar />
                 {/* don't ask why. but this h-1 is necessary for children to use h-full */}
                 <main className="h-1 grow">
                     {/* error in requests or so */}
