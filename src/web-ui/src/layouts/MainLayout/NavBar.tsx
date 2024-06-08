@@ -6,12 +6,7 @@ import {useMemo} from "react";
 import jarklinIconSrc from "~/assets/jarklin.svg";
 
 
-interface Props {
-    title: string
-}
-
-
-export default function PageNavBar(props: Props) {
+export default function PageNavBar() {
     const avatar = useMemo(() => createAvatar( "⚙", undefined, "black"), []);
 
     return <>
@@ -23,7 +18,7 @@ export default function PageNavBar(props: Props) {
             <Link to="/">
                 <img className="h-8 rounded-md" src={jarklinIconSrc} alt="" />
             </Link>
-            <div className="grow grid place-content-center text-2xl">{props.title}</div>
+            <div className="grow" />
             <Link to="/search">
                 <ScanSearchIcon className="w-8 h-8 rounded-md" />
             </Link>

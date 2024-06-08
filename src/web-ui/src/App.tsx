@@ -27,7 +27,6 @@ import MediaWatchVideoPage from "~/pages/media/watch";
 
 export default function App() {
     const { pathname } = useLocation();
-    const title = titleMap[pathname] ?? "";
 
     useEffect(() => {
         document.documentElement.scrollTo({ top: 0, behavior: "instant" });
@@ -36,13 +35,13 @@ export default function App() {
     return <>
         <ScrollProgressFix />
         <Routes key={pathname}>
-            <Route element={<SimpleLayout title={title} />}>
+            <Route element={<SimpleLayout />}>
                 <Route path="auth">
                     <Route path="login" element={<LoginPage />} />
                     <Route path="logout" element={<LogoutPage />} />
                 </Route>
             </Route>
-            <Route element={<MainLayout title={title} />}>
+            <Route element={<MainLayout />}>
                 <Route index element={<HomePage />} />
                 <Route path="search" element={<SearchPage />} />
                 <Route path="tags" element={<TagsPage />} />
@@ -68,13 +67,3 @@ export default function App() {
         </Routes>
     </>;
 }
-
-
-const titleMap: Record<string, string | undefined> = {
-    "/": "Home",
-    "/auth/login": "Login",
-    "/auth/logout": "Logout",
-    "/panel/settings": "Settings",
-    "/panel/problems": "Problems",
-    "/panel/stats": "Statistics",
-};
