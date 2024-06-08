@@ -1,10 +1,9 @@
 import {Link, useSearchParams} from "react-router-dom";
-import {encodePath, seededRandom, shuffled} from "~/util";
+import {encodePath, seededRandom, shuffled, sortBy} from "~/util";
 import MediaCard from "src/components/MediaCard";
 import usePagination from "~/hooks/usePagination.tsx";
 import useMedia from "~/hooks/useMedia.ts";
 import {useMemo} from "react";
-import sortBy from "sort-by";
 import * as filtersFunctions from "./filters.ts";
 import FlexGrid from "~/components/FlexGrid.tsx";
 
@@ -41,7 +40,7 @@ export default function MediaListPage() {
         } else if (sortValues.includes("__random__")) {
             return shuffled(mediaList, seededRandom());
         } else {
-            return [...mediaList].sort(sortBy(...sortValues, (_, v) => typeof v === "string" ? v.toLowerCase() : v));
+            return [...mediaList].sort(sortBy(...sortValues));
         }
     }, [mediaList, sortValues]);
 
