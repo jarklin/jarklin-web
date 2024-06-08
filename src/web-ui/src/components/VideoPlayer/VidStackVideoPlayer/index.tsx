@@ -32,7 +32,7 @@ export default function VidStackVideoPlayer(props: Props) {
             autoPlay src={getSource(media.path)}
             title={media.displayName}
             viewType="video" streamType="on-demand" load="eager"
-            storage="vidstack"
+            // storage="vidstack"  // prevents jumps via currentTime
             duration={media.meta.duration}
             currentTime={parseFloat(searchParams.get("initialTime") ?? "0")}
             keyTarget="document"  // maybe player but document seems better for now
