@@ -10,29 +10,27 @@ export function sortBy<T extends object> (...attributes: string[]) {
         return typeof value === 'string' ? value.toLowerCase() : value;
     }
 
-    function getByKey<T>(obj: T, key: string) {
-        const attributePath = key.split('.');
-        let returnValue: any = obj;
+    function getByAttributePath<T>(obj: T, path: string) {
+        const attributePath = path.split('.');
+        let value: any = obj;
         for (const attribute of attributePath) {
-            returnValue = returnValue[attribute];
+            value = value[attribute];
         }
-        return returnValue;
+        return value;
     }
 
-    function compareByProperty (arg: string) {
-        let attributePath: string = arg;
+    function compareByProperty (key: string) {
+        let attributePath: string = key;
         let sortOrder = 1;  // ascending
-        if (arg.startsWith('-')) {
+        if (key.startsWith('-')) {
             sortOrder = -1;  // descending
-            attributePath = arg.substring(1);
+            attributePath = key.substring(1);
         }
         return function (a: T, b: T) {
-            let va = prepareValue(getByKey(a, attributePath));
-            const vb = prepareValue(getByKey(b, attributePath));
-            if (va < vb)
-                return -sortOrder;
-            if (va > vb)
-                return +sortOrder;
+            const valueA = prepareValue(getByAttributePath(a, attributePath));
+            const valueB = prepareValue(getByAttributePath(b, attributePath));
+            if (valueA < valueB) return -sortOrder;
+            if (valueA > valueB) return +sortOrder;
             return 0;
         }
     }
