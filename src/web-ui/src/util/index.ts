@@ -6,4 +6,5 @@ export * from "./globalState.ts";
 export * from "./paths.ts";
 export * from "./itertools.ts";
 export * from "./random.ts";
+export * from "./sort-by.ts";
 export * from "./vtt.ts";
