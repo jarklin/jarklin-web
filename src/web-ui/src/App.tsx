@@ -1,5 +1,6 @@
 import {Routes, Route, useLocation, Navigate} from "react-router-dom";
 import {useEffect} from "react";
+import {useBetterPageTitle} from "~/hooks/useBetterPageTitle.ts";
 
 import ScrollProgressFix from "~/components/ScrollProgressFix.tsx";
 import NotFound from "~/pages/404.tsx";
@@ -28,6 +29,8 @@ import MediaWatchVideoPage from "~/pages/media/watch";
 export default function App() {
     const { pathname } = useLocation();
 
+    useBetterPageTitle();
+
     useEffect(() => {
         document.documentElement.scrollTo({ top: 0, behavior: "instant" });
     }, [pathname]);
@@ -40,6 +43,7 @@ export default function App() {
                     <Route path="login" element={<LoginPage />} />
                     <Route path="logout" element={<LogoutPage />} />
                 </Route>
+                {/*<Route path="*" element={<NotFound />} />*/}
             </Route>
             <Route element={<MainLayout />}>
                 <Route index element={<HomePage />} />
@@ -62,8 +66,8 @@ export default function App() {
                     {/* see below */}
                     {/* <Route path="read/*" element={<MediaReadGalleryPage />} />*/}
                 </Route>
+                <Route path="*" element={<NotFound />} />
             </Route>
-            <Route path="*" element={<NotFound />} />
         </Routes>
     </>;
 }
