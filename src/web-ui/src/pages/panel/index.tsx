@@ -15,7 +15,7 @@ export default function ConfigPage() {
             <div className="flex justify-center gap-4 p-2">
                 {links.map((link, i) => <React.Fragment key={link.href}>
                     {i !== 0 && <div className="bg-accent/20 w-px h-5 my-auto" />}
-                    <NavLink className="group p-1 [&.active>span]:bg-accent-light [&.active>span]:max-w-full" to={link.href}>
+                    <NavLink className="group p-1 font-bold [&.active>span]:bg-accent-light [&.active>span]:max-w-full" to={link.href}>
                         {link.label}
                         <span className="block mx-auto max-w-0 group-hover:max-w-full transition-[max-width] h-px bg-accent" />
                     </NavLink>

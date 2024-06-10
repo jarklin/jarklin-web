@@ -9,14 +9,14 @@ export default function PageNavBar() {
         <header className="bg-primary-light p-1 flex gap-2 items-stretch content-baseline">
             {/* @ts-expect-error useNavigate() allows -1 to go back */}
             <Link to={-1}>
-                <ArrowLeftIcon className="w-8 h-8 rounded-md" />
+                <ArrowLeftIcon className="size-8 rounded-md" />
             </Link>
             <Link to="/">
-                <img className="h-8 rounded-md" src={jarklinIconSrc} alt="" />
+                <img className="size-8 rounded-md" src={jarklinIconSrc} alt="" />
             </Link>
             <div className="grow" />
             <Link to="/search">
-                <ScanSearchIcon className="w-8 h-8 rounded-md" />
+                <ScanSearchIcon className="size-8 rounded-md" />
             </Link>
             <Link to="/panel/">
                 <SettingsIcon className="size-8 rounded-full" />

@@ -9,7 +9,7 @@ export default function ConfigSettingsPage() {
     const apiConfig = useApiConfig();
 
     return <>
-        <h1 className="text-2xl">Settings</h1>
+        <h1 className="text-2xl font-bold">Settings</h1>
         <SettingVideoPlayer />
         {apiConfig.allows_optimization && <SettingOptimization />}
         <div className="grow"/>
