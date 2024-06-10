@@ -7,10 +7,13 @@ export function useBetterPageTitle() {
 
     useEffect(() => {
         const fixedName = titleMap[pathname];
-        console.log({pathname});
         if (fixedName !== undefined) {
             document.title = `Jarklin - ${fixedName}`;
             return
+        }
+        if (dynamicTitleOn.findIndex(head => pathname.startsWith(head)) === -1) {
+            document.title = `Jarklin`;
+            return;
         }
         const lastPathPart = pathname.replace(/\/$/, "").split("/").pop();
         if (lastPathPart === undefined) {
@@ -22,6 +25,9 @@ export function useBetterPageTitle() {
     }, [pathname]);
 }
 
+const dynamicTitleOn: string[] = [
+    "/media/",
+]
 
 const titleMap: Record<string, string | undefined> = {
     "/": "Home",
@@ -31,5 +37,6 @@ const titleMap: Record<string, string | undefined> = {
     "/panel/problems": "Problems",
     "/panel/stats": "Statistics",
     "/media/list": "Media",
+    "/media/collections": "Collections",
     "/tags": "Tags",
 };
