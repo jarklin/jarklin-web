@@ -50,12 +50,12 @@ export default function MediaVideoInfo({ video }: { video: VideoMediaEntry }) {
             </Link>
         </div>
         <div className="flex px-[2vw] gap-[5vw] min-h-[35vh]">
-            <div className="h-[35vh]">
-                <Image className="mx-auto h-full rounded-md object-contain" src={getPreviewImage(video.path)} />
+            <div className="h-[35vh] max-w-[40%] grid place-content-center">
+                <Image className="max-w-full max-h-full m-auto rounded-md object-contain" src={getPreviewImage(video.path)} />
             </div>
             <div className="grow text-xs">
-                <p className="text-xl font-bold">{video.displayName}</p>
-                <div className="grid gap-x-2 gap-y-1 grid-cols-kv odd:[&>*]:font-semibold">
+                <p className="mt-2 mb-4 text-xl font-bold text-accent-light break-words">{video.displayName}</p>
+                <div className="grid gap-x-2 gap-y-1 grid-cols-kv odd:[&>*]:font-semibold even:[&>*]:break-words">
                     <span>Path</span>
                     <span>{video.path}</span>
                     <span>Features</span>
@@ -86,7 +86,7 @@ export default function MediaVideoInfo({ video }: { video: VideoMediaEntry }) {
                     search: new URLSearchParams({ initialTime: scene.startTime.toString() }).toString(),
                 }}>
                     <Image className="block aspect-video h-video-sm object-cover" src={getPreviewImage(video.path, i + 1)} />
-                    <p className="text-sm px-1">{scene.title}</p>
+                    <p className="px-1 text-sm text-accent">{scene.title}</p>
                 </Link>
             ))}
         </VerticalScrollArea>

@@ -79,9 +79,9 @@ export default function ConfigStatsPage() {
     return <>
         <div className="grid grid-cols-[auto,1fr] gap-4">
             {categories.map(category => <>
-                <div className="col-span-2 text-xl">{category.category}</div>
+                <div className="col-span-2 text-xl font-bold text-accent-light">{category.category}</div>
                 {category.stats.map(stat => <>
-                    <div className="ml-2">{stat.label}:</div>
+                    <div className="ml-2 font-bold">{stat.label}:</div>
                     <div>{stat.value}</div>
                 </>)}
             </>)}
