@@ -40,6 +40,7 @@ export default function App() {
                     <Route path="login" element={<LoginPage />} />
                     <Route path="logout" element={<LogoutPage />} />
                 </Route>
+                {/*<Route path="*" element={<NotFound />} />*/}
             </Route>
             <Route element={<MainLayout />}>
                 <Route index element={<HomePage />} />
@@ -62,8 +63,8 @@ export default function App() {
                     {/* see below */}
                     {/* <Route path="read/*" element={<MediaReadGalleryPage />} />*/}
                 </Route>
+                <Route path="*" element={<NotFound />} />
             </Route>
-            <Route path="*" element={<NotFound />} />
         </Routes>
     </>;
 }
