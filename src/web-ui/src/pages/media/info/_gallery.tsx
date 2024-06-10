@@ -45,12 +45,12 @@ export default function MediaGalleryInfo({ gallery }: { gallery: GalleryMediaEnt
             </Link>
         </div>
         <div className="flex px-[2vw] gap-[5vw] min-h-[35vh]">
-            <div className="h-[35vh]">
-                <Image className="mx-auto h-full rounded-md object-contain" src={getPreviewImage(gallery.path)} />
+            <div className="h-[35vh] max-w-[40%] grid place-content-center">
+                <Image className="max-w-full max-h-full m-auto rounded-md object-contain" src={getPreviewImage(gallery.path)} />
             </div>
             <div className="grow text-xs">
-                <p className="text-xl font-bold">{gallery.displayName}</p>
-                <div className="grid gap-x-2 gap-y-1 grid-cols-kv odd:[&>*]:font-semibold">
+                <p className="mt-2 mb-4 text-xl font-bold text-accent-light break-words">{gallery.displayName}</p>
+                <div className="grid gap-x-2 gap-y-1 grid-cols-kv odd:[&>*]:font-semibold even:[&>*]:break-words">
                     <span>Path</span>
                     <span>{gallery.path}</span>
                     <span>Images</span>
