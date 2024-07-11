@@ -9,6 +9,7 @@ import type {GalleryMediaEntry} from "~/types/media.ts";
 import useFullScreen from "~/hooks/useFullScreen.ts";
 import Image from "~/components/Image.tsx";
 import {twMerge} from "tailwind-merge";
+import useGlobalState from "~/hooks/useGlobalState.ts";
 
 
 const OFFSETSCROLLTOP = 50;
@@ -70,12 +71,13 @@ interface ImageProps {
 
 
 function PreviewedImage({ media, image, i }: ImageProps) {
+    const [optimized] = useGlobalState("optimization", false);
     const [failed, setFailed] = useState(false);
     // first load the preview-image as "low resolution" and then the original
     const [lowResLoaded, setLowResLoaded] = useState(false);
     const [highResLoaded, setHighResLoaded] = useState(false);
 
-    const highResSrc = getSource(`${media.path}/${image.filename}`);
+    const highResSrc = getSource(`${media.path}/${image.filename}`) + (optimized ? "?optimize=true" : "");
     const lowResSrc = getPreviewImage(media.path, i + 1);
 
     if (failed) {
