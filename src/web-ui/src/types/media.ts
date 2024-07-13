@@ -33,6 +33,8 @@ export type MediaEntry = VideoMediaEntry | GalleryMediaEntry
 
 interface RawVideoMeta {
     type: "video"
+    filename: string
+    mimetype: string
     width: number
     height: number
     duration: number
@@ -68,6 +70,7 @@ interface RawGalleryMeta {
     n_previews: number
     images: Array<{
         filename: string
+        mimetype: string
         ext: string
         width: number
         height: number

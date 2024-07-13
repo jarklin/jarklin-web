@@ -1,13 +1,13 @@
 import {useQuery} from "react-query";
 import axios from "axios";
-import type { ApiConfig } from "~/types";
+import type { ServerConfig } from "~/types";
 
 
-export default function useApiConfig(): ApiConfig {
+export default function useApiConfig(): ServerConfig {
     const query = useQuery(
         ["api", "config"],
         ({ signal }) => axios
-            .get<ApiConfig>("/api/config", { signal })
+            .get<ServerConfig>("/api/config", { signal })
             .then(r => r.data),
         { refetchOnMount: false, suspense: true },
     );
