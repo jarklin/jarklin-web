@@ -6,6 +6,7 @@ import {encodePath, getBasename, getParentPath} from "~/util";
 import MediaCard from "~/components/MediaCard";
 import {MediaEntry} from "~/types";
 import {useMemo} from "react";
+import usePagination from "~/hooks/usePagination.tsx";
 
 export default function ExplorerPage() {
     const { "*": rawPath } = useParams();
@@ -32,6 +33,8 @@ export default function ExplorerPage() {
         [mediaList, pathParts],
     );
 
+    const pagination = usePagination(media);
+
     return <>
         <div className="pl-1 pr-2 p-2 flex gap-x-2">
             <Link className="bg-primary-light rounded-full p-1" to={`/explorer/${getParentPath(path, true)}`}>
@@ -47,11 +50,12 @@ export default function ExplorerPage() {
             ))}
         </div>}
         {!!media.length && <FlexGrid>
-            {media.map(entry => (
+            {pagination.values.map(entry => (
                 <Link key={entry.path} to={`/media/info/${encodePath(entry.path)}`} className="grow shrink h-mixed transition-transform hover:scale-105">
                     <MediaCard className="size-full" key={entry.path} media={entry} />
                 </Link>
             ))}
         </FlexGrid>}
+        {pagination.component}
     </>;
 }
