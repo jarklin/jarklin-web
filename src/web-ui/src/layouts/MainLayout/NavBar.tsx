@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
-import {useIsFetching} from "react-query";
 import {ArrowLeftIcon, ScanSearchIcon, SettingsIcon} from "lucide-react";
 import jarklinIconSrc from "~/assets/jarklin.svg";
+import BackgroundQueryIndicator from "~/layouts/MainLayout/BackgroundQueryIndicator.tsx";
 
 
 export default function PageNavBar() {
@@ -24,16 +24,4 @@ export default function PageNavBar() {
         </header>
         <BackgroundQueryIndicator />
     </>;
-}
-
-function BackgroundQueryIndicator() {
-    const isFetching = useIsFetching();
-
-    if (!isFetching) {
-        return null;
-    }
-
-    return <div className="overflow-hidden">
-        <div className="h-px bg-accent-light w-1/3 animate-anything-is-loading" />
-    </div>;
 }
