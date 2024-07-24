@@ -8,7 +8,7 @@ interface Props extends PropsWithChildren {
 
 
 export default function FlexGrid(props: Props) {
-    return <div className={twMerge("flex flex-wrap gap-4 p-2 items-stretch justify-between md:after:grow-[100]", props.className)}>
+    return <div className={twMerge("flex flex-wrap gap-4 p-2 items-stretch justify-between lg:after:grow-[100]", props.className)}>
         {props.children}
     </div>;
 }
