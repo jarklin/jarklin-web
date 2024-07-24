@@ -33,7 +33,7 @@ export default function ExplorerPage() {
     );
 
     return <>
-        <div className="pl-1 pr-2 pt-2 flex gap-x-2">
+        <div className="pl-1 pr-2 p-2 flex gap-x-2">
             <Link className="bg-primary-light rounded-full p-1" to={`/explorer/${getParentPath(path, true)}`}>
                 <ArrowUpFromDotIcon />
             </Link>
@@ -41,11 +41,11 @@ export default function ExplorerPage() {
                 {rawPath}
             </p>
         </div>
-        {!!directories.length && <FlexGrid>
+        {!!directories.length && <div className="flex px-2 gap-2">
             {directories.map(path => (
                 <Link key={path} to={`/explorer/${path}/`} className="bg-accent hocus:bg-accent-light text-black p-2 rounded-lg">{getBasename(path)}</Link>
             ))}
-        </FlexGrid>}
+        </div>}
         {!!media.length && <FlexGrid>
             {media.map(entry => (
                 <Link key={entry.path} to={`/media/info/${encodePath(entry.path)}`} className="grow shrink h-mixed transition-transform hover:scale-105">
