@@ -2,7 +2,7 @@ import {Link, useParams} from "react-router-dom";
 import useMedia from "~/hooks/useMedia.ts";
 import {ArrowUpFromDotIcon} from "lucide-react";
 import FlexGrid from "~/components/FlexGrid.tsx";
-import {encodePath} from "~/util";
+import {encodePath, getBasename, getParentPath} from "~/util";
 import MediaCard from "~/components/MediaCard";
 import {MediaEntry} from "~/types";
 import {useMemo} from "react";
@@ -21,20 +21,20 @@ export default function ExplorerPage() {
 
     const directories: string[] = useMemo(
         () => allTags
-                .filter(tag => !pageTag.length ? tag.indexOf("|") === -1 : tag.startsWith(pageTag + "|"))
-                .map(tag => tag.replace("|", "/")),
+                .map(tag => tag.replace("|", "/"))
+                .filter(p => getParentPath(p, false) == path),
         [allTags, pageTag],
     );
 
     const media: MediaEntry[] = useMemo(
         () => mediaList
-                .filter(media => media.path.slice(0, media.path.lastIndexOf("/")) == path),
+                .filter(media => getParentPath(media.path, false) == path),
         [mediaList, pathParts],
     );
 
     return <>
-        <div className="p-1 flex gap-x-2">
-            <Link className="bg-primary-light rounded-full p-1" to={`/explorer/${pathParts.slice(0, pathParts.length-1).join("/")}/`}>
+        <div className="pl-1 pr-2 pt-2 flex gap-x-2">
+            <Link className="bg-primary-light rounded-full p-1" to={`/explorer/${getParentPath(path, true)}`}>
                 <ArrowUpFromDotIcon />
             </Link>
             <p className="bg-primary-light px-1 rounded-md grow grid items-center">
@@ -43,7 +43,7 @@ export default function ExplorerPage() {
         </div>
         {!!directories.length && <FlexGrid>
             {directories.map(path => (
-                <Link key={path} to={`/explorer/${path}/`} className="bg-accent hocus:bg-accent-light text-black p-2 rounded-lg">{path.slice(path.lastIndexOf("/")+1)}</Link>
+                <Link key={path} to={`/explorer/${path}/`} className="bg-accent hocus:bg-accent-light text-black p-2 rounded-lg">{getBasename(path)}</Link>
             ))}
         </FlexGrid>}
         {!!media.length && <FlexGrid>
