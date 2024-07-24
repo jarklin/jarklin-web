@@ -24,6 +24,7 @@ import MediaCollectionsListPage from "~/pages/media/collection";
 import MediaCollectionInfoPage from "~/pages/media/collection/info.tsx";
 import MediaReadGalleryPage from "~/pages/media/read";
 import MediaWatchVideoPage from "~/pages/media/watch";
+import ExplorerPage from "~/pages/explorer";
 
 
 export default function App() {
@@ -66,6 +67,7 @@ export default function App() {
                     {/* see below */}
                     {/* <Route path="read/*" element={<MediaReadGalleryPage />} />*/}
                 </Route>
+                <Route path="explorer/*" element={<ExplorerPage />} />
                 <Route path="*" element={<NotFound />} />
             </Route>
         </Routes>

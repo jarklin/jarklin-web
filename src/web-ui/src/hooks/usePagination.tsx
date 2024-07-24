@@ -8,7 +8,7 @@ interface Configuration {
     scrollReset: boolean
 }
 const defaultOptions: Configuration = {
-    pageSize: 24,  // "best" page size for different numbers of rows
+    pageSize: 48,  // "best" page size for different numbers of rows
     pageDiff: 2,
     scrollReset: true,
 };
@@ -51,13 +51,17 @@ export default function usePagination<T>(values: T[], config?: Config) {
                 <div className="flex justify-center py-1 gap-4">
                     {!recommendedPages.includes(1) && <>
                         <button className="p-2" onClick={() => setPage(1)}>1</button>
-                        <p className="cursor-default py-2">...</p>
+                        {!recommendedPages.includes(2) && <>
+                            <p className="cursor-default py-2">...</p>
+                        </>}
                     </>}
                     {recommendedPages.map(recommendedPage => (
                         <button key={recommendedPage} className="p-2 disabled:underline" disabled={pageNumber === recommendedPage} onClick={() => setPage(recommendedPage)}>{recommendedPage}</button>
                     ))}
                     {!recommendedPages.includes(totalPages) && <>
-                        <p className="cursor-default py-2">...</p>
+                        {!recommendedPages.includes(totalPages - 1) && <>
+                            <p className="cursor-default py-2">...</p>
+                        </>}
                         <button className="p-2" onClick={() => setPage(totalPages)}>{totalPages}</button>
                     </>}
                 </div>

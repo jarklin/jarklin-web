@@ -1,9 +1,10 @@
 import {Fragment} from "react";
-import {homeEntries} from "~/pages/home/entries.ts";
+import {homeEntries} from "./entries.ts";
 import SectionSeparator from "~/components/Section/Separator.tsx";
-import HomepageCollections from "~/pages/home/collections.tsx";
-import HomepageTopTags from "~/pages/home/tags.tsx";
-import HomepageFeed from "~/pages/home/feed.tsx";
+import HomepageCollections from "./collections.tsx";
+import HomepageTopTags from "./tags.tsx";
+import HomepageFeed from "./feed.tsx";
+import HomepageExplorerLink from "./explorer.tsx";
 
 
 export default function HomePage() {
@@ -14,5 +15,7 @@ export default function HomePage() {
         <HomepageCollections />
         <SectionSeparator />
         <HomepageTopTags />
+        <SectionSeparator />
+        <HomepageExplorerLink />
     </div>;
 }

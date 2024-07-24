@@ -27,6 +27,7 @@ export function useBetterPageTitle() {
 
 const dynamicTitleOn: string[] = [
     "/media/",
+    "/explorer/",
 ]
 
 const titleMap: Record<string, string | undefined> = {
