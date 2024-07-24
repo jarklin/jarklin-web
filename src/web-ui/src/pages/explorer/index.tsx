@@ -22,7 +22,7 @@ export default function ExplorerPage() {
 
     const directories: string[] = useMemo(
         () => allTags
-                .map(tag => tag.replace("|", "/"))
+                .map(tag => tag.replace(/\|/g, "/"))
                 .filter(p => getParentPath(p, false) == path),
         [allTags, pageTag],
     );
