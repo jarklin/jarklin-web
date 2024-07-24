@@ -11,7 +11,7 @@ export function extractTags(path: string): string[] {
     const tags: string[] = [];
 
     // split by '/'|'\'
-    const parts = path.split(/[/\\]/g).filter(p => !!p.length);
+    const parts = path.split(/[/\\]+/g).filter(p => !!p.length);
 
     // // every element is added once (except the filename and folder name (last part))
     // tags.push(...parts.slice(0, parts.length - 2));
