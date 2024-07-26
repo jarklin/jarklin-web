@@ -1,5 +1,4 @@
 import jarklinIconSrc from "~/assets/jarklin.svg";
-import BackgroundQueryIndicator from "~/layouts/MainLayout/BackgroundQueryIndicator.tsx";
 
 
 export default function PageNavBar() {
@@ -8,6 +7,5 @@ export default function PageNavBar() {
             <img className="h-8 rounded-md" src={jarklinIconSrc} alt="" />
             <div className="grow" />
         </header>
-        <BackgroundQueryIndicator />
     </>;
 }
