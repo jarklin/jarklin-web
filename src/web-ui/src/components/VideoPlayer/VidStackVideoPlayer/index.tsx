@@ -1,7 +1,8 @@
 import "@vidstack/react/player/styles/default/theme.css";
 import "@vidstack/react/player/styles/default/layouts/video.css";
 import {twMerge} from "tailwind-merge";
-import {MediaPlayer, MediaProvider, type ThumbnailImageInit} from "@vidstack/react";
+import {MediaPlayer, MediaProvider} from "@vidstack/react";
+import type { ThumbnailSrc } from "@vidstack/react/types/vidstack.d.ts";
 import { defaultLayoutIcons, DefaultVideoLayout } from "@vidstack/react/player/layouts/default";
 import type {VideoMediaEntry} from "~/types/media.ts";
 import {getSource} from "~/util";
@@ -21,7 +22,7 @@ export default function VidStackVideoPlayer(props: Props) {
     const [searchParams] = useSearchParams();
     const { media } = props;
 
-    const thumbnails = useMemo<ThumbnailImageInit[]>(
+    const thumbnails = useMemo<ThumbnailSrc>(
         () => extractChapterInformation(media),
         [media],
     );
