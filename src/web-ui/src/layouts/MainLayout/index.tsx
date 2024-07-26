@@ -4,6 +4,7 @@ import {ErrorBoundary} from "react-error-boundary";
 import {ErrorBoundaryFallback} from "~/components/ErrorBoundaryFallback.tsx";
 import LoadingSpinner from "~/components/LoadingSpinner.tsx";
 import NavBar from "./NavBar.tsx";
+import BackgroundQueryIndicator from "~/layouts/common/BackgroundQueryIndicator.tsx";
 import Footer from "../common/Footer.tsx";
 
 
@@ -13,6 +14,7 @@ export default function MainLayout() {
         <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>
             <div className="min-h-screen grid grid-rows-[auto,auto,1fr,auto]">
                 <NavBar />
+                <BackgroundQueryIndicator />
                 <main className="w-screen">
                     {/* error in requests or so */}
                     <ErrorBoundary FallbackComponent={ErrorBoundaryFallback}>

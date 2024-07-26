@@ -1,7 +1,6 @@
 import {Link} from "react-router-dom";
 import {ArrowLeftIcon, ScanSearchIcon, SettingsIcon} from "lucide-react";
 import jarklinIconSrc from "~/assets/jarklin.svg";
-import BackgroundQueryIndicator from "~/layouts/MainLayout/BackgroundQueryIndicator.tsx";
 
 
 export default function PageNavBar() {
@@ -22,6 +21,5 @@ export default function PageNavBar() {
                 <SettingsIcon className="size-8 rounded-full" />
             </Link>
         </header>
-        <BackgroundQueryIndicator />
     </>;
 }
