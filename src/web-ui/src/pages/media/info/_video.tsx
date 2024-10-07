@@ -29,17 +29,17 @@ export default function MediaVideoInfo({ video }: { video: VideoMediaEntry }) {
 
     const videoFeatures = useMemo(() => [
         video.meta.video_streams.length
-            ? <span title="Has Video"><VideoIcon className="size-5" /></span>
-            : <span title="No Video"><VideoOffIcon className="size-5" /></span>,
+            ? <span key="video" title="Has Video"><VideoIcon className="size-5" /></span>
+            : <span key="video" title="No Video"><VideoOffIcon className="size-5" /></span>,
         video.meta.audio_streams.length
-            ? <span title="Has Audio"><Volume2Icon className="size-5" /></span>
-            : <span title="No Audio"><VolumeXIcon className="size-5" /></span>,
+            ? <span key="audio" title="Has Audio"><Volume2Icon className="size-5" /></span>
+            : <span key="audio" title="No Audio"><VolumeXIcon className="size-5" /></span>,
         video.meta.subtitles.length
-            ? <span title="Has Captions"><CaptionsIcon className="size-5" /></span>
-            : <span title="No Captions"><CaptionsOffIcon className="size-5" /></span>,
+            ? <span key="captions" title="Has Captions"><CaptionsIcon className="size-5" /></span>
+            : <span key="captions" title="No Captions"><CaptionsOffIcon className="size-5" /></span>,
         video.meta.chapters.length
-            ? <span title="Has Chapters"><BookmarkIcon className="size-5" /></span>
-            : <span title="No Chapters"><BookmarkXIcon className="size-5" /></span>,
+            ? <span key="chapters" title="Has Chapters"><BookmarkIcon className="size-5" /></span>
+            : <span key="chapters" title="No Chapters"><BookmarkXIcon className="size-5" /></span>,
     ], [video]);
 
     return <>
