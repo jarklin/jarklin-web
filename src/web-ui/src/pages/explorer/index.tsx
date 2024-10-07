@@ -44,7 +44,7 @@ export default function ExplorerPage() {
                 {rawPath}
             </p>
         </div>
-        {!!directories.length && <div className="flex px-2 gap-2">
+        {!!directories.length && <div className="flex flex-wrap px-2 gap-2">
             {directories.map(path => (
                 <Link key={path} to={`/explorer/${path}/`} className="bg-accent hocus:bg-accent-light text-black p-2 rounded-lg">{getBasename(path)}</Link>
             ))}
