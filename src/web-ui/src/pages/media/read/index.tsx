@@ -102,7 +102,7 @@ function PreviewedImage({ media, image, i }: ImageProps) {
             className="hidden"
             src={highResSrc}
             alt=""
-            loading="lazy"
+            // loading="lazy"  // images are somehow not loaded if hidden and lazy
             onLoad={() => {
                 setHighResLoaded(true);
             }}
