@@ -18,15 +18,15 @@
     "humanize-duration": "^3.32.1",
     "humanize-plus": "^1.8.2",
     "js-search": "^2.0.1",
-    "lucide-react": "^0.447.0",
+    "lucide-react": "^0.453.0",
     "media-icons": "^0.10.0",
-    "random": "^4.1.0",
+    "random": "^5.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-error-boundary": "^4.0.13",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.23.1",
-    "tailwind-merge": "^2.5.3"
+    "tailwind-merge": "^2.5.4"
   },
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
@@ -46,10 +46,10 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
     "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.13",
+    "tailwindcss": "^3.4.14",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5.4.5",
-    "vite": "^5.4.8",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.9",
     "vite-tsconfig-paths": "^4.3.2"
   }
 }
