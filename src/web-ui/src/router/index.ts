@@ -28,8 +28,18 @@ const router = createRouter({
           path: "",
           name: "home",
           component: () => import("@/views/HomeView.vue")
-        }
-      ]
+        },
+        {
+          path: "panel",
+          name: "panel",
+          component: () => import("@/views/404.vue")
+        },
+        {
+          path: "search",
+          name: "search",
+          component: () => import("@/views/404.vue")
+        },
+      ],
     },
   ]
 })
