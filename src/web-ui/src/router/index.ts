@@ -1,6 +1,5 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
-import MainLayout from "@/layouts/MainLayout.vue";
-import LoginLayout from "@/layouts/LoginLayout.vue";
+import {LoginLayout, MainLayout} from "@/layouts";
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),

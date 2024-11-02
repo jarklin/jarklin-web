@@ -8,7 +8,7 @@ import jarklinIconSrc from "@/assets/jarklin-special.svg";  // special-logo. sho
 const queryClient = useQueryClient();
 const searchParams = useUrlSearchParams<{redirect?: string}>("hash");
 
-const { mutate: doLogin, isSuccess, isPending, isError, error } = useMutation({
+const { mutate: doLogin, isPending, isError, error } = useMutation({
   mutationKey: ['auth', 'login'],
   mutationFn: (formData: FormData) => axios.post("/auth/login", formData),
   onSuccess: () => {
