@@ -35,7 +35,7 @@ doLogout();
       <AlertDescription>
         <p>{{ error }}</p>
         <div class="flex gap-2 justify-evenly">
-          <router-link to="/">
+          <router-link :to="{ name: 'home' }">
             <Button size="sm" variant="secondary">
               Home
             </Button>
