@@ -1,12 +1,36 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {createRouter, createWebHashHistory} from 'vue-router'
+import MainLayout from "@/layouts/MainLayout.vue";
+import LoginLayout from "@/layouts/LoginLayout.vue";
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/auth',
+      component: LoginLayout,
+      children: [
+        {
+          path: "login",
+          name: "login",
+          component: () => import("@/views/auth/Login.vue")
+        },
+        {
+          path: "logout",
+          name: "logout",
+          component: () => import("@/views/auth/Logout.vue")
+        },
+      ],
+    },
+    {
       path: '/',
-      name: 'home',
-      component: () => import('@/views/HomeView.vue'),
+      component: MainLayout,
+      children: [
+        {
+          path: "",
+          name: "home",
+          component: () => import("@/views/HomeView.vue")
+        }
+      ]
     },
   ]
 })
