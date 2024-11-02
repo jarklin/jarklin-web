@@ -9,6 +9,14 @@ import { vite as vidstack } from "vidstack/plugins";
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: "",  // make build relative
+  server: {
+    proxy: {
+      '/files/': 'http://localhost:5000',
+      '/auth/': 'http://localhost:5000',
+      '/api/': 'http://localhost:5000',
+    }
+  },
   css: {
     postcss: {
       plugins: [tailwind(), autoprefixer()],
