@@ -14,7 +14,7 @@ const { mutate: doLogin, isPending, isError, error } = useMutation({
   onSuccess: () => {
     queryClient.removeQueries();
     router.push(searchParams.redirect ?? "/");
-  }
+  },
 });
 
 function handleSubmit(event: Event) {
