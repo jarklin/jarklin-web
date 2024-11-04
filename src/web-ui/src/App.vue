@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import {usePageTitle} from "@/composables";
+import ErrorBoundary from "@/components/ErrorBoundary.vue";
 
 usePageTitle();
 </script>
 
 <template>
-  <router-view />
+  <ErrorBoundary>
+    <router-view />
+  </ErrorBoundary>
 </template>
