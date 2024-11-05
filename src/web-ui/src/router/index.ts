@@ -11,14 +11,14 @@ const router = createRouter({
       component: LoginLayout,
       children: [
         {
-          path: "login",
+          path: 'login',
           name: "login",
-          component: import("@/views/auth/Login.vue"),
+          component: () => import("@/views/auth/Login.vue"),
         },
         {
-          path: "logout",
+          path: 'logout',
           name: "logout",
-          component: import("@/views/auth/Logout.vue"),
+          component: () => import("@/views/auth/Logout.vue"),
         },
       ],
     },
@@ -27,19 +27,36 @@ const router = createRouter({
       component: MainLayout,
       children: [
         {
-          path: "",
+          path: '',
           name: "home",
           component: HomeView,
         },
         {
-          path: "panel",
-          name: "panel",
-          component: import("@/views/404.vue"),
+          path: 'panel',
+          component: () => import("@/views/panel/Layout.vue"),
+          children: [
+            { path: '', name: "panel", redirect: { name: "settings" }, },
+            {
+              path: 'settings',
+              name: "settings",
+              component: () => import("@/views/panel/settings/SettingsView.vue"),
+            },
+            {
+              path: 'problems',
+              name: "problems",
+              component: () => import("@/views/panel/ProblemsView.vue"),
+            },
+            {
+              path: 'statistics',
+              name: "statistics",
+              component: () => import("@/views/panel/StatisticsView.vue"),
+            },
+          ],
         },
         {
-          path: "search",
+          path: 'search',
           name: "search",
-          component: import("@/views/404.vue"),
+          component: () => import("@/views/404.vue"),
         },
       ],
     },
