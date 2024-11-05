@@ -44,12 +44,12 @@ const router = createRouter({
             {
               path: 'problems',
               name: "problems",
-              component: () => import("@/views/panel/ProblemsView.vue"),
+              component: () => import("@/views/panel/problems/ProblemsView.vue"),
             },
             {
               path: 'statistics',
               name: "statistics",
-              component: () => import("@/views/panel/StatisticsView.vue"),
+              component: () => import("@/views/panel/statistics/StatisticsView.vue"),
             },
           ],
         },
