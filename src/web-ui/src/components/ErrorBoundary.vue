@@ -12,7 +12,7 @@ const props = defineProps<{
 const errorRef = ref<Error | null>(null);
 
 onErrorCaptured((err) => {
-  if (err instanceof AxiosError && err.status === HttpStatusCode.Unauthorized) {
+  if (err instanceof AxiosError && err.status === HttpStatusCode.Unauthorized && router.currentRoute.value.name !== 'login') {
     router.push({ name: 'login', query: { redirect: router.currentRoute.value.fullPath } });
     return false;
   }
