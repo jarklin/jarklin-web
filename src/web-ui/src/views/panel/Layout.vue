@@ -8,7 +8,7 @@ const subRoutes = router.getRoutes()
 </script>
 
 <template>
-  <div class="max-w-screen-lg mx-auto p-4">
+  <div class="max-w-screen-lg mx-auto p-4 h-full flex flex-col gap-y-2">
     <div class="justify-center flex flex-nowrap gap-x-2 md:gap-x-4">
       <template v-for="(route, index) in subRoutes">
         <Separator v-if="index !== 0" orientation="vertical" class="h-4 my-auto" />
