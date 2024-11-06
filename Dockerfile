@@ -6,11 +6,13 @@ COPY src/web-ui/ ./
 RUN npm clean-install
 RUN npm run build
 
-FROM nginx:stable-alpine as runtime
+FROM pierrezemb/gostatic:latest as runtime
 
 LABEL description="Jarklin - Web-UI"
 LABEL website="https://jarklin.github.io/"
 
-COPY --from=builder /code/dist/ /usr/share/nginx/html/
+COPY --from=builder /code/dist/ /srv/html/
 
 EXPOSE 80
+
+CMD ["-port", "80"]
