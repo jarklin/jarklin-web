@@ -8,25 +8,17 @@ type BasicMediaEntry = {
     ext: string
     creation_time: number
     modification_time: number
-    meta: RawVideoMeta | RawGalleryMeta
 }
 
-type ExtendedMediaEntry = BasicMediaEntry & {
-    type: "video" | "gallery"
-    displayName: string
-    tags: string[]
-    meta: RawVideoMeta | RawGalleryMeta
-}
-
-export type VideoMediaEntry = ExtendedMediaEntry & {
+export type VideoMediaEntry = Clean<BasicMediaEntry & {
     type: "video"
     meta: RawVideoMeta
-}
+}>
 
-export type GalleryMediaEntry = ExtendedMediaEntry & {
+export type GalleryMediaEntry = Clean<BasicMediaEntry & {
     type: "gallery"
     meta: RawGalleryMeta
-}
+}>
 
 export type MediaEntry = VideoMediaEntry | GalleryMediaEntry
 
@@ -81,7 +73,10 @@ export function useMediaQuery() {
         queryKey: ['.jarklin', 'media.json'],
         queryFn: ({signal}) => axios
             .get<MediaEntry[]>('/files/.jarklin/media.json', {signal})
-            .then(r => r.data),
+            .then(r => r.data.map(entry => (<MediaEntry>{
+                ...entry,
+                type: entry.meta.type,
+            }))),
         refetchOnMount: false,
         throwOnError: true,
     }));
