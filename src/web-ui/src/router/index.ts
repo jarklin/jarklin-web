@@ -32,6 +32,16 @@ const router = createRouter({
           component: HomeView,
         },
         {
+          path: 'search',
+          name: "search",
+          component: () => import("@/views/SearchView.vue"),
+        },
+        {
+          path: 'tags',
+          name: "tags",
+          component: Page404,
+        },
+        {
           path: 'panel',
           component: () => import("@/views/panel/Layout.vue"),
           children: [
@@ -54,9 +64,54 @@ const router = createRouter({
           ],
         },
         {
-          path: 'search',
-          name: "search",
-          component: () => import("@/views/SearchView.vue"),
+          path: 'media',
+          children: [
+            {
+              path: 'list',
+              name: "media-list",
+              component: Page404,
+            },
+            {
+              path: 'details/:mediaPath(.*)*',
+              name: "media-details",
+              component: Page404,
+            },
+            {
+              path: 'collections',
+              name: "collections",
+              component: Page404,
+            },
+            {
+              path: 'collection/:mediaPath(.*)*',
+              name: "collection-details",
+              component: Page404,
+            },
+            {
+              path: 'consume',
+              children: [
+                {
+                  path: 'manga/:mediaPath(.*)*',
+                  name: "consume-manga",
+                  component: Page404,
+                },
+                {
+                  path: 'slideshow/:mediaPath(.*)*',
+                  name: "consume-slideshow",
+                  component: Page404,
+                },
+                {
+                  path: 'watch/:mediaPath(.*)*',
+                  name: "consume-watch",
+                  component: Page404,
+                },
+              ],
+            },
+          ],
+        },
+        {
+          path: 'explorer/:mediaPath(.*)*',
+          name: "explorer",
+          component: Page404,
         },
       ],
     },
