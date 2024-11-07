@@ -27,7 +27,16 @@ export function getAnimatedPreview(path: string): string {
 }
 
 
-export function getParentPath(path: string, trailingSlash: boolean): string {
+export function getAllParentPaths(path: string): string[] {
+    const all = new Set<string>();
+    while (path.length) {
+        path = getParentPath(path);
+        all.add(path);
+    }
+    return [...all];
+}
+
+export function getParentPath(path: string, trailingSlash?: boolean): string {
     const lastSlash = path.lastIndexOf("/");
     return lastSlash === -1 ? "" : path.substring(0, trailingSlash ? lastSlash + 1 : lastSlash);
 }
