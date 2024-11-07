@@ -111,7 +111,7 @@ const router = createRouter({
         {
           path: 'explorer/:mediaPath(.*)*',
           name: "explorer",
-          component: Page404,
+          component: () => import("@/views/explorer/ExplorerView.vue"),
         },
       ],
     },
