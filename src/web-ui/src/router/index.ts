@@ -1,6 +1,6 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
 import {SimpleLayout, MainLayout} from "@/layouts";
-import HomeView from "@/views/HomeView.vue";
+import HomeView from "@/views/home.vue";
 import Page404 from "@/views/404.vue";
 
 const router = createRouter({
@@ -13,12 +13,12 @@ const router = createRouter({
         {
           path: 'login',
           name: "login",
-          component: () => import("@/views/auth/Login.vue"),
+          component: () => import("@/views/auth/login/index.vue"),
         },
         {
           path: 'logout',
           name: "logout",
-          component: () => import("@/views/auth/Logout.vue"),
+          component: () => import("@/views/auth/logout/index.vue"),
         },
       ],
     },
@@ -34,12 +34,12 @@ const router = createRouter({
         {
           path: 'search',
           name: "search",
-          component: () => import("@/views/SearchView.vue"),
+          component: () => import("@/views/search/index.vue"),
         },
         {
           path: 'tags',
           name: "tags",
-          component: Page404,
+          component: () => import("@/views/tags/index.vue"),
         },
         {
           path: 'panel',
@@ -49,17 +49,17 @@ const router = createRouter({
             {
               path: 'settings',
               name: "settings",
-              component: () => import("@/views/panel/settings/SettingsView.vue"),
+              component: () => import("@/views/panel/settings/index.vue"),
             },
             {
               path: 'problems',
               name: "problems",
-              component: () => import("@/views/panel/problems/ProblemsView.vue"),
+              component: () => import("@/views/panel/problems/index.vue"),
             },
             {
               path: 'statistics',
               name: "statistics",
-              component: () => import("@/views/panel/statistics/StatisticsView.vue"),
+              component: () => import("@/views/panel/statistics/index.vue"),
             },
           ],
         },
@@ -111,7 +111,7 @@ const router = createRouter({
         {
           path: 'explorer/:mediaPath(.*)*',
           name: "explorer",
-          component: () => import("@/views/explorer/ExplorerView.vue"),
+          component: () => import("@/views/explorer/index.vue"),
         },
       ],
     },
