@@ -3,12 +3,14 @@ import {LucideFolderClosed, type LucideIcon, LucideLibraryBig, LucideTag} from "
 import {Button} from "@/components/ui/button";
 import {Separator} from "@/components/ui/separator";
 import type {RouteLocationRaw} from "vue-router";
+import type {Component} from "vue";
 
 interface HomepageElement {
   displayName: string
   location: RouteLocationRaw
   icon?: LucideIcon
-  component?: string
+  component?: Component
+  props?: object
 }
 
 const homepageElements: HomepageElement[] = [
@@ -42,8 +44,8 @@ const homepageElements: HomepageElement[] = [
   <template v-for="element in homepageElements" :key="element.displayName">
     <template v-if="element.component">
       <Separator />
-      <h1>{{ element.displayName }}</h1>
-      <component :is="element.component" />
+      <h1 class="text-2xl">{{ element.displayName }}</h1>
+      <component :is="element.component" v-bind="element.props" />
     </template>
   </template>
 </template>

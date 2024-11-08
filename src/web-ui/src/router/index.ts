@@ -1,6 +1,6 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
 import {SimpleLayout, MainLayout} from "@/layouts";
-import HomeView from "@/views/home.vue";
+import HomeView from "@/views/home/index.vue";
 import Page404 from "@/views/404.vue";
 
 const router = createRouter({
