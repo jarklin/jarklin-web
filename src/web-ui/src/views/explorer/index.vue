@@ -6,14 +6,13 @@ import {getAllParentPaths, getBasename, getParentPath} from "@/lib";
 import {LucideFolder, LucideFolderUp} from "lucide-vue-next";
 import {Button} from "@/components/ui/button";
 import {MediaCard} from "@/components/composed/mediacard";
+import {useMediaPath} from "@/composables/useMediaPath";
 
 const route = useRoute();
 
 const mediaQuery = useMediaQuery();
 
-const currentLocation = computed(() => {
-  return typeof route.params.mediaPath === 'string' ? route.params.mediaPath : route.params.mediaPath[0];
-});
+const currentLocation = useMediaPath();
 
 const subDirectories = computed(() => {
   if (!mediaQuery.isSuccess) return;
