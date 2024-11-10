@@ -5,11 +5,13 @@ import { homepageElements } from "@/views/home/elements";
 </script>
 
 <template>
-  <div class="flex flex-wrap gap-2 justify-center p-2">
+  <div class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-2 justify-center p-2">
     <router-link v-for="element in homepageElements" :key="element.displayName" :to="element.location">
-      <Button variant="secondary" size="lg">
+      <Button variant="secondary" size="lg" class="w-full px-2">
         <component v-if="element.icon" :is="element.icon" class="inline-block" />
-        {{ element.displayName }}
+        <span class="grow text-left whitespace-normal">
+          {{ element.displayName }}
+        </span>
       </Button>
     </router-link>
   </div>
