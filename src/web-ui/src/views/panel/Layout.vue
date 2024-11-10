@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import router from "@/router";
 import {Separator} from "@/components/ui/separator";
 import {toTitleCase} from "@/lib/utils";
+import {useRouter} from "vue-router";
+
+const router = useRouter();
 
 const subRoutes = router.getRoutes()
   .filter(route => route.path.startsWith("/panel/") && !!route.name)

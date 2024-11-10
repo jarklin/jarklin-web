@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import jarklinLogoSrc from "@/assets/jarklin.svg";
 import {LucideArrowLeft, LucideScanSearch, LucideSettings} from "lucide-vue-next";
-import router from "@/router";
+import {useRouter} from "vue-router";
+
+const router = useRouter();
 </script>
 
 <template>

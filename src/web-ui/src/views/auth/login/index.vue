@@ -2,8 +2,10 @@
 import {useMutation, useQuery, useQueryClient} from "@tanstack/vue-query";
 import {useUrlSearchParams} from "@vueuse/core";
 import axios, {AxiosError, HttpStatusCode} from "axios";
-import router from "@/router";
-import jarklinIconSrc from "@/assets/jarklin-special.svg";  // special-logo. shorter and not rounded
+import jarklinIconSrc from "@/assets/jarklin-special.svg";
+import {useRouter} from "vue-router";  // special-logo. shorter and not rounded
+
+const router = useRouter();
 
 const queryClient = useQueryClient();
 const searchParams = useUrlSearchParams<{redirect?: string}>("hash");

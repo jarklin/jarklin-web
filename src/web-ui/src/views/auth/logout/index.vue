@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import axios from "axios";
 import {useMutation, useQueryClient} from "@tanstack/vue-query";
-import router from "@/router";
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {LucideAlertCircle, LucideCheckCircle} from "lucide-vue-next";
 import {Button} from "@/components/ui/button";
 import {Spinner} from "@/components/ui/spinner";
+import {useRouter} from "vue-router";
 
+const router = useRouter();
 const queryClient = useQueryClient();
+
 const { mutate: doLogout, isSuccess, isPending, isError, error } = useMutation({
   mutationKey: ['auth', 'logout'],
   mutationFn: () => axios.post("/auth/logout"),

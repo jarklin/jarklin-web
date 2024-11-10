@@ -3,7 +3,9 @@ import {onErrorCaptured, ref} from "vue";
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {LucideAlertCircle} from "lucide-vue-next";
 import {AxiosError, HttpStatusCode} from "axios";
-import router from "@/router";
+import {useRouter} from "vue-router";
+
+const router = useRouter();
 
 const props = defineProps<{
   title?: string,
