@@ -2,11 +2,12 @@
 import {LucideSearch} from "lucide-vue-next";
 import {Input} from "@/components/ui/input";
 import {ref} from "vue";
-import {useUrlSearchParams, watchDebounced} from "@vueuse/core";
+import {onStartTyping, useUrlSearchParams, watchDebounced} from "@vueuse/core";
 
 const urlSearchParams = useUrlSearchParams<{ query?: string }>("hash");
 
 const inputQuery = ref<string>(urlSearchParams.query ?? "");
+const inputRef = ref();
 
 const filterQuery = ref<string>(urlSearchParams.query ?? "");
 
@@ -14,6 +15,12 @@ watchDebounced(inputQuery, () => {
   filterQuery.value = inputQuery.value;
   urlSearchParams.query = inputQuery.value;
 }, { debounce: 300, maxWait: 5000 });
+
+onStartTyping(() => {
+  if (document.activeElement !== inputRef.value) {
+    // todo: set focus to the input-field
+  }
+});
 </script>
 
 <template>
