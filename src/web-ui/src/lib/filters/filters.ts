@@ -39,3 +39,7 @@ export const shuffled: Filter = (entries) => {
     }
     return arr;
 }
+
+export const limitedTo: ((l: number) => Filter) = (l: number) => {
+    return (entries) => entries.slice(0, l);
+}
