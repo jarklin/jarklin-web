@@ -3,6 +3,7 @@ import VideoPlayer from "@/components/player/VideoPlayer.vue";
 import {useMediaPath} from "@/composables/useMediaPath";
 import {useMediaQuery, type VideoMediaEntry} from "@/composables";
 import {computed} from "vue";
+import Page404 from "@/views/404.vue";
 
 const mediaQuery = useMediaQuery();
 const mediaPath = useMediaPath();
@@ -15,5 +16,6 @@ const currentMedia = computed(() => {
 </script>
 
 <template>
-  <VideoPlayer v-if="currentMedia" :media="currentMedia as VideoMediaEntry" />
+  <Page404 v-if="!currentMedia" />
+  <VideoPlayer v-else :media="currentMedia as VideoMediaEntry" />
 </template>
