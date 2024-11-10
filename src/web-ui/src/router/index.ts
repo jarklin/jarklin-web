@@ -102,7 +102,7 @@ const router = createRouter({
                 {
                   path: 'watch/:mediaPath(.*)*',
                   name: "consume-watch",
-                  component: Page404,
+                  component: () => import("@/views/media/consume/watch/index.vue"),
                 },
               ],
             },
