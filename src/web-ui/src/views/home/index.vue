@@ -1,35 +1,7 @@
 <script setup lang="ts">
-import {LucideFolderClosed, type LucideIcon, LucideLibraryBig, LucideTag} from "lucide-vue-next";
 import {Button} from "@/components/ui/button";
 import {Separator} from "@/components/ui/separator";
-import type {RouteLocationRaw} from "vue-router";
-import type {Component} from "vue";
-
-interface HomepageElement {
-  displayName: string
-  location: RouteLocationRaw
-  icon?: LucideIcon
-  component?: Component
-  props?: object
-}
-
-const homepageElements: HomepageElement[] = [
-  {
-    displayName: "Explorer",
-    icon: LucideFolderClosed,
-    location: { name: 'explorer', params: { mediaPath: '' } },
-  },
-  {
-    displayName: "Tags",
-    icon: LucideTag,
-    location: { name: 'tags' },
-  },
-  {
-    displayName: "Collections",
-    icon: LucideLibraryBig,
-    location: { name: 'collections' },
-  },
-]
+import { homepageElements } from "@/views/home/elements";
 </script>
 
 <template>
@@ -44,7 +16,7 @@ const homepageElements: HomepageElement[] = [
   <template v-for="element in homepageElements" :key="element.displayName">
     <template v-if="element.component">
       <Separator />
-      <h1 class="text-2xl">{{ element.displayName }}</h1>
+      <h1 class="text-2xl px-4"><component v-if="element.icon" :is="element.icon" class="inline-block" />  {{ element.displayName }}</h1>
       <component :is="element.component" v-bind="element.props" />
     </template>
   </template>
