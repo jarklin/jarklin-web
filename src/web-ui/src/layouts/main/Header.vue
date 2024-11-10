@@ -7,7 +7,7 @@ const router = useRouter();
 </script>
 
 <template>
-  <header class="bg-accent p-1 flex gap-2 items-stretch content-baseline">
+  <header class="bg-accent p-1 flex gap-x-2 items-stretch content-baseline">
     <button class="disabled:pointer-events-none disabled:opacity-50" @click="router.back">
       <LucideArrowLeft class="size-8 rounded-md" />
     </button>

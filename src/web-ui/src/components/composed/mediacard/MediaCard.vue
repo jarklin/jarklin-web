@@ -13,7 +13,6 @@ const props = defineProps<{
   media: MediaEntry,
   class?: HTMLAttributes['class'],
 }>();
-const { media } = props;
 </script>
 
 <template>

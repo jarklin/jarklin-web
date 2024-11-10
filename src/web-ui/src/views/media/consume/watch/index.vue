@@ -11,11 +11,11 @@ const mediaPath = useMediaPath();
 const currentMedia = computed(() => {
   if (!mediaQuery.isSuccess) return undefined;
   return mediaQuery.data!
-      .find(m => m.type === 'video' && m.path === mediaPath.value) ?? null;
+      .find(m => m.type === 'video' && m.path === mediaPath.value) as VideoMediaEntry ?? null;
 })
 </script>
 
 <template>
   <Page404 v-if="!currentMedia" />
-  <VideoPlayer v-else :media="currentMedia as VideoMediaEntry" />
+  <VideoPlayer v-else :media="currentMedia" />
 </template>

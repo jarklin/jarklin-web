@@ -7,7 +7,7 @@ import {useRouter} from "vue-router";
 
 const router = useRouter();
 
-const props = defineProps<{
+defineProps<{
   title?: string,
 }>();
 
@@ -28,7 +28,7 @@ onErrorCaptured((err) => {
   <div v-if="errorRef" class="h-full grid place-content-center p-4">
     <Alert variant="destructive">
       <LucideAlertCircle class="size-4" />
-      <AlertTitle>{{ props.title ?? "Something went wrong" }}</AlertTitle>
+      <AlertTitle>{{ title ?? "Something went wrong" }}</AlertTitle>
       <AlertDescription>{{ errorRef.name }}: {{ errorRef.message }}</AlertDescription>
     </Alert>
   </div>

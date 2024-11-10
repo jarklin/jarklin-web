@@ -5,7 +5,7 @@ import type {VideoMediaEntry} from "@/composables";
 import {getSource} from "@/lib";
 import {useUrlSearchParams} from "@vueuse/core";
 
-const { media } = defineProps<{
+defineProps<{
   media: VideoMediaEntry
 }>();
 
