@@ -4,8 +4,8 @@ import {encodePath} from "./encoding";
 const ROOT = "./files";
 
 
-export function getSource(path: string): string {
-    return `${ROOT}/${encodePath(path)}`;
+export function getSource(...paths: string[]): string {
+    return `${ROOT}/${paths.map(path => encodePath(path)).join("/")}`;
 }
 
 
