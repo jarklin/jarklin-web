@@ -10,12 +10,12 @@ type BasicMediaEntry = {
     modification_time: number
 }
 
-export type VideoMediaEntry = Clean<BasicMediaEntry & {
+export type VideoMediaEntry = Pretty<BasicMediaEntry & {
     type: "video"
     meta: RawVideoMeta
 }>
 
-export type GalleryMediaEntry = Clean<BasicMediaEntry & {
+export type GalleryMediaEntry = Pretty<BasicMediaEntry & {
     type: "gallery"
     meta: RawGalleryMeta
 }>
