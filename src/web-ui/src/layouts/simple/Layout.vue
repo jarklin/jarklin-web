@@ -8,7 +8,7 @@ import Footer from "./Footer.vue";
   <div class="min-h-screen grid grid-rows-[auto,auto,1fr,auto]">
     <Header />
     <BackgroundQueryIndicator />
-    <main>
+    <main class="w-screen">
       <router-view />
     </main>
     <Footer />
