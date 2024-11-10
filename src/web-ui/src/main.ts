@@ -5,6 +5,7 @@ import axios, {AxiosError, HttpStatusCode} from "axios";
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { VueQueryPlugin } from '@tanstack/vue-query'
+import Vue3TouchEvents, {type Vue3TouchEventsOptions} from "vue3-touch-events";
 
 import App from './App.vue'
 import router from './router'
@@ -41,5 +42,8 @@ app.use(VueQueryPlugin, {
     }
 })
 app.use(router)
+app.use<Vue3TouchEventsOptions>(Vue3TouchEvents, {
+
+});
 
 app.mount('#app')

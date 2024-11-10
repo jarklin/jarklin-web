@@ -92,7 +92,7 @@ const router = createRouter({
                 {
                   path: 'manga/:mediaPath(.*)*',
                   name: "consume-manga",
-                  component: Page404,
+                  component: () => import("@/views/media/consume/manga/index.vue"),
                 },
                 {
                   path: 'slideshow/:mediaPath(.*)*',
