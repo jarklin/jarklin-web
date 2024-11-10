@@ -1,6 +1,6 @@
 import {useRoute} from "vue-router";
 import {watch} from "vue";
-import {toTitleCase} from "@/lib/utils";
+import {formatRouteName} from "@/lib";
 
 
 /**
@@ -14,7 +14,7 @@ export function usePageTitle(): void {
 
     watch(() => route.name as string, (newName) => {
         if (newName) {
-            document.title = `Jarklin - ${toTitleCase(newName)}`;
+            document.title = `Jarklin - ${formatRouteName(newName)}`;
         } else {
             document.title = `Jarklin`;
         }
