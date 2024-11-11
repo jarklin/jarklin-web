@@ -13,7 +13,7 @@ const problemsQuery = useProblemsQuery();
   </p>
   <template v-else>
     <p>Some Media could not be processed. See here the details.</p>
-    <Separator />
+    <Separator :label="`${problemsQuery.data!.length} Problem(s)`" class="my-2" />
     <div class="grow flex flex-col gap-y-2">
       <div v-for="problem in problemsQuery.data" class="group font-mono leading-none p-2 rounded-md text-sm flex flex-col gap-y-1 border border-input">
         <p class="text-primary">{{ problem.file }}</p>
