@@ -19,7 +19,7 @@ const viableMedia = computed(() => {
 
 <template>
   <VerticalScroll class="py-2">
-    <router-link v-for="media in viableMedia" :key="media.path" class="h-60 aspect-square" :to="{ name: 'media-details', params: { mediaPath: media.path } }">
+    <router-link v-for="media in viableMedia" :key="media.path" class="h-60" :to="{ name: 'media-details', params: { mediaPath: media.path } }">
       <MediaCard :media="media" />
     </router-link>
   </VerticalScroll>
