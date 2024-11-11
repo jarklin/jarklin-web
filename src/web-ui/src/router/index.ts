@@ -74,7 +74,7 @@ const router = createRouter({
             {
               path: 'details/:mediaPath(.*)*',
               name: "media-details",
-              component: Page404,
+              component: () => import("@/views/media/details/index.vue"),
             },
             {
               path: 'collections',
