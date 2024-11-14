@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type {GalleryMediaEntry} from "@/composables";
 import {type HTMLAttributes, ref} from "vue";
 import {LucideServerCrash} from "lucide-vue-next";
 import {cn, getPreviewImage, getSource} from "@/lib";
+import type {GalleryMediaEntry} from "@/types";
 
 const {class: classes, media, image} = defineProps<{
   class?: HTMLAttributes['class']

@@ -1,4 +1,5 @@
 export * from "./encoding";
+export * from "./extraction";
 export * from "./formatting";
 export * from "./itertools";
 export * from "./paths";

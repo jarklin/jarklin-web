@@ -1,4 +1,4 @@
-import type {Filter} from "@/lib/filters/types";
+import type {Filter} from "@/types/filter";
 import random from "random";
 
 const ONE_DAY = 60*60*24;

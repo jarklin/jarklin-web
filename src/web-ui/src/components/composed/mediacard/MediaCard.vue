@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type {MediaEntry} from "@/composables";
 import {LucideFilm, LucideImages} from "lucide-vue-next";
 import {cn, getPreviewImage} from "@/lib";
 import {computed, type HTMLAttributes} from "vue";
 import {getMediaSize} from "@/lib/info";
+import type {MediaEntry} from "@/types";
 
 const type2icon: Record<MediaEntry["type"], any> = {
   "video": LucideFilm,

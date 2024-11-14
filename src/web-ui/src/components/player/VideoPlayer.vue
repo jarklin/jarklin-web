@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import "vidstack/bundle";
 import "vidstack/vue";
-import type {VideoMediaEntry} from "@/composables";
 import {getSource} from "@/lib";
 import {useUrlSearchParams} from "@vueuse/core";
+import type {VideoMediaEntry} from "@/types";
 
 defineProps<{
   media: VideoMediaEntry

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {type GalleryMediaEntry, useMediaQuery} from "@/composables";
+import {useMediaQuery} from "@/composables";
 import {computed, onMounted, onUnmounted, reactive, ref} from "vue";
 import Page404 from "@/views/404.vue";
 import ScrollProgress from "@/components/ScrollProgress.vue";
@@ -9,6 +9,7 @@ import {LucideCircleArrowUp, LucideExpand, LucideShrink, LucideSquareArrowLeft} 
 import {useFullscreen} from "@vueuse/core";
 import {useRouter} from "vue-router";
 import {cn} from "@/lib";
+import type {GalleryMediaEntry} from "@/types";
 
 const mediaQuery = useMediaQuery();
 const mediaPath = useMediaPath();

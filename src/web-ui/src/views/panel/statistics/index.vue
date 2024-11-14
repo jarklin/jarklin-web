@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import {useMediaQuery, type GalleryMediaEntry, type VideoMediaEntry, useProblemsQuery} from "@/composables";
+import {useMediaQuery, useProblemsQuery} from "@/composables";
 import {computed} from "vue";
 import humanize from "humanize-plus";
 import humanizeDuration from "humanize-duration";
+import type {GalleryMediaEntry, VideoMediaEntry} from "@/types";
 
 type Index = Array<{
   category: string

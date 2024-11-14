@@ -1,3 +1,3 @@
-import type {MediaEntry} from "@/composables";
+import type {MediaEntry} from "./api";
 
 export type Filter = (m: MediaEntry[]) => MediaEntry[]

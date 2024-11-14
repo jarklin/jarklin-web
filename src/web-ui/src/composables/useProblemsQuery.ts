@@ -1,13 +1,7 @@
 import {reactive} from "vue";
 import {useQuery} from "@tanstack/vue-query";
 import axios from "axios";
-
-export interface ProblemEntry {
-    file: string
-    type: string
-    description: string
-    traceback: string
-}
+import type {ProblemEntry} from "@/types";
 
 export function useProblemsQuery() {
     return reactive(useQuery<ProblemEntry[], Error>({

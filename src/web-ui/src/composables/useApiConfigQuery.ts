@@ -1,12 +1,8 @@
 import {reactive} from "vue";
 import {useQuery} from "@tanstack/vue-query";
 import axios from "axios";
+import type {ApiConfig} from "@/types";
 
-
-export interface ApiConfig {
-    requires_auth: boolean
-    allows_optimization: boolean
-}
 
 export function useApiConfigQuery() {
     return reactive(useQuery<ApiConfig, Error>({

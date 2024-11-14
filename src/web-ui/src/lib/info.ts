@@ -1,4 +1,4 @@
-import type {MediaEntry} from "@/composables";
+import type {MediaEntry} from "@/types";
 
 export function getMediaSize(entry?: MediaEntry | null): { width: number; height: number } {
     if (entry === null || entry === undefined) return { width: 1, height: 1 };
