@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {type GalleryMediaEntry, useMediaQuery} from "@/composables";
+import {useMediaQuery} from "@/composables";
 import {useMediaPath} from "@/composables/useMediaPath";
 import {computed} from "vue";
 import Page404 from "@/views/404.vue";
@@ -9,6 +9,7 @@ import humanizeDuration from "humanize-duration";
 import humanize from "humanize-plus";
 import {Badge} from "@/components/ui/badge";
 import {Separator} from "@/components/ui/separator";
+import {Spinner} from "@/components/ui/spinner";
 
 const mediaQuery = useMediaQuery();
 const mediaPath = useMediaPath();
@@ -21,7 +22,8 @@ const currentMedia = computed(() => {
 </script>
 
 <template>
-  <Page404 v-if="!currentMedia" />
+  <Spinner v-if="currentMedia === undefined" />
+  <Page404 v-else-if="currentMedia === null" />
   <template v-else>
     <div class="relative min-h-[85vh] px-[5vw] py-[5vh]">
       <div class="absolute inset-0 bg-accent">
