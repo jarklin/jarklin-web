@@ -21,6 +21,9 @@ const staticsIndex = computed<Index | null>(() => {
   const videos = !mediaData.isSuccess ? null : mediaData.data
       .filter(entry => entry.meta.type === "video") as VideoMediaEntry[];
 
+  const gallerySizes = galleries === null ? null : galleries.reduce((n, e) => n + e.meta.images.reduce((n2, i) => n2 + i.filesize, 0), 0);
+  const videoSizes = videos === null ? null : videos.reduce((n, e) => n + e.meta.filesize, 0);
+
   return [
     {
       category: "Galleries",
@@ -50,6 +53,23 @@ const staticsIndex = computed<Index | null>(() => {
               videos.reduce((n, e) => n + e.meta.duration, 0)*1000,
               { largest: 2, round: true },
           ),
+        },
+      ],
+    },
+    {
+      category: "Sizes",
+      stats: [
+        {
+          label: "Total Sizes",
+          value: (videoSizes === null || gallerySizes === null) ? "-" : humanize.fileSize(videoSizes + gallerySizes),
+        },
+        {
+          label: "Gallery Sizes",
+          value: gallerySizes === null ? "-" : humanize.fileSize(gallerySizes),
+        },
+        {
+          label: "Video Sizes",
+          value: videoSizes === null ? "-" : humanize.fileSize(videoSizes),
         },
       ],
     },
