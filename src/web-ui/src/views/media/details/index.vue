@@ -32,7 +32,7 @@ const currentMedia = computed(() => {
       </div>
       <div class="min-h-[75vh] bg-background/50 rounded-lg shadow-2xl backdrop-blur-sm border border-border flex flex-col md:flex-row">
         <div class="grid place-content-center p-4">
-          <img class="h-full mx-auto object-contain border-2 border-border max-h-[40vh]" :src="getPreviewImage(currentMedia.path)" alt="preview" />
+          <Image class="h-full mx-auto object-contain border-2 border-border max-h-[40vh]" :src="getPreviewImage(currentMedia.path)" alt="preview" />
         </div>
         <div class="p-4">
           <h1 class="text-2xl">{{ currentMedia.name }}</h1>
