@@ -3,13 +3,14 @@ import {useMediaQuery} from "@/composables";
 import {useMediaPath} from "@/composables/useMediaPath";
 import {computed} from "vue";
 import Page404 from "@/views/404.vue";
-import {getAnimatedPreview, getPreviewImage, getSource, height2resolution} from "@/lib";
+import {getAnimatedPreview, getPreviewImage, height2resolution} from "@/lib";
 import {VerticalScroll} from "@/components/composed/container";
 import humanizeDuration from "humanize-duration";
 import humanize from "humanize-plus";
 import {Badge} from "@/components/ui/badge";
 import {Separator} from "@/components/ui/separator";
 import {Spinner} from "@/components/ui/spinner";
+import {Image} from "@/components/ui/image";
 
 const mediaQuery = useMediaQuery();
 const mediaPath = useMediaPath();
@@ -86,7 +87,7 @@ const currentMedia = computed(() => {
     </div>
     <Separator class="my-2" :label="currentMedia.type === 'video' ? (currentMedia.meta.chapters.length ? 'Chapters' : 'Scenes') : 'Images'" />
     <VerticalScroll class="p-2">
-      <img v-for="i in currentMedia.meta.n_previews" :key="i" :src="getPreviewImage(currentMedia.path, i)" :alt="`preview of #${i}`" class="h-60 md:h-80 rounded-md border-2 border-border" />
+      <Image v-for="i in currentMedia.meta.n_previews" :key="i" :src="getPreviewImage(currentMedia.path, i)" :alt="`preview of #${i}`" class="h-60 md:h-80 rounded-md border-2 border-border" />
     </VerticalScroll>
   </template>
 </template>
