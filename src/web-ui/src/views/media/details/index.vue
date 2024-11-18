@@ -11,6 +11,7 @@ import {Badge} from "@/components/ui/badge";
 import {Separator} from "@/components/ui/separator";
 import {Spinner} from "@/components/ui/spinner";
 import {Image} from "@/components/ui/image";
+import TagBadge from "@/components/composed/TagBadge.vue";
 
 const mediaQuery = useMediaQuery();
 const mediaPath = useMediaPath();
@@ -39,6 +40,10 @@ const currentMedia = computed(() => {
           <div class="grid grid-cols-kv [&>label]:font-bold gap-x-2">
             <label>Path</label>
             <span>{{ currentMedia.path }}</span>
+            <label>Tags</label>
+            <span>
+              <TagBadge v-for="tag in currentMedia.tags" :key="tag" :tag="tag" />
+            </span>
             <template v-if="currentMedia.type === 'video'">
               <label>Duration</label>
               <span>
