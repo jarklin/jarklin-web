@@ -18,7 +18,7 @@ const props = defineProps<{
 
 const aspectRatio = computed(() => {
   const { width, height } = getMediaSize(props.media);
-  return width / height;
+  return `${width} / ${height}`;
 });
 </script>
 
