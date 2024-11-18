@@ -11,7 +11,7 @@ import type {Component} from "vue";
 import Feed from "./_Feed.vue";
 import {filters, mergeFilters} from "@/lib/filters";
 
-interface HomepageElement {
+export interface HomepageElement {
     displayName: string
     location: RouteLocationRaw
     icon?: LucideIcon
