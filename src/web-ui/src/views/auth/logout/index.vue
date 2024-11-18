@@ -6,6 +6,7 @@ import {LucideAlertCircle, LucideCheckCircle} from "lucide-vue-next";
 import {Button} from "@/components/ui/button";
 import {Spinner} from "@/components/ui/spinner";
 import {useRouter} from "vue-router";
+import {SimpleLayout} from "@/layouts";
 
 const router = useRouter();
 const queryClient = useQueryClient();
@@ -22,7 +23,7 @@ doLogout();
 </script>
 
 <template>
-  <div class="h-full grid place-content-center p-2">
+  <SimpleLayout class="grid place-content-center p-2">
     <Alert v-if="isSuccess">
       <LucideCheckCircle class="size-4" />
       <AlertTitle>Logout Successful</AlertTitle>
@@ -46,5 +47,5 @@ doLogout();
         </div>
       </AlertDescription>
     </Alert>
-  </div>
+  </SimpleLayout>
 </template>

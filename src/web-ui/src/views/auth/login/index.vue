@@ -3,7 +3,8 @@ import {useMutation, useQuery, useQueryClient} from "@tanstack/vue-query";
 import {useUrlSearchParams} from "@vueuse/core";
 import axios, {AxiosError, HttpStatusCode} from "axios";
 import jarklinIconSrc from "@/assets/jarklin-special.svg";
-import {useRouter} from "vue-router";  // special-logo. shorter and not rounded
+import {useRouter} from "vue-router";
+import {SimpleLayout} from "@/layouts";  // special-logo. shorter and not rounded
 
 const router = useRouter();
 
@@ -27,7 +28,7 @@ function handleSubmit(event: Event) {
 </script>
 
 <template>
-  <div class="h-full grid place-content-center text-xl gap-2 text-center p-2">
+  <SimpleLayout class="grid place-content-center text-xl gap-2 text-center p-2">
     <form @submit.prevent="handleSubmit" class="flex flex-col gap-1 max-w-[90vw]">
       <img class="w-full rounded-sm" :src="jarklinIconSrc" alt=""/>
       <div v-if="isError && (error instanceof AxiosError && error.response?.status == HttpStatusCode.Unauthorized)" class="px-1 bg-white text-red-500 text-center rounded-sm">
@@ -58,5 +59,5 @@ function handleSubmit(event: Event) {
         value="Login"
       />
     </form>
-  </div>
+  </SimpleLayout>
 </template>

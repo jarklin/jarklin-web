@@ -8,7 +8,7 @@ import {
     LucideTag
 } from "lucide-vue-next";
 import type {Component} from "vue";
-import Feed from "@/views/home/Feed.vue";
+import Feed from "./_Feed.vue";
 import {filters, mergeFilters} from "@/lib/filters";
 
 interface HomepageElement {

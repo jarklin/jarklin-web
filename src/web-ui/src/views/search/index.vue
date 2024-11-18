@@ -3,6 +3,7 @@ import {LucideSearch} from "lucide-vue-next";
 import {Input} from "@/components/ui/input";
 import {ref} from "vue";
 import {onStartTyping, useUrlSearchParams, watchDebounced} from "@vueuse/core";
+import {MainLayout} from "@/layouts";
 
 const urlSearchParams = useUrlSearchParams<{ query?: string }>("hash");
 
@@ -24,7 +25,7 @@ onStartTyping(() => {
 </script>
 
 <template>
-  <div class="max-w-screen-2xl mx-auto p-2">
+  <MainLayout class="max-w-screen-2xl mx-auto p-2">
     <div class="max-w-2xl mx-auto relative items-center">
       <Input v-model.trim="inputQuery" type="text" placeholder="Search..." class="pl-10" />
       <span class="absolute start-0 inset-y-0 grid place-content-center px-2">
@@ -34,5 +35,5 @@ onStartTyping(() => {
     <div>
       {{ filterQuery }}
     </div>
-  </div>
+  </MainLayout>
 </template>

@@ -10,6 +10,7 @@ import {useFullscreen} from "@vueuse/core";
 import {useRouter} from "vue-router";
 import {cn} from "@/lib";
 import type {GalleryMediaEntry} from "@/types";
+import {MainLayout} from "@/layouts";
 
 const mediaQuery = useMediaQuery();
 const mediaPath = useMediaPath();
@@ -40,26 +41,28 @@ const showMenu = ref(false);
 </script>
 
 <template>
-  <Page404 v-if="!currentMedia" />
-  <template v-else>
-    <ScrollProgress />
-    <div v-touch:tap="() => { showMenu = !showMenu }">
-      <PreviewedImage v-for="image in currentMedia.meta.images" :key="image.filename" :media="currentMedia" :image="image" class="w-full max-w-screen-lg mx-auto" />
-    </div>
-<!--    <div class="fixed bottom-0 inset-x-0 bg-accent">-->
-    <div :class="cn('sticky bg-accent -bottom-full transition-[bottom]', showMenu ? '-bottom-0 inset-x-0' : '')">
-      <div class="max-w-screen-lg mx-auto p-1 flex gap-x-2 items-stretch content-baseline">
-        <button @click="router.back" title="Go back to the last page">
-          <LucideSquareArrowLeft class="size-8" />
-        </button>
-        <div class="grow" />
-        <button v-if="fullscreen.isSupported" @click="fullscreen.toggle" title="Toggle Fullscreen">
-          <component :is="fullscreen.isFullscreen ? LucideShrink : LucideExpand" class="size-8" />
-        </button>
-        <button @click="scrollToTop" title="Scroll to top">
-          <LucideCircleArrowUp class="size-8" />
-        </button>
+  <MainLayout>
+    <Page404 v-if="!currentMedia" />
+    <template v-else>
+      <ScrollProgress />
+      <div v-touch:tap="() => { showMenu = !showMenu }">
+        <PreviewedImage v-for="image in currentMedia.meta.images" :key="image.filename" :media="currentMedia" :image="image" class="w-full max-w-screen-lg mx-auto" />
       </div>
-    </div>
-  </template>
+  <!--    <div class="fixed bottom-0 inset-x-0 bg-accent">-->
+      <div :class="cn('sticky bg-accent -bottom-full transition-[bottom]', showMenu ? '-bottom-0 inset-x-0' : '')">
+        <div class="max-w-screen-lg mx-auto p-1 flex gap-x-2 items-stretch content-baseline">
+          <button @click="router.back" title="Go back to the last page">
+            <LucideSquareArrowLeft class="size-8" />
+          </button>
+          <div class="grow" />
+          <button v-if="fullscreen.isSupported" @click="fullscreen.toggle" title="Toggle Fullscreen">
+            <component :is="fullscreen.isFullscreen ? LucideShrink : LucideExpand" class="size-8" />
+          </button>
+          <button @click="scrollToTop" title="Scroll to top">
+            <LucideCircleArrowUp class="size-8" />
+          </button>
+        </div>
+      </div>
+    </template>
+  </MainLayout>
 </template>

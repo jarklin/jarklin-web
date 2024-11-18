@@ -1,5 +1,5 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
-import {SimpleLayout, MainLayout} from "@/layouts";
+import {SimpleLayout} from "@/layouts";
 import HomeView from "@/views/home/index.vue";
 import Page404 from "@/views/404.vue";
 
@@ -8,7 +8,6 @@ const router = createRouter({
   routes: [
     {
       path: '/auth',
-      component: SimpleLayout,
       children: [
         {
           path: 'login',
@@ -24,7 +23,6 @@ const router = createRouter({
     },
     {
       path: '/',
-      component: MainLayout,
       children: [
         {
           path: '',

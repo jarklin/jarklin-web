@@ -1,1 +1,1 @@
-export { default as SimpleLayout } from "./Layout.vue";
+export { default as SimpleLayout } from "./_Layout.vue";
