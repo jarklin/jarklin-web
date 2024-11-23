@@ -67,7 +67,7 @@ const router = createRouter({
             {
               path: 'list',
               name: "media-list",
-              component: Page404,
+              component: () => import("@/views/media/list/index.vue"),
             },
             {
               path: 'details/:mediaPath(.*)*',
