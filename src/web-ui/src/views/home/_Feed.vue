@@ -15,7 +15,7 @@ const { filterDefinition } = defineProps<{
 
 const mediaQuery = useMediaQuery();
 
-const filter = computed(() => parseFilter(filterDefinition));
+const filter = computed(() => parseFilter(filterDefinition + "|limitedTo[20]"));
 
 const viableMedia = computed(() => {
   if (!mediaQuery.isSuccess) return [];
@@ -26,7 +26,7 @@ const viableMedia = computed(() => {
 <template>
   <template v-if="viableMedia.length">
     <Separator />
-    <SectionHeader>
+    <SectionHeader :to="element.location">
       <component v-if="element.icon" :is="element.icon" />
       {{ element.displayName }}
     </SectionHeader>

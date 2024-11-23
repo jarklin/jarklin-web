@@ -18,6 +18,15 @@ export interface HomepageElement {
     props?: object
 }
 
+function homepageFeed(data: Omit<HomepageElement, "location" | "component" | "props"> & { filterDefinition: string }): HomepageElement {
+    return {
+        ...data,
+        location: { name: 'media-list', query: { filterDefinition: data.filterDefinition } },
+        component: Feed,
+        props: { filterDefinition: data.filterDefinition }
+    }
+}
+
 export const homepageElements: HomepageElement[] = [
     {
         displayName: "Explorer",
@@ -34,39 +43,29 @@ export const homepageElements: HomepageElement[] = [
         icon: LucideLibraryBig,
         location: { name: 'collections' },
     },
-    {
+    homepageFeed({
         displayName: "Random Galleries",
         icon: LucideImages,
-        location: { name: 'home' },
-        component: Feed,
-        props: { filterDefinition: "isGallery|shuffled|limitedTo[20]" }
-    },
-    {
+        filterDefinition: "isGallery|shuffled",
+    }),
+    homepageFeed({
         displayName: "Random Videos",
         icon: LucideFilm,
-        location: { name: 'home' },
-        component: Feed,
-        props: { filterDefinition: "isVideo|shuffled|limitedTo[20]" }
-    },
-    {
+        filterDefinition: "isVideo|shuffled",
+    }),
+    homepageFeed({
         displayName: "Recently Updated Galleries",
         icon: LucideReplaceAll,
-        location: { name: 'home' },
-        component: Feed,
-        props: { filterDefinition: "isGallery|isUpdated|sortModificationTimeDesc|limitedTo[20]" }
-    },
-    {
+        filterDefinition: "isGallery|isUpdated|sortModificationTimeDesc",
+    }),
+    homepageFeed({
         displayName: "Newest Galleries",
         icon: LucideSparkle,
-        location: { name: 'home' },
-        component: Feed,
-        props: { filterDefinition: "isGallery|sortCreationTimeDesc|limitedTo[20]" }
-    },
-    {
+        filterDefinition: "isGallery|sortCreationTimeDesc",
+    }),
+    homepageFeed({
         displayName: "Newest Videos",
         icon: LucideSparkles,
-        location: { name: 'home' },
-        component: Feed,
-        props: { filterDefinition: "isVideo|sortCreationTimeDesc|limitedTo[20]" }
-    },
+        filterDefinition: "isVideo|sortCreationTimeDesc",
+    }),
 ];
