@@ -9,7 +9,6 @@ import {
 } from "lucide-vue-next";
 import type {Component} from "vue";
 import Feed from "./_Feed.vue";
-import {filters, mergeFilters} from "@/lib/filters";
 
 export interface HomepageElement {
     displayName: string
@@ -18,8 +17,6 @@ export interface HomepageElement {
     component?: Component
     props?: object
 }
-
-const elementLimit = filters.limitedTo(20);
 
 export const homepageElements: HomepageElement[] = [
     {
@@ -42,34 +39,34 @@ export const homepageElements: HomepageElement[] = [
         icon: LucideImages,
         location: { name: 'home' },
         component: Feed,
-        props: { filter: mergeFilters(filters.isGallery, filters.shuffled, elementLimit) }
+        props: { filterDefinition: "isGallery|shuffled|limitedTo[20]" }
     },
     {
         displayName: "Random Videos",
         icon: LucideFilm,
         location: { name: 'home' },
         component: Feed,
-        props: { filter: mergeFilters(filters.isVideo, filters.shuffled, elementLimit) }
+        props: { filterDefinition: "isVideo|shuffled|limitedTo[20]" }
     },
     {
         displayName: "Recently Updated Galleries",
         icon: LucideReplaceAll,
         location: { name: 'home' },
         component: Feed,
-        props: { filter: mergeFilters(filters.isGallery, filters.isUpdated, filters.sortModificationTimeDesc, elementLimit) }
+        props: { filterDefinition: "isGallery|isUpdated|sortModificationTimeDesc|limitedTo[20]" }
     },
     {
         displayName: "Newest Galleries",
         icon: LucideSparkle,
         location: { name: 'home' },
         component: Feed,
-        props: { filter: mergeFilters(filters.isGallery, filters.sortCreationTimeDesc, elementLimit) }
+        props: { filterDefinition: "isGallery|sortCreationTimeDesc|limitedTo[20]" }
     },
     {
         displayName: "Newest Videos",
         icon: LucideSparkles,
         location: { name: 'home' },
         component: Feed,
-        props: { filter: mergeFilters(filters.isVideo, filters.sortCreationTimeDesc, elementLimit) }
+        props: { filterDefinition: "isVideo|sortCreationTimeDesc|limitedTo[20]" }
     },
 ];

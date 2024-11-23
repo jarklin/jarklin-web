@@ -2,23 +2,25 @@
 import {VerticalScroll} from "@/components/composed/container";
 import {useMediaQuery} from "@/composables";
 import {computed} from "vue";
-import { type Filter } from "@/lib/filters";
+import { parseFilter } from "@/lib/filters";
 import {MediaCard} from "@/components/composed/mediacard";
 import SectionHeader from "@/components/composed/SectionHeader.vue";
 import type {HomepageElement} from "@/views/home/elements";
 import {Separator} from "@/components/ui/separator";
 
-const { filter } = defineProps<{
+const { filterDefinition } = defineProps<{
   element: HomepageElement
-  filter: Filter
+  filterDefinition: string
 }>();
 
 const mediaQuery = useMediaQuery();
 
+const filter = computed(() => parseFilter(filterDefinition));
+
 const viableMedia = computed(() => {
   if (!mediaQuery.isSuccess) return [];
-  return filter(mediaQuery.data);
-})
+  return filter.value(mediaQuery.data);
+});
 </script>
 
 <template>
