@@ -3,8 +3,6 @@ import {useMediaQuery} from "@/composables";
 import {computed} from "vue";
 import type {TagTreeEntry} from "@/views/tags/types";
 import EntryComponent from "@/views/tags/EntryComponent.vue";
-import {Separator} from "@/components/ui/separator";
-import SectionHeader from "@/components/composed/SectionHeader.vue";
 import {MainLayout} from "@/layouts";
 
 const mediaQuery = useMediaQuery();
@@ -39,9 +37,7 @@ const tagTree = computed(() => {
 </script>
 
 <template>
-  <MainLayout class="px-2">
-    <SectionHeader>Tags</SectionHeader>
-    <Separator class="my-1" />
+  <MainLayout class="p-2">
     <EntryComponent :tag-entries="tagTree" />
   </MainLayout>
 </template>
