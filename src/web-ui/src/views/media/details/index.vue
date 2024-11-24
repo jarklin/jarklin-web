@@ -14,6 +14,7 @@ import {Image} from "@/components/ui/image";
 import TagBadge from "@/components/composed/TagBadge.vue";
 import {MainLayout} from "@/layouts";
 import { usePreferredReducedMotion } from "@vueuse/core";
+import { getLinkInfo } from "@/views/media/details/getLinkInfo";
 
 const preferredReducedMotion = usePreferredReducedMotion();
 
@@ -25,6 +26,8 @@ const currentMedia = computed(() => {
   return mediaQuery.data!
       .find(m => m.path === mediaPath.value) ?? null;
 });
+
+const linkInfo = computed(() => currentMedia.value && getLinkInfo(currentMedia.value));
 </script>
 
 <template>
@@ -38,15 +41,18 @@ const currentMedia = computed(() => {
         </div>
         <div class="min-h-[75vh] bg-background/50 rounded-lg shadow-2xl backdrop-blur-sm border border-border flex flex-col md:flex-row">
           <div class="grid place-content-center p-4">
-            <Image class="h-full mx-auto object-contain border-2 border-border max-h-[40vh]" :src="getPreviewImage(currentMedia.path)" alt="preview" />
+            <router-link :to="linkInfo!.consumeLink">
+              <Image class="h-full mx-auto object-contain border-2 border-border rounded-md max-h-[40vh]" :src="getPreviewImage(currentMedia.path)" alt="preview" />
+            </router-link>
           </div>
           <div class="p-4">
             <h1 class="text-2xl">{{ currentMedia.name }}</h1>
-            <div class="grid grid-cols-kv [&>label]:font-bold gap-x-2">
+            <div class="h-4" />
+            <div class="grid grid-cols-kv [&>label]:font-bold gap-y-0.5 gap-x-2">
               <label>Path</label>
               <span>{{ currentMedia.path }}</span>
               <label>Tags</label>
-              <span>
+              <span class="flex flex-wrap gap-1">
                 <TagBadge v-for="tag in currentMedia.tags" :key="tag" :tag="tag" />
               </span>
               <template v-if="currentMedia.type === 'video'">
@@ -60,7 +66,9 @@ const currentMedia = computed(() => {
                 </span>
                 <label>Resolution</label>
                 <span>
-                  <Badge variant="secondary">{{ height2resolution(Math.min(currentMedia.meta.width, currentMedia.meta.height)) }}</Badge>
+                  <Badge variant="secondary">
+                    {{ height2resolution(Math.min(currentMedia.meta.width, currentMedia.meta.height)) }}
+                  </Badge>
                 </span>
                 <label>Filesize</label>
                 <span>
@@ -70,8 +78,6 @@ const currentMedia = computed(() => {
                 <span>
                   <Badge variant="secondary">{{ currentMedia.ext }}</Badge>
                 </span>
-                <label>Tags</label>
-                <span>-X-</span>
               </template>
               <template v-else-if="currentMedia.type === 'gallery'">
                 <label>Images</label>
@@ -87,7 +93,7 @@ const currentMedia = computed(() => {
                   {{ humanize.fileSize(currentMedia.meta.images.reduce((size, img) => size + img.filesize, 0) / currentMedia.meta.images.length) }}
                 </span>
                 <label>Filetypes</label>
-                <span class="flex gap-x-2">
+                <span class="flex flex-wrap gap-1">
                   <Badge v-for="ext in new Set(currentMedia.meta.images.map(img => img.ext))" :key="ext" variant="secondary">{{ ext }}</Badge>
                 </span>
               </template>
@@ -97,7 +103,11 @@ const currentMedia = computed(() => {
       </div>
       <Separator class="my-2" :label="currentMedia.type === 'video' ? (currentMedia.meta.chapters.length ? 'Chapters' : 'Scenes') : 'Images'" />
       <VerticalScroll class="p-2">
-        <Image v-for="i in currentMedia.meta.n_previews" :key="i" :src="getPreviewImage(currentMedia.path, i)" :alt="`preview of #${i}`" class="h-60 md:h-80 rounded-md border-2 border-border" />
+        <template v-for="i in currentMedia.meta.n_previews" :key="i">
+          <router-link :to="linkInfo!.previews[i-1]?.link ?? linkInfo!.consumeLink">
+            <Image :src="getPreviewImage(currentMedia.path, i)" :alt="`preview of #${i}`" class="h-60 md:h-72 lg:h-80 rounded-md border-2 border-border" />
+          </router-link>
+        </template>
       </VerticalScroll>
     </template>
   </MainLayout>
