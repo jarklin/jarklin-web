@@ -13,6 +13,9 @@ import {Spinner} from "@/components/ui/spinner";
 import {Image} from "@/components/ui/image";
 import TagBadge from "@/components/composed/TagBadge.vue";
 import {MainLayout} from "@/layouts";
+import { usePreferredReducedMotion } from "@vueuse/core";
+
+const preferredReducedMotion = usePreferredReducedMotion();
 
 const mediaQuery = useMediaQuery();
 const mediaPath = useMediaPath();
@@ -31,7 +34,7 @@ const currentMedia = computed(() => {
     <template v-else>
       <div class="relative min-h-[85vh] px-[5vw] py-[5vh]">
         <div class="absolute inset-0 bg-accent">
-          <img class="size-full object-cover" :src="getAnimatedPreview(currentMedia.path)" alt="animated preview" />
+          <img class="size-full object-cover" :src="(preferredReducedMotion === 'reduce' ? getPreviewImage : getAnimatedPreview)(currentMedia.path)" alt="animated preview" />
         </div>
         <div class="min-h-[75vh] bg-background/50 rounded-lg shadow-2xl backdrop-blur-sm border border-border flex flex-col md:flex-row">
           <div class="grid place-content-center p-4">
