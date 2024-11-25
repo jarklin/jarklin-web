@@ -36,7 +36,7 @@ const currentMedia = computed(() => {
 const linkInfo = computed(() => currentMedia.value && getLinkInfo(currentMedia.value));
 
 const collection = computed(
-    () => currentMedia.value && collections.value.find(c => c.mediaList.includes(currentMedia.value))
+    () => currentMedia.value && collections.value.find(c => c.mediaList.includes(currentMedia.value!))
 );
 </script>
 
