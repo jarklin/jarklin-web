@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {LucideFilm, LucideImages} from "lucide-vue-next";
 import {getPreviewImage} from "@/lib";
-import {computed, type HTMLAttributes} from "vue";
+import {computed} from "vue";
 import {getMediaSize} from "@/lib/info";
 import type {MediaEntry} from "@/types";
 import InternalCard from "@/components/composed/mediacard/_InternalCard.vue";
@@ -12,7 +12,6 @@ const type2icon: Record<MediaEntry["type"], any> = {
 }
 
 const props = defineProps<{
-  class?: HTMLAttributes['class']
   media: MediaEntry
 }>();
 

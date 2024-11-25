@@ -15,11 +15,17 @@ import TagBadge from "@/components/composed/TagBadge.vue";
 import {MainLayout} from "@/layouts";
 import { usePreferredReducedMotion } from "@vueuse/core";
 import { getLinkInfo } from "@/views/media/details/getLinkInfo";
+import { useCollections } from "@/composables/useCollections";
+import { MediaCard } from "@/components/composed/mediacard";
+import SectionHeader from "@/components/composed/SectionHeader.vue";
+import { LucideLibraryBig } from "lucide-vue-next";
 
 const preferredReducedMotion = usePreferredReducedMotion();
 
 const mediaQuery = useMediaQuery();
 const mediaPath = useMediaPath();
+
+const collections = useCollections();
 
 const currentMedia = computed(() => {
   if (!mediaQuery.isSuccess) return undefined;
@@ -28,6 +34,10 @@ const currentMedia = computed(() => {
 });
 
 const linkInfo = computed(() => currentMedia.value && getLinkInfo(currentMedia.value));
+
+const collection = computed(
+    () => currentMedia.value && collections.value.find(c => c.mediaList.includes(currentMedia.value))
+);
 </script>
 
 <template>
@@ -109,6 +119,20 @@ const linkInfo = computed(() => currentMedia.value && getLinkInfo(currentMedia.v
           </router-link>
         </template>
       </VerticalScroll>
+      <template v-if="collection && collection.mediaList.length > 1">
+        <Separator class="my-2" label="Related" />
+        <SectionHeader :to="{ name: 'collection-details', params: { mediaPath: collection.path } }" class="px-2">
+          <LucideLibraryBig />
+          {{ collection.displayName }}
+        </SectionHeader>
+        <VerticalScroll class="p-2">
+          <template v-for="relatedMedia in collection.mediaList" :key="relatedMedia.path">
+            <router-link :to="{ name: 'media-details', params: { mediaPath: currentMedia.path } }">
+              <MediaCard :media="relatedMedia" class="h-60 md:h-72 lg:h-80 rounded-md border-2 border-border" />
+            </router-link>
+          </template>
+        </VerticalScroll>
+      </template>
     </template>
   </MainLayout>
 </template>
