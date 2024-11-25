@@ -11,6 +11,7 @@ import {useRouter} from "vue-router";
 import {cn} from "@/lib";
 import type {GalleryMediaEntry} from "@/types";
 import {MainLayout} from "@/layouts";
+import ScrollToMe from "@/assets/ScrollToMe.vue";
 
 const mediaQuery = useMediaQuery();
 const mediaPath = useMediaPath();
@@ -46,7 +47,10 @@ const showMenu = ref(false);
     <template v-else>
       <ScrollProgress />
       <div v-touch:tap="() => { showMenu = !showMenu }">
-        <PreviewedImage v-for="image in currentMedia.meta.images" :key="image.filename" :media="currentMedia" :image="image" class="w-full max-w-screen-lg mx-auto" />
+        <template v-for="image in currentMedia.meta.images" :key="image.filename">
+          <PreviewedImage :media="currentMedia" :image="image" class="w-full max-w-screen-lg mx-auto" />
+          <ScrollToMe :if="router.currentRoute.value.hash === `#${image.filename}`" />
+        </template>
       </div>
   <!--    <div class="fixed bottom-0 inset-x-0 bg-accent">-->
       <div :class="cn('sticky bg-accent -bottom-full transition-[bottom]', showMenu ? '-bottom-0 inset-x-0' : '')">
