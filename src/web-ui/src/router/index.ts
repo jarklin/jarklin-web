@@ -82,7 +82,7 @@ const router = createRouter({
             {
               path: 'collection/:mediaPath(.*)*',
               name: "collection-details",
-              component: Page404,
+              component: () => import("@/views/media/collection/index.vue"),
             },
             {
               path: 'consume',
