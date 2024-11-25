@@ -24,12 +24,7 @@ const viableMedia = computed(() => {
 </script>
 
 <template>
-  <MainLayout class="px-2">
-    <SectionHeader>
-      <LucideTableProperties />
-      Media List
-    </SectionHeader>
-    <Separator class="my-1" />
+  <MainLayout class="p-2">
     <div class="flex flex-wrap gap-2">
       <router-link v-for="media in viableMedia" :key="media.path" :to="{ name: 'media-details', params: { mediaPath: media.path } }" class="h-80">
         <MediaCard :media="media" />
