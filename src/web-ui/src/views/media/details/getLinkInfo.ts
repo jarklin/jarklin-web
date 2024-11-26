@@ -34,17 +34,26 @@ function getGalleryLinkInfo(media: GalleryMediaEntry): LinkInfo {
 }
 
 function getVideoLinkInfo(media: VideoMediaEntry): LinkInfo {
+    const sceneInformation = (media.meta.chapters.length)
+        ? media.meta.chapters
+        : [...Array(media.meta.n_previews)].map((_, i) => ({
+            id: i,
+            title: `Scene ${i+1}`,
+            start_time: Math.floor(media.meta.duration / media.meta.n_previews * i),
+            end_time: Math.floor(media.meta.duration / media.meta.n_previews * (i+1)),
+        }));
+
     return {
         consumeLink: {
             name: 'consume-watch',
             params: { mediaPath: media.path },
         },
-        previews: (media.meta.chapters || []).map((chapter) => ({
+        previews: sceneInformation.map((scene) => ({
             link: {
                 name: 'consume-watch',
                 params: { mediaPath: media.path },
-                query: { initialTime: chapter.start_time },
-            }
+                query: { initialTime: scene.start_time },
+            },
         })),
     }
 }
