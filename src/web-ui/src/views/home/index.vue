@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {Button} from "@/components/ui/button";
-import { homepageElements } from "@/views/home/elements";
 import {MainLayout} from "@/layouts";
+import { homepageElements } from "./elements";
 </script>
 
 <template>

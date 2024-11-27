@@ -9,6 +9,7 @@ import {
 } from "lucide-vue-next";
 import type {Component} from "vue";
 import Feed from "./_Feed.vue";
+import TopTags from "./_TopTags.vue";
 
 export interface HomepageElement {
     displayName: string
@@ -17,6 +18,8 @@ export interface HomepageElement {
     component?: Component
     props?: object
 }
+
+export const MAX_ENTRIES = 20;
 
 function homepageFeed(data: Omit<HomepageElement, "location" | "component" | "props"> & { filterDefinition: string }): HomepageElement {
     return {
@@ -37,6 +40,7 @@ export const homepageElements: HomepageElement[] = [
         displayName: "Tags",
         icon: LucideTag,
         location: { name: 'tags' },
+        component: TopTags,
     },
     {
         displayName: "Collections",
