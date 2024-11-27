@@ -5,6 +5,8 @@ import { computed } from "vue";
 import { type Filter, parseFilter } from "@/lib/filters";
 import { MainLayout } from "@/layouts";
 import { MediaCard } from "@/components/composed/mediacard";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { LucideImageOff } from "lucide-vue-next";
 
 const mediaQuery = useMediaQuery();
 
@@ -48,6 +50,17 @@ const viableMedia = computed(() => {
       <router-link v-for="media in viableMedia" :key="media.path" :to="{ name: 'media-details', params: { mediaPath: media.path } }" class="h-80">
         <MediaCard :media="media" />
       </router-link>
+    </div>
+    <div class="grid place-content-center h-full">
+      <Alert class="max-w-md">
+        <LucideImageOff class="size-4" />
+        <AlertTitle>
+          Nothing Found
+        </AlertTitle>
+        <AlertDescription>
+          Either there is no media or you have activated certain filters that do not deliver any results.
+        </AlertDescription>
+      </Alert>
     </div>
   </MainLayout>
 </template>
