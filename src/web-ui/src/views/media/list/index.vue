@@ -51,7 +51,7 @@ const viableMedia = computed(() => {
         <MediaCard :media="media" />
       </router-link>
     </div>
-    <div class="grid place-content-center h-full">
+    <div v-if="!viableMedia.length" class="grid place-content-center h-full">
       <Alert class="max-w-md">
         <LucideImageOff class="size-4" />
         <AlertTitle>
