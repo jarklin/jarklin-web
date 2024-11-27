@@ -9,6 +9,7 @@ import {MediaCard} from "@/components/composed/mediacard";
 import {useMediaPath} from "@/composables/useMediaPath";
 import {MainLayout} from "@/layouts";
 import {Separator} from "@/components/ui/separator";
+import MasonryGrid from "@/components/composed/container/MasonryGrid.vue";
 
 const route = useRoute();
 
@@ -55,11 +56,11 @@ const localMedia = computed(() => {
         </Button>
       </router-link>
     </div>
-    <Separator class="my-1" />
-    <div class="flex flex-wrap gap-4">
+    <Separator class="my-2" />
+    <MasonryGrid>
       <router-link v-for="media in localMedia" :key="media.path" :to="{ name: 'media-details', params: { mediaPath: media.path } }" class="h-80">
         <MediaCard :media="media" />
       </router-link>
-    </div>
+    </MasonryGrid>
   </MainLayout>
 </template>

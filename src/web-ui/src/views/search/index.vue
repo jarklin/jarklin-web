@@ -7,6 +7,7 @@ import {MainLayout} from "@/layouts";
 import { useMediaQuery } from "@/composables";
 import * as JsSearch from "js-search";
 import { MediaCard } from "@/components/composed/mediacard";
+import MasonryGrid from "@/components/composed/container/MasonryGrid.vue";
 
 const mediaQuery = useMediaQuery();
 
@@ -49,10 +50,10 @@ onStartTyping(() => {
         <LucideSearch class="size-6 text-muted-foreground" />
       </span>
     </div>
-    <div class="flex flex-wrap gap-2">
+    <MasonryGrid class="gap-2">
       <router-link v-for="media in matchingMedia" :key="media.path" :to="{ name: 'media-details', params: { mediaPath: media.path } }" class="h-80">
         <MediaCard :media="media" />
       </router-link>
-    </div>
+    </MasonryGrid>
   </MainLayout>
 </template>

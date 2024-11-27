@@ -7,6 +7,7 @@ import { MainLayout } from "@/layouts";
 import { MediaCard } from "@/components/composed/mediacard";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { LucideImageOff } from "lucide-vue-next";
+import MasonryGrid from "@/components/composed/container/MasonryGrid.vue";
 
 const mediaQuery = useMediaQuery();
 
@@ -46,11 +47,11 @@ const viableMedia = computed(() => {
 <!--      </div>-->
 <!--      <Separator class="my-2" />-->
 <!--    </template>-->
-    <div class="flex flex-wrap gap-2">
+    <MasonryGrid class="gap-2">
       <router-link v-for="media in viableMedia" :key="media.path" :to="{ name: 'media-details', params: { mediaPath: media.path } }" class="h-80">
         <MediaCard :media="media" />
       </router-link>
-    </div>
+    </MasonryGrid>
     <div v-if="!viableMedia.length" class="grid place-content-center h-full">
       <Alert class="max-w-md">
         <LucideImageOff class="size-4" />
