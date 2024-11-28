@@ -52,7 +52,6 @@ const showMenu = ref(false);
           <ScrollToMe :if="router.currentRoute.value.hash === `#${image.filename}`" />
         </template>
       </div>
-  <!--    <div class="fixed bottom-0 inset-x-0 bg-accent">-->
       <div :class="cn('sticky bg-accent -bottom-full transition-[bottom]', showMenu ? '-bottom-0 inset-x-0' : '')">
         <div class="max-w-screen-lg mx-auto p-1 flex gap-x-2 items-stretch content-baseline">
           <button @click="router.back" title="Go back to the last page">
