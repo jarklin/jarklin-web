@@ -6,7 +6,7 @@ import {getAllParentPaths, getBasename, getParentPath} from "@/lib";
 import {LucideFolder, LucideFolderUp} from "lucide-vue-next";
 import {Button} from "@/components/ui/button";
 import {MediaCard} from "@/components/composed/mediacard";
-import {useMediaPath} from "@/composables/useMediaPath";
+import {useMediaPath} from "@/composables/useMediaPath.ts";
 import {MainLayout} from "@/layouts";
 import {Separator} from "@/components/ui/separator";
 import MasonryGrid from "@/components/composed/container/MasonryGrid.vue";

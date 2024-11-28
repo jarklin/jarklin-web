@@ -30,11 +30,6 @@ const router = createRouter({
           component: HomeView,
         },
         {
-          path: 'search',
-          name: "search",
-          component: () => import("@/views/search/index.vue"),
-        },
-        {
           path: 'tags',
           name: "tags",
           component: () => import("@/views/tags/index.vue"),
@@ -70,6 +65,11 @@ const router = createRouter({
               component: () => import("@/views/media/list/index.vue"),
             },
             {
+              path: 'search',
+              name: "search",
+              component: () => import("@/views/media/search/index.vue"),
+            },
+            {
               path: 'details/:mediaPath(.*)*',
               name: "media-details",
               component: () => import("@/views/media/details/index.vue"),
@@ -83,6 +83,11 @@ const router = createRouter({
               path: 'collection/:mediaPath(.*)*',
               name: "collection-details",
               component: () => import("@/views/media/collection/index.vue"),
+            },
+            {
+              path: 'explorer/:mediaPath(.*)*',
+              name: "explorer",
+              component: () => import("@/views/media/explorer/index.vue"),
             },
             {
               path: 'consume',
@@ -105,11 +110,6 @@ const router = createRouter({
               ],
             },
           ],
-        },
-        {
-          path: 'explorer/:mediaPath(.*)*',
-          name: "explorer",
-          component: () => import("@/views/explorer/index.vue"),
         },
       ],
     },
