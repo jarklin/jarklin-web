@@ -10,6 +10,7 @@ import {
 import type {Component} from "vue";
 import Feed from "./_Feed.vue";
 import TopTags from "./_TopTags.vue";
+import RandomCollections from "./_Collections.vue";
 
 export interface HomepageElement {
     displayName: string
@@ -31,22 +32,6 @@ function homepageFeed(data: Omit<HomepageElement, "location" | "component" | "pr
 }
 
 export const homepageElements: HomepageElement[] = [
-    {
-        displayName: "Explorer",
-        icon: LucideFolderClosed,
-        location: { name: 'explorer', params: { mediaPath: '' } },
-    },
-    {
-        displayName: "Tags",
-        icon: LucideTag,
-        location: { name: 'tags' },
-        component: TopTags,
-    },
-    {
-        displayName: "Collections",
-        icon: LucideLibraryBig,
-        location: { name: 'collections' },
-    },
     homepageFeed({
         displayName: "Random Galleries",
         icon: LucideImages,
@@ -72,4 +57,21 @@ export const homepageElements: HomepageElement[] = [
         icon: LucideSparkles,
         filterDefinition: "isVideo|sortCreationTimeDesc",
     }),
+    {
+        displayName: "Tags",
+        icon: LucideTag,
+        location: { name: 'tags' },
+        component: TopTags,
+    },
+    {
+        displayName: "Collections",
+        icon: LucideLibraryBig,
+        location: { name: 'collections' },
+        component: RandomCollections,
+    },
+    {
+        displayName: "Explorer",
+        icon: LucideFolderClosed,
+        location: { name: 'explorer', params: { mediaPath: '' } },
+    },
 ];

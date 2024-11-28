@@ -6,7 +6,7 @@ import { homepageElements } from "./elements";
 
 <template>
   <MainLayout class="p-2 flex flex-col gap-2">
-    <div class="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-2 justify-center">
+    <div class="grid gap-2 justify-center" :style="{ gridTemplateColumns: 'repeat(auto-fill,minmax(180px,1fr))' }">
       <router-link v-for="element in homepageElements" :key="element.displayName" :to="element.location">
         <Button variant="secondary" size="lg" class="w-full px-2">
           <component v-if="element.icon" :is="element.icon" class="inline-block" />
