@@ -3,7 +3,7 @@ import type { HomepageElement } from "@/views/home/elements.ts";
 import { Separator } from "@/components/ui/separator";
 import SectionHeader from "@/components/composed/SectionHeader.vue";
 import { useCollections } from "@/composables/useCollections.ts";
-import { VerticalScroll } from "@/components/composed/container";
+import { HorizontalScroll } from "@/components/composed/container";
 import CollectionCard from "@/components/composed/mediacard/CollectionCard.vue";
 
 defineProps<{
@@ -19,11 +19,11 @@ const collections = useCollections();
     <component v-if="element.icon" :is="element.icon" />
     Random Collections
   </SectionHeader>
-  <VerticalScroll class="py-2">
+  <HorizontalScroll class="py-2">
     <template v-for="collection in collections" :key="collection.path">
       <router-link :to="{ name: 'collection-details', params: { mediaPath: collection.path } }" class="size-60">
         <CollectionCard :collection="collection" />
       </router-link>
     </template>
-  </VerticalScroll>
+  </HorizontalScroll>
 </template>

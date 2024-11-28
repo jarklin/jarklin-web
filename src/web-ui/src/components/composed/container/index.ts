@@ -1,1 +1,1 @@
-export { default as VerticalScroll } from "./VerticalScroll.vue";
+export { default as HorizontalScroll } from "./HorizontalScroll.vue";

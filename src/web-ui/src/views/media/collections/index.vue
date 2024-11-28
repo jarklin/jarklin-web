@@ -10,9 +10,11 @@ const collections = useCollections();
 <template>
   <MainLayout class="p-2">
     <MasonryGrid class="gap-2">
-      <router-link v-for="collection in collections" :key="collection.path" :to="{ name: 'collection-details', params: { mediaPath: collection.path } }" class="size-80 m-auto">
-        <CollectionCard :collection="collection" />
-      </router-link>
+      <template v-for="collection in collections" :key="collection.path">
+        <router-link :to="{ name: 'collection-details', params: { mediaPath: collection.path } }" class="size-80 m-auto">
+          <CollectionCard :collection="collection" />
+        </router-link>
+      </template>
     </MasonryGrid>
   </MainLayout>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {VerticalScroll} from "@/components/composed/container";
+import {HorizontalScroll} from "@/components/composed/container";
 import {useMediaQuery} from "@/composables";
 import {computed} from "vue";
 import { mergeFilters, parseFilter, filters } from "@/lib/filters";
@@ -30,12 +30,12 @@ const viableMedia = computed(() => {
       <component v-if="element.icon" :is="element.icon" />
       {{ element.displayName }}
     </SectionHeader>
-    <VerticalScroll class="py-2">
+    <HorizontalScroll class="py-2">
       <template v-for="media in viableMedia" :key="media.path">
         <router-link class="h-60" :to="{ name: 'media-details', params: { mediaPath: media.path } }">
           <MediaCard :media="media" />
         </router-link>
       </template>
-    </VerticalScroll>
+    </HorizontalScroll>
   </template>
 </template>

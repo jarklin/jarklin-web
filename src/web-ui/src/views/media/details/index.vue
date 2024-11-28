@@ -4,7 +4,7 @@ import {useMediaPath} from "@/composables/useMediaPath";
 import {computed} from "vue";
 import Page404 from "@/views/404.vue";
 import {getAnimatedPreview, getPreviewImage, height2resolution} from "@/lib";
-import {VerticalScroll} from "@/components/composed/container";
+import {HorizontalScroll} from "@/components/composed/container";
 import humanizeDuration from "humanize-duration";
 import humanize from "humanize-plus";
 import {Badge} from "@/components/ui/badge";
@@ -112,26 +112,26 @@ const collection = computed(
         </div>
       </div>
       <Separator class="my-2" :label="currentMedia.type === 'video' ? (currentMedia.meta.chapters.length ? 'Chapters' : 'Scenes') : 'Images'" />
-      <VerticalScroll class="p-2">
+      <HorizontalScroll class="p-2">
         <template v-for="i in currentMedia.meta.n_previews" :key="i">
           <router-link :to="linkInfo!.previews[i-1]?.link ?? linkInfo!.consumeLink">
             <Image :src="getPreviewImage(currentMedia.path, i)" :alt="`preview of #${i}`" class="h-60 md:h-72 lg:h-80 rounded-md border-2 border-border" />
           </router-link>
         </template>
-      </VerticalScroll>
+      </HorizontalScroll>
       <template v-if="collection && collection.mediaList.length > 1">
         <Separator class="my-2" label="Related" />
         <SectionHeader :to="{ name: 'collection-details', params: { mediaPath: collection.path } }" class="px-2">
           <LucideLibraryBig />
           {{ collection.displayName }}
         </SectionHeader>
-        <VerticalScroll class="p-2">
+        <HorizontalScroll class="p-2">
           <template v-for="relatedMedia in collection.mediaList" :key="relatedMedia.path">
             <router-link :to="{ name: 'media-details', params: { mediaPath: currentMedia.path } }">
               <MediaCard :media="relatedMedia" class="h-60 md:h-72 lg:h-80 rounded-md border-2 border-border" />
             </router-link>
           </template>
-        </VerticalScroll>
+        </HorizontalScroll>
       </template>
     </template>
   </MainLayout>
