@@ -14,16 +14,18 @@ const collections = useCollections();
 </script>
 
 <template>
-  <Separator />
-  <SectionHeader :to="element.location">
-    <component v-if="element.icon" :is="element.icon" />
-    Random Collections
-  </SectionHeader>
-  <HorizontalScroll class="py-2">
-    <template v-for="collection in collections" :key="collection.path">
-      <router-link :to="{ name: 'collection-details', params: { mediaPath: collection.path } }" class="size-60">
-        <CollectionCard :collection="collection" />
-      </router-link>
-    </template>
-  </HorizontalScroll>
+  <template v-if="collections.length">
+    <Separator />
+    <SectionHeader :to="element.location">
+      <component v-if="element.icon" :is="element.icon" />
+      Random Collections
+    </SectionHeader>
+    <HorizontalScroll class="py-2">
+      <template v-for="collection in collections" :key="collection.path">
+        <router-link :to="{ name: 'collection-details', params: { mediaPath: collection.path } }" class="size-60">
+          <CollectionCard :collection="collection" />
+        </router-link>
+      </template>
+    </HorizontalScroll>
+  </template>
 </template>

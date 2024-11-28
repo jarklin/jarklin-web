@@ -24,12 +24,14 @@ const topTags = computed(() =>
 </script>
 
 <template>
-  <Separator />
-  <SectionHeader :to="element.location">
-    <component v-if="element.icon" :is="element.icon" />
-    Top Tags
-  </SectionHeader>
-  <div class="flex flex-wrap gap-2">
-    <TagBadge v-for="tag in topTags" :key="tag" :tag="tag" />
-  </div>
+  <template v-if="topTags.length">
+    <Separator />
+    <SectionHeader :to="element.location">
+      <component v-if="element.icon" :is="element.icon" />
+      Top Tags
+    </SectionHeader>
+    <div class="flex flex-wrap gap-2">
+      <TagBadge v-for="tag in topTags" :key="tag" :tag="tag" />
+    </div>
+  </template>
 </template>
