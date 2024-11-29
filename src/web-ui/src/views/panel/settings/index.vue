@@ -6,7 +6,7 @@ import {Button} from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useWebSettings } from "@/composables/useWebSettings.ts";
 import { Setting, SettingDescription, SettingTitle } from "@/components/ui/setting";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
 
 const apiConfig = useApiConfigQuery();
 const webSettings = useWebSettings();
@@ -18,18 +18,18 @@ const webSettings = useWebSettings();
     <AlertTitle>
       Settings are not synced
     </AlertTitle>
-    <AlertDescription>
+    <AlertDescription class="text-muted-foreground">
       As of now. There exists no system of syncing these settings between devices or browsers.
       This means that everything you configure here will only be applied to this specific browser and device.
     </AlertDescription>
   </Alert>
   <Separator label="Optimization" />
   <Setting>
-    <Checkbox v-model:checked="webSettings.optimizedMedia" />
+    <Switch v-model:checked="webSettings.optimizedMedia" />
     <SettingTitle>
       JIT Media Optimization
     </SettingTitle>
-    <SettingDescription>
+    <SettingDescription class="text-muted-foreground">
       The Server allows just-in-time optimization of supported media.
       This reduces the required amount of data that has to be downloaded in exchange for a small decrease in quality of the media.
     </SettingDescription>

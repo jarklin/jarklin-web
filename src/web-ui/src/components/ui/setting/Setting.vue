@@ -8,7 +8,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div :class="cn('relative [&>button~*]:pl-8 [&>button]:absolute [&>button]:left-2', props.class)" role="group">
+  <div :class="cn('relative [&>button[role=checkbox]~*]:pl-8 [&>button[role=switch]~*]:pl-16 [&>button]:absolute [&>button]:left-2', props.class)" role="group">
     <slot />
   </div>
 </template>
