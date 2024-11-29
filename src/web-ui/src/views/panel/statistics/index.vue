@@ -4,6 +4,9 @@ import {computed} from "vue";
 import humanize from "humanize-plus";
 import humanizeDuration from "humanize-duration";
 import type {GalleryMediaEntry, VideoMediaEntry} from "@/types";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { LucideChartBar } from "lucide-vue-next";
+import { Separator } from "@/components/ui/separator";
 
 type Index = Array<{
   category: string
@@ -98,6 +101,16 @@ const staticsIndex = computed<Index | null>(() => {
 </script>
 
 <template>
+  <Alert>
+    <LucideChartBar class="size-4" />
+    <AlertTitle>
+      Statistics about your media
+    </AlertTitle>
+    <AlertDescription class="text-muted-foreground">
+      You may be interested in finding out more about the media available to you.
+      Here you can (hopefully) see interesting statistics about them.
+    </AlertDescription>
+  </Alert>
   <div class="grid grid-cols-[auto,1fr] gap-4">
     <template v-for="category in staticsIndex">
       <div class="col-span-2 text-xl font-bold text-primary">{{ category.category }}</div>
