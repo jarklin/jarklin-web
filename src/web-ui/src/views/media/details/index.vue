@@ -19,6 +19,7 @@ import { useCollections } from "@/composables/useCollections";
 import { MediaCard } from "@/components/composed/mediacard";
 import SectionHeader from "@/components/composed/SectionHeader.vue";
 import { LucideLibraryBig } from "lucide-vue-next";
+import KvGrid from "@/components/composed/KvGrid.vue";
 
 const preferredReducedMotion = usePreferredReducedMotion();
 
@@ -58,7 +59,7 @@ const collection = computed(
           <div class="p-4">
             <h1 class="text-2xl">{{ currentMedia.name }}</h1>
             <div class="h-4" />
-            <div class="grid grid-cols-kv [&>label]:font-bold gap-y-0.5 gap-x-2">
+            <KvGrid>
               <label>Path</label>
               <span>{{ currentMedia.path }}</span>
               <label>Tags</label>
@@ -107,7 +108,7 @@ const collection = computed(
                   <Badge v-for="ext in new Set(currentMedia.meta.images.map(img => img.ext))" :key="ext" variant="secondary">{{ ext }}</Badge>
                 </span>
               </template>
-            </div>
+            </KvGrid>
           </div>
         </div>
       </div>
