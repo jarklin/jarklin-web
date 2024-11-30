@@ -1,73 +1,109 @@
-import type { Config } from 'tailwindcss'
-import * as tailwindContainerQueriesPlugin from '@tailwindcss/container-queries';
-import vidstackCssPlugin from "@vidstack/react/tailwind.cjs";
-import tailwindAnimatePlugin from "tailwindcss-animate";
+import {Config} from "tailwindcss";
+import animate from "tailwindcss-animate";
 
-export default {
+const config: Config = {
+  darkMode: ["class"],
+  safelist: ["dark"],
+  prefix: "",
+
   content: [
-      "./index.html",
-      "./src/**/*.tsx",
-  ],
+    './pages/**/*.{ts,tsx,vue}',
+    './components/**/*.{ts,tsx,vue}',
+    './app/**/*.{ts,tsx,vue}',
+    './src/**/*.{ts,tsx,vue}',
+	],
+
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
-        colors: {
-            'primary': {
-                'DEFAULT': "#222831",
-                'light': "#393E46",
-            },
-            'accent': {
-                'DEFAULT': "#00ADB5",
-                'light': "#00FFF5",
-            },
-            'media-brand': 'rgb(var(--media-brand) / <alpha-value>)',
-            'media-focus': 'rgb(var(--media-focus) / <alpha-value>)',
+      colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
-        height: {
-            "gallery": "16rem",
-            "video": "12.5rem",
-            "mixed": "14.5rem",
-            "gallery-sm": "14rem",
-            "video-sm": "10.5rem",
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
         },
-        aspectRatio: {
-            "portrait": "9 / 16",
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
         },
-        animation: {
-            "anything-is-loading": "marginLeftN100to100 1s linear infinite",
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
         },
-        keyframes: {
-            marginLeftN100to100: {
-                "0%": {
-                    marginLeft: "-100%",
-                },
-                "100%": {
-                    marginLeft: "100%",
-                },
-            },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
         },
-        dropShadow: {
-            "highlight": "0px 0px 2px rgb(0 0 0 / 0.75)"
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
         },
-        gridTemplateColumns: {
-            "kv": "auto, 1fr",
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
+      },
+      borderRadius: {
+        xl: "calc(var(--radius) + 4px)",
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "collapsible-down": {
+          from: { height: "0" },
+          to: { height: 'var(--radix-collapsible-content-height)' },
+        },
+        "collapsible-up": {
+          from: { height: 'var(--radix-collapsible-content-height)' },
+          to: { height: "0" },
+        },
+        marginLeftN100to100: {
+          "0%": { marginLeft: "-100%" },
+          "100%": { marginLeft: "100%" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+        "collapsible-down": "collapsible-down 0.2s ease-in-out",
+        "collapsible-up": "collapsible-up 0.2s ease-in-out",
+        "anything-is-loading": "marginLeftN100to100 1s linear infinite",
+      },
+      aspectRatio: {
+        portrait: "9 / 16",
+      },
+      dropShadow: {
+        "highlight": "0px 0px 2px rgb(0 0 0 / 0.75)"
+      },
+      gridTemplateColumns: {
+        "kv": "auto, 1fr",
+      },
     },
   },
-  plugins: [
-      tailwindContainerQueriesPlugin,
-      tailwindAnimatePlugin,
-      vidstackCssPlugin({
-          prefix: 'media',
-      }),
-      customVariants,
-  ],
-} satisfies Config
-
-
-function customVariants({ addVariant, matchVariant }) {
-    // Strict version of `.group` to help with nesting.
-    matchVariant('parent-data', (value) => `.parent[data-${value}] > &`);
-
-    addVariant('hocus', ['&:hover', '&:focus-visible']);
-    addVariant('group-hocus', ['.group:hover &', '.group:focus-visible &']);
+  plugins: [animate],
 }
+
+export default config;

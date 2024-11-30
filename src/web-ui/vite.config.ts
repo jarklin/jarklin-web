@@ -1,10 +1,14 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
-import tsconfigPaths from "vite-tsconfig-paths";
+import { fileURLToPath, URL } from 'node:url'
 
-// https://vitejs.dev/config/
+import autoprefixer from 'autoprefixer'
+import tailwind from 'tailwindcss'
+
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import { vite as vidstack } from "vidstack/plugins";
+
+// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tsconfigPaths()],
   base: "",  // make build relative
   server: {
     proxy: {
@@ -12,5 +16,25 @@ export default defineConfig({
       '/auth/': 'http://localhost:5000',
       '/api/': 'http://localhost:5000',
     }
+  },
+  css: {
+    postcss: {
+      plugins: [tailwind(), autoprefixer()],
+    }
+  },
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag.startsWith('media-'),
+        }
+      }
+    }),
+    vidstack({ include: /player\// }),
+  ],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
   }
-});
+})

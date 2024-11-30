@@ -1,4 +1,3 @@
-export * from "./apiconfig.ts";
-export * from "./generated.ts";
-export * from "./media.ts";
-export * from "./problems";
+export * from "./api";
+export * from "./filter";
+export * from "./generated";

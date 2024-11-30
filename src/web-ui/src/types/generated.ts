@@ -1,5 +1,4 @@
-import type {MediaEntry} from "~/types/media.ts";
-
+import type {MediaEntry} from "./api";
 
 export interface Collection {
     path: string
