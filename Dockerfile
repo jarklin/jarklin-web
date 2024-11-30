@@ -1,4 +1,6 @@
-FROM node:22-alpine as builder
+ARG NODE_VERSION=22
+
+FROM node:${NODE_VERSION}-alpine AS builder
 
 WORKDIR /code
 
@@ -6,7 +8,7 @@ COPY src/web-ui/ ./
 RUN npm clean-install
 RUN npm run build
 
-FROM pierrezemb/gostatic:latest as runtime
+FROM pierrezemb/gostatic:latest AS runtime
 
 LABEL description="Jarklin - Web-UI"
 LABEL website="https://jarklin.github.io/"
