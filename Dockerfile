@@ -13,7 +13,7 @@ FROM pierrezemb/gostatic:latest AS runtime
 LABEL description="Jarklin - Web-UI"
 LABEL website="https://jarklin.github.io/"
 
-COPY --from=builder /code/dist/ /srv/html/
+COPY --from=builder /code/dist/ /srv/http/
 
 EXPOSE 80
 
