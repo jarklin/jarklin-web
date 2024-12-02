@@ -47,8 +47,8 @@ const showMenu = ref(false);
       <ScrollProgress />
       <div v-touch:tap="() => { showMenu = !showMenu }">
         <template v-for="image in currentMedia.meta.images" :key="image.filename">
-          <PreviewedImage :media="currentMedia" :image="image" class="w-full max-w-screen-lg mx-auto" />
           <ScrollToMe :if="router.currentRoute.value.hash === `#${image.filename}`" />
+          <PreviewedImage :media="currentMedia" :image="image" class="w-full max-w-screen-lg mx-auto" />
         </template>
       </div>
       <div :class="cn('sticky bg-accent -bottom-full transition-[bottom]', showMenu ? '-bottom-0 inset-x-0' : '')">
