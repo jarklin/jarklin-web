@@ -1,7 +1,13 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
 import {SimpleLayout} from "@/layouts";
 import HomeView from "@/views/home/index.vue";
+import MediaListView from "@/views/media/list/index.vue";
+import MediaDetailsView from "@/views/media/details/index.vue";
+import CollectionDetailsView from "@/views/media/collection/index.vue";
+import PanelLayout from "@/views/panel/Layout.vue";
+import PanelSettingsView from "@/views/panel/settings/index.vue";
 import Page404 from "@/views/404.vue";
+
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -36,13 +42,13 @@ const router = createRouter({
         },
         {
           path: 'panel',
-          component: () => import("@/views/panel/Layout.vue"),
+          component: PanelLayout,
           children: [
             { path: '', name: "panel", redirect: { name: "settings" }, },
             {
               path: 'settings',
               name: "settings",
-              component: () => import("@/views/panel/settings/index.vue"),
+              component: PanelSettingsView,
             },
             {
               path: 'problems',
@@ -62,17 +68,12 @@ const router = createRouter({
             {
               path: 'list',
               name: "media-list",
-              component: () => import("@/views/media/list/index.vue"),
-            },
-            {
-              path: 'search',
-              name: "search",
-              component: () => import("@/views/media/search/index.vue"),
+              component: MediaListView,
             },
             {
               path: 'details/:mediaPath(.*)*',
               name: "media-details",
-              component: () => import("@/views/media/details/index.vue"),
+              component: MediaDetailsView,
             },
             {
               path: 'collections',
@@ -82,7 +83,12 @@ const router = createRouter({
             {
               path: 'collection/:mediaPath(.*)*',
               name: "collection-details",
-              component: () => import("@/views/media/collection/index.vue"),
+              component: CollectionDetailsView,
+            },
+            {
+              path: 'search',
+              name: "search",
+              component: () => import("@/views/media/search/index.vue"),
             },
             {
               path: 'explorer/:mediaPath(.*)*',
