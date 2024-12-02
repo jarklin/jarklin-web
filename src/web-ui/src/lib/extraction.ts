@@ -1,7 +1,14 @@
 import humanize from "humanize-plus";
-import {containSameElements} from "./itertools";
 import {getPreviewImage} from "./paths";
 import type {Collection, MediaEntry} from "@/types";
+
+
+/**
+ * split by '/'|'\'
+ */
+function splitPath(path: string): string[] {
+    return path.split(/[/\\]+/g).filter(p => !!p.length);
+}
 
 
 /**
@@ -12,11 +19,7 @@ import type {Collection, MediaEntry} from "@/types";
 export function extractTags(path: string): string[] {
     const tags: string[] = [];
 
-    // split by '/'|'\'
-    const parts = path.split(/[/\\]+/g).filter(p => !!p.length);
-
-    // // every element is added once (except the filename and folder name (last part))
-    // tags.push(...parts.slice(0, parts.length - 2));
+    const parts = splitPath(path);
 
     // add variations/combinations
     for (let max = 1; max < parts.length; max++) {
@@ -28,25 +31,25 @@ export function extractTags(path: string): string[] {
 
 
 export function extractCollections(mediaList: MediaEntry[]): Collection[] {
-    const collections: Collection[] = [];
+    const path2collections: Record<string, Collection> = {};
 
     for (const media of mediaList) {
-        const collection = collections.find(collection => containSameElements(collection.tags, media.tags));
+        const pathParts = splitPath(media.path);
+        const path = pathParts.slice(0, pathParts.length-1).join("/");
+        const collection = path2collections[path];
         if (collection === undefined) {
-            const pathParts = media.path.split(/[/\\]/g).filter(p => !!p.length);
             const name = pathParts[Math.max(0, pathParts.length - 2)];
-            const path = pathParts.slice(0, pathParts.length-1).join("/");
-            collections.push(<Collection>{
+            path2collections[path] = <Collection>{
                 path: path,
                 displayName: humanize.capitalizeAll(name),
                 tags: media.tags,
                 previewUrl: getPreviewImage(media.path),
                 mediaList: [media],
-            });
+            };
         } else {
             collection.mediaList.push(media);
         }
     }
 
-    return collections.filter(collection => collection.mediaList.length > 1);
+    return Object.values(path2collections).filter(c => c.mediaList.length > 1);
 }
