@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { useMediaPath } from "@/composables/useMediaPath";
+import { useCollections, useMediaPath } from "@/composables/";
 import { computed } from "vue";
 import { MainLayout } from "@/layouts";
-import { useCollections } from "@/composables/useCollections";
 import { MediaCard } from "@/components/composed/mediacard";
 import { Separator } from "@/components/ui/separator";
 import SectionHeader from "@/components/composed/SectionHeader.vue";

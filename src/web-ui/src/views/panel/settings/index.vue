@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { LucideInfo, LucideLogOut } from "lucide-vue-next";
-import {useApiConfigQuery} from "@/composables";
+import { useApiConfigQuery, useWebSettings } from "@/composables";
 import {Separator} from "@/components/ui/separator";
 import {Button} from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { useWebSettings } from "@/composables/useWebSettings.ts";
 import { Setting, SettingDescription, SettingTitle } from "@/components/ui/setting";
 import { Switch } from "@/components/ui/switch";
 

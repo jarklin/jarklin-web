@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import VideoPlayer from "@/components/player/VideoPlayer.vue";
-import {useMediaPath} from "@/composables/useMediaPath";
-import {useMediaQuery} from "@/composables";
+import { useMediaPath, useMediaQuery } from "@/composables/";
 import {computed} from "vue";
 import Page404 from "@/views/404.vue";
 import type {VideoMediaEntry} from "@/types";

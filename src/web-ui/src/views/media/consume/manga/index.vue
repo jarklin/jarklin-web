@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import {useMediaQuery} from "@/composables";
+import { useMediaPath, useMediaQuery } from "@/composables";
 import {computed, onMounted, onUnmounted, reactive, ref} from "vue";
 import Page404 from "@/views/404.vue";
 import ScrollProgress from "@/components/ScrollProgress.vue";
-import {useMediaPath} from "@/composables/useMediaPath";
 import PreviewedImage from "@/components/composed/PreviewedImage.vue";
 import {LucideCircleArrowUp, LucideExpand, LucideShrink, LucideSquareArrowLeft} from "lucide-vue-next";
 import {useFullscreen} from "@vueuse/core";

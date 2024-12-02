@@ -2,7 +2,7 @@
 import type { HomepageElement } from "@/views/home/elements.ts";
 import { Separator } from "@/components/ui/separator";
 import SectionHeader from "@/components/composed/SectionHeader.vue";
-import { useCollections } from "@/composables/useCollections.ts";
+import { useCollections } from "@/composables/";
 import { HorizontalScroll } from "@/components/composed/container";
 import CollectionCard from "@/components/composed/mediacard/CollectionCard.vue";
 

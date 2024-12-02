@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {useCollections} from "@/composables/useCollections";
+import {useCollections} from "@/composables/";
 import CollectionCard from "@/components/composed/mediacard/CollectionCard.vue";
 import {MainLayout} from "@/layouts";
 import MasonryGrid from "@/components/composed/container/MasonryGrid.vue";

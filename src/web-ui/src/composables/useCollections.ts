@@ -1,5 +1,5 @@
 import type {Collection} from "@/types";
-import {useMediaQuery} from "@/composables/useMediaQuery";
+import {useMediaQuery} from "./useMediaQuery";
 import {computed, type ComputedRef} from "vue";
 import {extractCollections} from "@/lib";
 
