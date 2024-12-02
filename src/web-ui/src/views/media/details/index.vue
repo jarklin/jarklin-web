@@ -1,13 +1,9 @@
 <script setup lang="ts">
-import {useMediaQuery} from "@/composables";
-import {useMediaPath} from "@/composables/useMediaPath";
+import {useMediaQuery, useMediaPath, useCollections} from "@/composables";
 import {computed} from "vue";
 import Page404 from "@/views/404.vue";
-import {getAnimatedPreview, getPreviewImage, height2resolution} from "@/lib";
+import {getAnimatedPreview, getPreviewImage} from "@/lib";
 import {HorizontalScroll} from "@/components/composed/container";
-import humanizeDuration from "humanize-duration";
-import humanize from "humanize-plus";
-import {Badge} from "@/components/ui/badge";
 import {Separator} from "@/components/ui/separator";
 import {Spinner} from "@/components/ui/spinner";
 import {Image} from "@/components/ui/image";
@@ -15,11 +11,12 @@ import TagBadge from "@/components/composed/TagBadge.vue";
 import {MainLayout} from "@/layouts";
 import { usePreferredReducedMotion } from "@vueuse/core";
 import { getLinkInfo } from "@/views/media/details/getLinkInfo";
-import { useCollections } from "@/composables/useCollections";
 import { MediaCard } from "@/components/composed/mediacard";
 import SectionHeader from "@/components/composed/SectionHeader.vue";
 import { LucideLibraryBig } from "lucide-vue-next";
 import KvGrid from "@/components/composed/KvGrid.vue";
+import GalleryDetails from "./_GalleryDetails.vue";
+import VideoDetails from "./_VideoDetails.vue";
 
 const preferredReducedMotion = usePreferredReducedMotion();
 
@@ -66,48 +63,8 @@ const collection = computed(
               <span class="flex flex-wrap gap-1">
                 <TagBadge v-for="tag in currentMedia.tags" :key="tag" :tag="tag" />
               </span>
-              <template v-if="currentMedia.type === 'video'">
-                <label>Duration</label>
-                <span>
-                  {{ humanizeDuration(currentMedia.meta.duration*1000, { largest: 2, round: true }) }}
-                </span>
-                <label>Dimensions</label>
-                <span>
-                  {{ currentMedia.meta.width }}x{{ currentMedia.meta.height }}
-                </span>
-                <label>Resolution</label>
-                <span>
-                  <Badge variant="secondary">
-                    {{ height2resolution(Math.min(currentMedia.meta.width, currentMedia.meta.height)) }}
-                  </Badge>
-                </span>
-                <label>Filesize</label>
-                <span>
-                  {{ humanize.fileSize(currentMedia.meta.filesize) }}
-                </span>
-                <label>Filetype</label>
-                <span>
-                  <Badge variant="secondary">{{ currentMedia.ext }}</Badge>
-                </span>
-              </template>
-              <template v-else-if="currentMedia.type === 'gallery'">
-                <label>Images</label>
-                <span>
-                  {{ currentMedia.meta.images.length }}
-                </span>
-                <label>Total Size</label>
-                <span>
-                  {{ humanize.fileSize(currentMedia.meta.images.reduce((size, img) => size + img.filesize, 0)) }}
-                </span>
-                <label>Avg Size</label>
-                <span>
-                  {{ humanize.fileSize(currentMedia.meta.images.reduce((size, img) => size + img.filesize, 0) / currentMedia.meta.images.length) }}
-                </span>
-                <label>Filetypes</label>
-                <span class="flex flex-wrap gap-1">
-                  <Badge v-for="ext in new Set(currentMedia.meta.images.map(img => img.ext))" :key="ext" variant="secondary">{{ ext }}</Badge>
-                </span>
-              </template>
+              <VideoDetails v-if="currentMedia.type === 'video'" :media="currentMedia" />
+              <GalleryDetails v-if="currentMedia.type === 'gallery'" :media="currentMedia" />
             </KvGrid>
           </div>
         </div>
