@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {LucideSearch} from "lucide-vue-next";
+import { LucideSearch, LucideSearchX } from "lucide-vue-next";
 import {Input} from "@/components/ui/input";
 import { computed, ref } from "vue";
 import { onStartTyping, templateRef, useUrlSearchParams, watchDebounced } from "@vueuse/core";
@@ -8,6 +8,8 @@ import { useMediaQuery } from "@/composables";
 import * as JsSearch from "js-search";
 import { MediaCard } from "@/components/composed/mediacard";
 import MasonryGrid from "@/components/composed/container/MasonryGrid.vue";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import type { MediaEntry } from "@/types";
 
 const mediaQuery = useMediaQuery();
 
@@ -27,7 +29,7 @@ const search = computed(() => {
 });
 
 const matchingMedia = computed(
-    () => search.value.search(filterQuery.value) as typeof mediaQuery.data,
+    () => search.value.search(filterQuery.value) as MediaEntry[],
 );
 
 watchDebounced(inputQuery, () => {
@@ -50,10 +52,21 @@ onStartTyping(() => {
         <LucideSearch class="size-6 text-muted-foreground" />
       </span>
     </div>
-    <MasonryGrid class="gap-2">
-      <router-link v-for="media in matchingMedia" :key="media.path" :to="{ name: 'media-details', params: { mediaPath: media.path } }" class="h-80">
-        <MediaCard :media="media" />
-      </router-link>
+    <Alert v-if="filterQuery && !matchingMedia.length" class="w-full max-w-xl mx-auto mt-2">
+      <LucideSearchX class="size-4" />
+      <AlertTitle>
+        Nothing Found
+      </AlertTitle>
+      <AlertDescription class="text-muted-foreground">
+        Your search did not match any media.
+      </AlertDescription>
+    </Alert>
+    <MasonryGrid v-else class="gap-2">
+      <template v-for="media in matchingMedia" :key="media.path">
+        <router-link :to="{ name: 'media-details', params: { mediaPath: media.path } }">
+          <MediaCard :media="media" />
+        </router-link>
+      </template>
     </MasonryGrid>
   </MainLayout>
 </template>
