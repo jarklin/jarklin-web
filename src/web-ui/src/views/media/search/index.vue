@@ -61,7 +61,7 @@ onStartTyping(() => {
         Your search did not match any media.
       </AlertDescription>
     </Alert>
-    <MasonryGrid v-else class="gap-2">
+    <MasonryGrid v-else>
       <template v-for="media in matchingMedia" :key="media.path">
         <router-link :to="{ name: 'media-details', params: { mediaPath: media.path } }">
           <MediaCard :media="media" />

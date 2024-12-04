@@ -8,6 +8,7 @@ import SectionHeader from "@/components/composed/SectionHeader.vue";
 import TagBadge from "@/components/composed/TagBadge.vue";
 import Page404 from "@/views/404.vue";
 import KvGrid from "@/components/composed/KvGrid.vue";
+import MasonryGrid from "@/components/composed/container/MasonryGrid.vue";
 
 const collections = useCollections();
 const mediaPath = useMediaPath();
@@ -22,7 +23,7 @@ const currentCollection = computed(() => {
     <Page404 v-if="currentCollection === undefined" />
     <template v-else>
       <SectionHeader>
-        Collection: {{ currentCollection?.displayName }}
+        Collection: {{ currentCollection.displayName }}
       </SectionHeader>
       <KvGrid>
         <label>Path</label>
@@ -31,17 +32,17 @@ const currentCollection = computed(() => {
         <div>{{ currentCollection.mediaList.length }}</div>
         <label>Tags</label>
         <div class="flex flex-wrap gap-2">
-          <TagBadge v-for="tag in currentCollection?.tags" :key="tag" :tag="tag" />
+          <TagBadge v-for="tag in currentCollection.tags" :key="tag" :tag="tag" />
         </div>
       </KvGrid>
       <Separator />
-      <div class="flex flex-wrap gap-2">
-        <template v-for="media in currentCollection?.mediaList" :key="media.path">
+      <MasonryGrid>
+        <template v-for="media in currentCollection.mediaList" :key="media.path">
           <router-link :to="{ name: 'media-details', params: { mediaPath: media.path } }" class="h-80">
             <MediaCard :media="media" />
           </router-link>
         </template>
-      </div>
+      </MasonryGrid>
     </template>
   </MainLayout>
 </template>
