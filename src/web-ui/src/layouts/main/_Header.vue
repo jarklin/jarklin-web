@@ -15,16 +15,16 @@ const currentRoute = computed(() => router.currentRoute.value);
     <button class="disabled:pointer-events-none disabled:opacity-50" @click="router.back">
       <LucideArrowLeft class="size-8 rounded-md" />
     </button>
-    <router-link :to="{ name: 'home' }" class="shrink-0">
+    <router-link :to="{ name: '/' }" class="shrink-0">
       <img class="size-8 rounded-md" :src="jarklinLogoSrc" alt="logo" />
     </router-link>
     <div class="shrink grow text-center text-2xl truncate">
       {{ currentRoute.name && formatRouteName(currentRoute.name as string) }}
     </div>
-    <router-link :to="{ name: 'search' }">
+    <router-link :to="{ name: '/media/search/' }">
       <LucideScanSearch class="size-8 rounded-md" />
     </router-link>
-    <router-link :to="{ name: 'panel' }">
+    <router-link :to="{ name: '/panel/' }">
       <LucideSettings class="size-8 rounded-md" />
     </router-link>
   </header>

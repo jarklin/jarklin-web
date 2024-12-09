@@ -14,8 +14,8 @@ defineProps<{
 const errorRef = ref<Error | null>(null);
 
 onErrorCaptured((err) => {
-  if (err instanceof AxiosError && err.status === HttpStatusCode.Unauthorized && router.currentRoute.value.name !== 'login') {
-    router.push({ name: 'login', query: { redirect: router.currentRoute.value.fullPath } });
+  if (err instanceof AxiosError && err.status === HttpStatusCode.Unauthorized && router.currentRoute.value.name !== '/auth/login/') {
+    router.push({ name: '/auth/login/', query: { redirect: router.currentRoute.value.fullPath } });
     return false;
   }
   console.error(err);
