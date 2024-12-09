@@ -9,8 +9,9 @@ import {MediaCard} from "@/components/composed/mediacard";
 import {MainLayout} from "@/layouts";
 import {Separator} from "@/components/ui/separator";
 import MasonryGrid from "@/components/composed/container/MasonryGrid.vue";
+import { useTitle } from "@vueuse/core";
 
-const route = useRoute("/media/explorer/[[mediaPath]]*");
+const route = useRoute("/media/explorer/[[mediaPath]]+");
 
 const mediaQuery = useMediaQuery();
 const currentLocation = useMediaPath();
@@ -33,6 +34,8 @@ const localMedia = computed(() => {
   return mediaQuery.data
       .filter(entry => getParentPath(entry.path) === currentLocation.value);
 });
+
+useTitle(() => `Jarklin - Explorer - /${currentLocation.value}`);
 </script>
 
 <template>

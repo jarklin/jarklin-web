@@ -9,7 +9,7 @@ import {Spinner} from "@/components/ui/spinner";
 import {Image} from "@/components/ui/image";
 import TagBadge from "@/components/composed/TagBadge.vue";
 import {MainLayout} from "@/layouts";
-import { usePreferredReducedMotion } from "@vueuse/core";
+import { usePreferredReducedMotion, useTitle } from "@vueuse/core";
 import { getLinkInfo } from "@/pages/media/details/getLinkInfo";
 import { MediaCard } from "@/components/composed/mediacard";
 import SectionHeader from "@/components/composed/SectionHeader.vue";
@@ -36,6 +36,8 @@ const linkInfo = computed(() => currentMedia.value && getLinkInfo(currentMedia.v
 const collection = computed(
     () => currentMedia.value && collections.value.find(c => c.mediaList.includes(currentMedia.value!))
 );
+
+useTitle(() => `Jarklin - Media Details - ${currentMedia.value?.name}`);
 </script>
 
 <template>

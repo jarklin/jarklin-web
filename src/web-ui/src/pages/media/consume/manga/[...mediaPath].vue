@@ -5,7 +5,7 @@ import Page404 from "@/pages/[...path]/index.vue";
 import ScrollProgress from "@/components/ScrollProgress.vue";
 import PreviewedImage from "@/components/composed/PreviewedImage.vue";
 import {LucideCircleArrowUp, LucideExpand, LucideShrink, LucideSquareArrowLeft} from "lucide-vue-next";
-import {useFullscreen} from "@vueuse/core";
+import { useFullscreen, useTitle } from "@vueuse/core";
 import {useRouter} from "vue-router";
 import {cn} from "@/lib";
 import type {GalleryMediaEntry} from "@/types";
@@ -38,6 +38,8 @@ function scrollToTop() {
 }
 
 const showMenu = ref(false);
+
+useTitle(() => `Jarklin - Manga - ${currentMedia.value?.name}`);
 </script>
 
 <template>

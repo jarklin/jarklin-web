@@ -9,13 +9,16 @@ import TagBadge from "@/components/composed/TagBadge.vue";
 import Page404 from "@/pages/[...path]/index.vue";
 import KvGrid from "@/components/composed/KvGrid.vue";
 import MasonryGrid from "@/components/composed/container/MasonryGrid.vue";
+import { useTitle } from "@vueuse/core";
 
 const collections = useCollections();
 const mediaPath = useMediaPath();
 
 const currentCollection = computed(() => {
   return collections.value.find(c => c.path === mediaPath.value);
-})
+});
+
+useTitle(() => `Jarklin - Collection - ${currentCollection.value?.displayName}`);
 </script>
 
 <template>

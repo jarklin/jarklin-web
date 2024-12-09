@@ -2,7 +2,7 @@
 import { LucideSearch, LucideSearchX } from "lucide-vue-next";
 import {Input} from "@/components/ui/input";
 import { computed, ref } from "vue";
-import { onStartTyping, templateRef, useUrlSearchParams, watchDebounced } from "@vueuse/core";
+import { onStartTyping, templateRef, useTitle, useUrlSearchParams, watchDebounced } from "@vueuse/core";
 import {MainLayout} from "@/layouts";
 import { useMediaQuery } from "@/composables";
 import * as JsSearch from "js-search";
@@ -42,6 +42,11 @@ onStartTyping(() => {
     inputRef.value?.$el.focus();
   }
 });
+
+useTitle(() => filterQuery.value.length
+  ? `Jarklin - Search - '${filterQuery.value}'`
+  : "Jarklin - Search"
+);
 </script>
 
 <template>

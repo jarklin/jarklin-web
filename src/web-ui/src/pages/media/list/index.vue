@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useMediaQuery } from "@/composables";
-import { useUrlSearchParams } from "@vueuse/core";
+import { useTitle, useUrlSearchParams } from "@vueuse/core";
 import { computed } from "vue";
 import { type Filter, parseFilter } from "@/lib/filters";
 import { MainLayout } from "@/layouts";
@@ -25,6 +25,8 @@ const viableMedia = computed(() => {
   if (filter.value) elements = filter.value(elements)
   return elements;
 });
+
+useTitle("Jarklin - Media List");
 </script>
 
 <template>

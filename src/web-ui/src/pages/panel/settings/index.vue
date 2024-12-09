@@ -6,9 +6,12 @@ import {Button} from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Setting, SettingDescription, SettingTitle } from "@/components/ui/setting";
 import { Switch } from "@/components/ui/switch";
+import { useTitle } from "@vueuse/core";
 
 const apiConfig = useApiConfigQuery();
 const webSettings = useWebSettings();
+
+useTitle("Jarklin - Settings");
 </script>
 
 <template>

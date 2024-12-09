@@ -3,8 +3,11 @@ import {useCollections} from "@/composables/";
 import CollectionCard from "@/components/composed/mediacard/CollectionCard.vue";
 import {MainLayout} from "@/layouts";
 import MasonryGrid from "@/components/composed/container/MasonryGrid.vue";
+import { useTitle } from "@vueuse/core";
 
 const collections = useCollections();
+
+useTitle("Jarklin - Collections");
 </script>
 
 <template>

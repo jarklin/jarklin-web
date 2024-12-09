@@ -3,8 +3,11 @@ import {useProblemsQuery} from "@/composables";
 import {Separator} from "@/components/ui/separator";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { LucideCircleCheck, LucideServerCrash } from "lucide-vue-next";
+import { useTitle } from "@vueuse/core";
 
 const problemsQuery = useProblemsQuery();
+
+useTitle("Jarklin - Problems");
 </script>
 
 <template>

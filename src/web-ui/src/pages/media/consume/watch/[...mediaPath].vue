@@ -5,6 +5,7 @@ import {computed} from "vue";
 import Page404 from "@/pages/[...path]/index.vue";
 import type {VideoMediaEntry} from "@/types";
 import {MainLayout} from "@/layouts";
+import { useTitle } from "@vueuse/core";
 
 const mediaQuery = useMediaQuery();
 const mediaPath = useMediaPath();
@@ -14,6 +15,8 @@ const currentMedia = computed(() => {
   return mediaQuery.data!
       .find(m => m.type === 'video' && m.path === mediaPath.value) as VideoMediaEntry ?? null;
 });
+
+useTitle(() => `Jarklin - Watch - ${currentMedia.value?.name}`);
 </script>
 
 <template>

@@ -2,6 +2,9 @@
 import {Button} from "@/components/ui/button";
 import {MainLayout} from "@/layouts";
 import { homepageElements } from "./home/elements.ts";
+import { useTitle } from "@vueuse/core";
+
+useTitle("Jarklin - Home");
 </script>
 
 <template>

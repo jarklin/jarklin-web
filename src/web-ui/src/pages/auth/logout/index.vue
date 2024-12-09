@@ -7,6 +7,7 @@ import {Button} from "@/components/ui/button";
 import {Spinner} from "@/components/ui/spinner";
 import {useRouter} from "vue-router";
 import {SimpleLayout} from "@/layouts";
+import { useTitle } from "@vueuse/core";
 
 const router = useRouter();
 const queryClient = useQueryClient();
@@ -20,6 +21,8 @@ const { mutate: doLogout, isSuccess, isPending, isError, error } = useMutation({
   },
 });
 doLogout();
+
+useTitle("Jarklin - Logout");
 </script>
 
 <template>

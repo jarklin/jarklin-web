@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {useMutation, useQuery, useQueryClient} from "@tanstack/vue-query";
-import {useUrlSearchParams} from "@vueuse/core";
+import { useTitle, useUrlSearchParams } from "@vueuse/core";
 import axios, {AxiosError, HttpStatusCode} from "axios";
 import jarklinIconSrc from "@/assets/jarklin-special.svg";
 import {useRouter} from "vue-router";
@@ -25,6 +25,8 @@ function handleSubmit(event: Event) {
   const formData = new FormData(form);
   doLogin(formData);
 }
+
+useTitle("Jarklin - Login");
 </script>
 
 <template>

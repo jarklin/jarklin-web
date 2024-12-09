@@ -4,6 +4,7 @@ import {computed} from "vue";
 import type {TagTreeEntry} from "@/pages/tags/types";
 import EntryComponent from "@/pages/tags/_EntryComponent.vue";
 import {MainLayout} from "@/layouts";
+import { useTitle } from "@vueuse/core";
 
 const mediaQuery = useMediaQuery();
 
@@ -34,6 +35,8 @@ const tagTree = computed(() => {
 
   return entries;
 });
+
+useTitle("Jarklin - Tags");
 </script>
 
 <template>

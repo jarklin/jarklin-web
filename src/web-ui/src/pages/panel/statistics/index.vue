@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import {useMediaQuery, useProblemsQuery} from "@/composables";
 import {computed} from "vue";
-import humanize from "humanize-plus";
+import * as humanize from "humanize-plus";
 import humanizeDuration from "humanize-duration";
 import type {GalleryMediaEntry, VideoMediaEntry} from "@/types";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { LucideChartBar } from "lucide-vue-next";
-import { Separator } from "@/components/ui/separator";
+import { useTitle } from "@vueuse/core";
 
 type Index = Array<{
   category: string
@@ -98,6 +98,8 @@ const staticsIndex = computed<Index | null>(() => {
     },
   ];
 });
+
+useTitle("Jarklin - Statistics");
 </script>
 
 <template>
