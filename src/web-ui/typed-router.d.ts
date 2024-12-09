@@ -28,7 +28,7 @@ declare module 'vue-router/auto-routes' {
     '/media/consume/manga/[...mediaPath]': RouteRecordInfo<'/media/consume/manga/[...mediaPath]', '/media/consume/manga/:mediaPath(.*)', { mediaPath: ParamValue<true> }, { mediaPath: ParamValue<false> }>,
     '/media/consume/watch/[...mediaPath]': RouteRecordInfo<'/media/consume/watch/[...mediaPath]', '/media/consume/watch/:mediaPath(.*)', { mediaPath: ParamValue<true> }, { mediaPath: ParamValue<false> }>,
     '/media/details/[...mediaPath]': RouteRecordInfo<'/media/details/[...mediaPath]', '/media/details/:mediaPath(.*)', { mediaPath: ParamValue<true> }, { mediaPath: ParamValue<false> }>,
-    '/media/explorer/[[mediaPath]]+': RouteRecordInfo<'/media/explorer/[[mediaPath]]+', '/media/explorer/:mediaPath*', { mediaPath?: ParamValueZeroOrMore<true> }, { mediaPath?: ParamValueZeroOrMore<false> }>,
+    '/media/explorer/[[...mediaPath]]': RouteRecordInfo<'/media/explorer/[[...mediaPath]]', '/media/explorer/:mediaPath(.*)?', { mediaPath?: ParamValueZeroOrOne<true> }, { mediaPath?: ParamValueZeroOrOne<false> }>,
     '/media/list/': RouteRecordInfo<'/media/list/', '/media/list', Record<never, never>, Record<never, never>>,
     '/media/search/': RouteRecordInfo<'/media/search/', '/media/search', Record<never, never>, Record<never, never>>,
     '/panel': RouteRecordInfo<'/panel', '/panel', Record<never, never>, Record<never, never>>,

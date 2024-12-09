@@ -72,6 +72,6 @@ export const homepageElements: HomepageElement[] = [
     {
         displayName: "Explorer",
         icon: LucideFolderClosed,
-        location: { name: '/media/explorer/[[mediaPath]]+', params: { mediaPath: '' } },
+        location: { name: '/media/explorer/[[...mediaPath]]', params: { mediaPath: '' } },
     },
 ];

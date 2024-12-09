@@ -11,7 +11,7 @@ import {Separator} from "@/components/ui/separator";
 import MasonryGrid from "@/components/composed/container/MasonryGrid.vue";
 import { useTitle } from "@vueuse/core";
 
-const route = useRoute("/media/explorer/[[mediaPath]]+");
+const route = useRoute("/media/explorer/[[...mediaPath]]");
 
 const mediaQuery = useMediaQuery();
 const currentLocation = useMediaPath();
