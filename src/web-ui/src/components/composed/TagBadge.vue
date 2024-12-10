@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-  <router-link :to="{ name: 'media-list', query: { tag } }">
+  <router-link :to="{ name: '/media/list/', query: { tag } }">
     <Badge variant="default">
       {{ tag }}
     </Badge>
