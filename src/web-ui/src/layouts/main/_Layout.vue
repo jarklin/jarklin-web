@@ -11,7 +11,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="h-full grid grid-rows-[auto,auto,1fr,auto]">
+  <div class="min-h-screen grid grid-rows-[auto,auto,1fr,auto]">
     <Header />
     <BackgroundQueryIndicator />
     <main :class="cn('w-screen', props.class)">
