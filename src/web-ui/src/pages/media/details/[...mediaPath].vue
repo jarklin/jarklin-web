@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {useMediaQuery, useMediaPath, useCollections} from "@/composables";
+import { useMediaQuery, useMediaPath, useCollections, useWebSettings } from "@/composables";
 import {computed} from "vue";
 import Page404 from "@/pages/[...path]/index.vue";
 import {getAnimatedPreview, getPreviewImage} from "@/lib";
@@ -19,6 +19,9 @@ import GalleryDetails from "./_GalleryDetails.vue";
 import VideoDetails from "./_VideoDetails.vue";
 
 const preferredReducedMotion = usePreferredReducedMotion();
+const settingAnimatedPreview = useWebSettings("animatedPreview");
+
+const showAnimatedPreview = computed(() => (preferredReducedMotion.value !== 'reduce' && settingAnimatedPreview.value))
 
 const mediaQuery = useMediaQuery();
 const mediaPath = useMediaPath();
@@ -37,6 +40,15 @@ const collection = computed(
     () => currentMedia.value && collections.value.find(c => c.mediaList.includes(currentMedia.value!))
 );
 
+const previewsLabel = computed(() => {
+  switch (currentMedia.value!.type) {
+    case "video":
+      return currentMedia.value!.meta.chapters.length ? "Chapters" : "Scenes";
+    case "gallery":
+      return "Images";
+  }
+})
+
 useTitle(() => `Jarklin - Media Details - ${currentMedia.value?.name}`);
 </script>
 
@@ -47,7 +59,11 @@ useTitle(() => `Jarklin - Media Details - ${currentMedia.value?.name}`);
     <template v-else>
       <div class="relative min-h-[85vh] px-[5vw] py-[5vh]">
         <div class="absolute inset-0 bg-accent">
-          <img class="size-full object-cover" :src="(preferredReducedMotion === 'reduce' ? getPreviewImage : getAnimatedPreview)(currentMedia.path)" alt="animated preview" />
+          <img
+              class="size-full object-cover"
+              :src="(showAnimatedPreview ? getAnimatedPreview : getPreviewImage)(currentMedia.path)"
+              alt="animated preview"
+          />
         </div>
         <div class="min-h-[75vh] bg-background/50 rounded-lg shadow-2xl backdrop-blur-sm border border-border flex flex-col md:flex-row">
           <div class="grid place-content-center p-4">
@@ -71,7 +87,7 @@ useTitle(() => `Jarklin - Media Details - ${currentMedia.value?.name}`);
           </div>
         </div>
       </div>
-      <Separator class="my-2" :label="currentMedia.type === 'video' ? (currentMedia.meta.chapters.length ? 'Chapters' : 'Scenes') : 'Images'" />
+      <Separator class="my-2" :label="previewsLabel" />
       <HorizontalScroll class="p-2">
         <template v-for="i in currentMedia.meta.n_previews" :key="i">
           <router-link :to="linkInfo!.previews[i-1]?.link ?? linkInfo!.consumeLink">
