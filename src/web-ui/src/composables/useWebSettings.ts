@@ -3,11 +3,13 @@ import { computed, type Ref } from "vue";
 
 interface Settings {
     optimizedMedia: boolean
+    animatedPreview: boolean
 }
 
 const defaultSettings: Settings = {
-    optimizedMedia: false
-}
+    optimizedMedia: false,
+    animatedPreview: true,
+};
 
 export const SETTINGS_STORAGE_KEY = 'jarklin-settings';
 
@@ -17,5 +19,8 @@ export function useWebSettings<K extends keyof Settings>(setting: K): Ref<Settin
 export function useWebSettings(setting?: keyof Settings) {
     const settings = useLocalStorage(SETTINGS_STORAGE_KEY, defaultSettings, { mergeDefaults: true });
 
-    return setting !== undefined ? computed(() => settings.value[setting]) : settings;
+    return setting !== undefined ? computed({
+        get: () => settings.value[setting],
+        set: (value) => settings.value[setting] = value,
+    }) : settings;
 }
