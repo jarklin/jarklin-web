@@ -2,7 +2,7 @@
 import { useMediaQuery, useMediaPath, useCollections, useWebSettings } from "@/composables";
 import {computed} from "vue";
 import Page404 from "@/pages/[...path]/index.vue";
-import {getAnimatedPreview, getPreviewImage} from "@/lib";
+import { aspectRatioFromSize, getAnimatedPreview, getMediaSize, getPreviewImage, type Size } from "@/lib";
 import {HorizontalScroll} from "@/components/composed/container";
 import {Separator} from "@/components/ui/separator";
 import {Spinner} from "@/components/ui/spinner";
@@ -47,7 +47,7 @@ const previewsLabel = computed(() => {
     case "gallery":
       return "Images";
   }
-})
+});
 
 useTitle(() => `Jarklin - Media Details - ${currentMedia.value?.name}`);
 </script>
@@ -67,8 +67,15 @@ useTitle(() => `Jarklin - Media Details - ${currentMedia.value?.name}`);
         </div>
         <div class="min-h-[75vh] bg-background/50 rounded-lg shadow-2xl backdrop-blur-sm border border-border flex flex-col md:flex-row">
           <div class="grid place-content-center p-4">
-            <router-link :to="linkInfo!.consumeLink">
-              <Image class="h-full mx-auto object-contain border-2 border-border rounded-md max-h-[40vh]" :src="getPreviewImage(currentMedia.path)" alt="preview" />
+            <router-link
+                :to="linkInfo!.consumeLink"
+                :style="{ aspectRatio: aspectRatioFromSize(getMediaSize(currentMedia)) }"
+            >
+              <Image
+                  class="h-full mx-auto object-contain border-2 border-border rounded-md max-h-[40vh]"
+                  :src="getPreviewImage(currentMedia.path)"
+                  alt="preview"
+              />
             </router-link>
           </div>
           <div class="p-4">
@@ -90,8 +97,15 @@ useTitle(() => `Jarklin - Media Details - ${currentMedia.value?.name}`);
       <Separator class="my-2" :label="previewsLabel" />
       <HorizontalScroll class="p-2">
         <template v-for="i in currentMedia.meta.n_previews" :key="i">
-          <router-link :to="linkInfo!.previews[i-1]?.link ?? linkInfo!.consumeLink">
-            <Image :src="getPreviewImage(currentMedia.path, i)" :alt="`preview of #${i}`" class="h-60 md:h-72 lg:h-80 rounded-md border-2 border-border" />
+          <router-link
+              :to="linkInfo!.previews[i-1]?.link ?? linkInfo!.consumeLink"
+              :style="{ aspectRatio: aspectRatioFromSize(getMediaSize(currentMedia, i-1)) }"
+          >
+            <Image
+                class="h-60 md:h-72 lg:h-80 rounded-md border-2 border-border"
+                :src="getPreviewImage(currentMedia.path, i)"
+                :alt="`preview of #${i}`"
+            />
           </router-link>
         </template>
       </HorizontalScroll>
