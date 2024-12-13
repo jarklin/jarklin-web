@@ -2,7 +2,7 @@
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-router.push({ name: '/panel/settings/' });
+router.replace({ name: '/panel/settings/' });
 </script>
 
 <template>
