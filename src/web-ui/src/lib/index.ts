@@ -1,6 +1,7 @@
 export * from "./encoding";
 export * from "./extraction";
 export * from "./formatting";
+export * from "./info";
 export * from "./itertools";
 export * from "./is-mobile";
 export * from "./paths";
