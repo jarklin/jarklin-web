@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useMediaPath, useMediaQuery } from "@/composables";
+import { useMediaPath, useMediaQuery, useWebSettings } from "@/composables";
 import {computed, onMounted, onUnmounted, reactive, ref} from "vue";
 import Page404 from "@/pages/[...path]/index.vue";
 import ScrollProgress from "@/components/ScrollProgress.vue";
@@ -7,11 +7,12 @@ import PreviewedImage from "@/components/composed/PreviewedImage.vue";
 import {LucideCircleArrowUp, LucideExpand, LucideShrink, LucideSquareArrowLeft} from "lucide-vue-next";
 import { useFullscreen, useTitle } from "@vueuse/core";
 import {useRouter} from "vue-router";
-import {cn} from "@/lib";
+import { cn, isMobile } from "@/lib";
 import type {GalleryMediaEntry} from "@/types";
 import {MainLayout} from "@/layouts";
 import ScrollToMe from "@/assets/ScrollToMe.vue";
 
+const mangaAutoFullscreen = useWebSettings("mangaAutoFullscreen");
 const mediaQuery = useMediaQuery();
 const mediaPath = useMediaPath();
 
@@ -25,12 +26,15 @@ const fullscreen = reactive(useFullscreen());
 const router = useRouter();
 
 onMounted(() => {
-  try {
-    fullscreen.enter();
-  } catch (error) {}
+  if (mangaAutoFullscreen.value === 'on' || (mangaAutoFullscreen.value === 'mobile' && isMobile())) {
+    try {
+      fullscreen.enter();
+    } catch (error) {}
+  }
 });
 onUnmounted(() => {
-  if (fullscreen.isFullscreen) fullscreen.exit();
+  if (fullscreen.isFullscreen)
+    fullscreen.exit();
 });
 
 function scrollToTop() {

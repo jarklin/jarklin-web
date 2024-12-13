@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LucideInfo, LucideLogOut } from "lucide-vue-next";
+import { LucideInfo, LucideLogOut, LucideMonitorCheck, LucideMonitorX, LucideSmartphone } from "lucide-vue-next";
 import { useApiConfigQuery, useWebSettings } from "@/composables";
 import {Separator} from "@/components/ui/separator";
 import {Button} from "@/components/ui/button";
@@ -7,6 +7,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Setting, SettingDescription, SettingTitle } from "@/components/ui/setting";
 import { Switch } from "@/components/ui/switch";
 import { useTitle } from "@vueuse/core";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 const apiConfig = useApiConfigQuery();
 const webSettings = useWebSettings();
@@ -46,6 +47,40 @@ useTitle("Jarklin - Settings");
       When seeing the details of a media, an animated preview is shown in the background.
       Either this irritates you or the site takes longer to load.
       Here you can disable it and get a static preview image instead.
+    </SettingDescription>
+  </Setting>
+  <Separator label="Manga Reader" />
+  <Setting>
+    <ToggleGroup type="single" variant="outline" size="sm" class="flex-col" v-model:model-value="webSettings.mangaAutoFullscreen">
+      <ToggleGroupItem value="on">
+        <LucideMonitorCheck />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="mobile">
+        <LucideSmartphone />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="off">
+        <LucideMonitorX />
+      </ToggleGroupItem>
+    </ToggleGroup>
+    <SettingTitle>
+      Auto Fullscreen
+    </SettingTitle>
+    <SettingDescription class="text-muted-foreground">
+      <p>
+        Whether to automatically open fullscreen when beginning to read in manga-mode.
+      </p>
+      <Separator class="my-0.5" />
+      <p>
+        <template v-if="webSettings.mangaAutoFullscreen === 'on'">
+          The window will go into fullscreen when you begin to read in manga-mode.
+        </template>
+        <template v-else-if="webSettings.mangaAutoFullscreen === 'mobile'">
+          On Mobile, the window will go into fullscreen when you begin to read in manga-mode.
+        </template>
+        <template v-else-if="webSettings.mangaAutoFullscreen === 'off'">
+          The window won't go automatically into fullscreen.
+        </template>
+      </p>
     </SettingDescription>
   </Setting>
   <div class="grow" />

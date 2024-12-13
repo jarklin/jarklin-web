@@ -4,11 +4,13 @@ import { computed, type Ref } from "vue";
 interface Settings {
     optimizedMedia: boolean
     animatedPreview: boolean
+    mangaAutoFullscreen: "on" | "off" | "mobile"
 }
 
 const defaultSettings: Settings = {
     optimizedMedia: false,
     animatedPreview: true,
+    mangaAutoFullscreen: "mobile",
 };
 
 export const SETTINGS_STORAGE_KEY = 'jarklin-settings';
@@ -16,11 +18,11 @@ export const SETTINGS_STORAGE_KEY = 'jarklin-settings';
 export function useWebSettings(_?: never): Ref<Settings>;
 export function useWebSettings<K extends keyof Settings>(setting: K): Ref<Settings[K]>;
 
-export function useWebSettings(setting?: keyof Settings) {
+export function useWebSettings<Option extends keyof Settings>(setting?: Option) {
     const settings = useLocalStorage(SETTINGS_STORAGE_KEY, defaultSettings, { mergeDefaults: true });
 
     return setting !== undefined ? computed({
         get: () => settings.value[setting],
-        set: (value) => settings.value[setting] = value,
+        set: (value: Settings[Option]) => settings.value[setting] = value,
     }) : settings;
 }
