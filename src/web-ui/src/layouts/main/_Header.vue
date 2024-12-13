@@ -5,25 +5,17 @@ import {useRouter} from "vue-router";
 import { useTitle } from "@vueuse/core";
 
 const router = useRouter();
-
-const title = useTitle(null, { observe: true, restoreOnUnmount: false });
-
-function formatTitle(title: string): string {
-  return title.startsWith("Jarklin - ") ? title.substring(10) : title;
-}
 </script>
 
 <template>
-  <header class="bg-accent p-1 flex gap-x-2 items-stretch content-baseline">
+  <header class="bg-accent p-1 flex gap-x-2 content-baseline">
     <button class="disabled:pointer-events-none disabled:opacity-50" @click="router.back">
       <LucideArrowLeft class="size-8 rounded-md" />
     </button>
-    <router-link :to="{ name: '/' }" class="shrink-0">
+    <router-link :to="{ name: '/' }">
       <img class="size-8 rounded-md" :src="jarklinLogoSrc" alt="logo" />
     </router-link>
-    <div class="shrink grow text-center text-2xl truncate">
-      {{ formatTitle(title ?? "") }}
-    </div>
+    <div class="grow" />
     <router-link :to="{ name: '/media/search/' }">
       <LucideScanSearch class="size-8 rounded-md" />
     </router-link>
