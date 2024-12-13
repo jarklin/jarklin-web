@@ -87,7 +87,7 @@ useTitle(() => `Jarklin - Media Details - ${currentMedia.value?.name}`);
         </SectionHeader>
         <HorizontalScroll class="p-2">
           <template v-for="relatedMedia in collection.mediaList" :key="relatedMedia.path">
-            <router-link :to="{ name: '/media/details/[...mediaPath]', params: { mediaPath: currentMedia.path } }">
+            <router-link :to="{ name: '/media/details/[...mediaPath]', params: { mediaPath: relatedMedia.path } }">
               <MediaCard :media="relatedMedia" class="h-60 md:h-72 lg:h-80 rounded-md border-2 border-border" />
             </router-link>
           </template>
