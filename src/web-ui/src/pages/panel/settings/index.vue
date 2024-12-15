@@ -26,17 +26,6 @@ useTitle("Jarklin - Settings");
       This means that everything you configure here will only be applied to this specific browser and device.
     </AlertDescription>
   </Alert>
-  <Separator label="Optimization" />
-  <Setting>
-    <Switch v-model:checked="webSettings.optimizedMedia" />
-    <SettingTitle>
-      JIT Media Optimization
-    </SettingTitle>
-    <SettingDescription class="text-muted-foreground">
-      The Server allows just-in-time optimization of supported media.
-      This reduces the required amount of data that has to be downloaded in exchange for a small decrease in quality of the media.
-    </SettingDescription>
-  </Setting>
   <Separator label="Media Details" />
   <Setting>
     <Switch v-model:checked="webSettings.animatedPreview" />
@@ -47,6 +36,17 @@ useTitle("Jarklin - Settings");
       When seeing the details of a media, an animated preview is shown in the background.
       Either this irritates you or the site takes longer to load.
       Here you can disable it and get a static preview image instead.
+    </SettingDescription>
+  </Setting>
+  <Separator label="Media Optimization" />
+  <Setting>
+    <Switch v-model:checked="webSettings.optimizedMedia" />
+    <SettingTitle>
+      JIT Media Optimization
+    </SettingTitle>
+    <SettingDescription class="text-muted-foreground">
+      The Server allows just-in-time optimization of supported media.
+      This reduces the required amount of data that has to be downloaded in exchange for a small decrease in quality of the media.
     </SettingDescription>
   </Setting>
   <Separator label="Manga Reader" />
