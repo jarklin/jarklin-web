@@ -4,21 +4,21 @@ import {MainLayout} from "@/layouts";
 import type { RouteLocationRaw } from "vue-router";
 
 interface SubRoute {
-  name: string
+  displayName: string
   location: RouteLocationRaw
 }
 
 const subRoutes: SubRoute[] = [
   {
-    name: "Settings",
+    displayName: "Settings",
     location: { name: "/panel/settings/" },
   },
   {
-    name: "Problems",
+    displayName: "Problems",
     location: { name: "/panel/problems/" },
   },
   {
-    name: "Statistics",
+    displayName: "Statistics",
     location: { name: "/panel/statistics/" },
   },
 ];
@@ -30,7 +30,7 @@ const subRoutes: SubRoute[] = [
       <template v-for="(route, index) in subRoutes">
         <Separator v-if="index !== 0" orientation="vertical" class="h-4 my-auto" />
         <router-link :to="route.location" class="group p-1 font-bold" active-class="[&>span]:max-w-full">
-          {{ route.name }}
+          {{ route.displayName }}
           <span class="block mx-auto max-w-0 group-hover:max-w-full transition-[max-width] h-px bg-primary" />
         </router-link>
       </template>

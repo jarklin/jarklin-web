@@ -10,15 +10,15 @@ import { MediaCard } from "@/components/composed/mediacard";
 import MasonryGrid from "@/components/composed/container/MasonryGrid.vue";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import type { MediaEntry } from "@/types";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const mediaQuery = useMediaQuery();
 
 const urlSearchParams = useUrlSearchParams<{ query?: string }>("hash");
-
-const inputQuery = ref<string>(urlSearchParams.query ?? "");
-const inputRef = templateRef("input-field");
-
 const filterQuery = ref<string>(urlSearchParams.query ?? "");
+
+const inputFieldRef = templateRef("input-field");
 
 const search = computed(() => {
   const s = new JsSearch.Search("path");
@@ -32,14 +32,14 @@ const matchingMedia = computed(
     () => search.value.search(filterQuery.value) as MediaEntry[],
 );
 
-watchDebounced(inputQuery, () => {
-  filterQuery.value = inputQuery.value;
-  urlSearchParams.query = inputQuery.value;
+watchDebounced(() => urlSearchParams.query, () => {
+  filterQuery.value = urlSearchParams.query ?? "";
+  router.push({ query: { query: urlSearchParams.query } });
 }, { debounce: 300, maxWait: 5000 });
 
 onStartTyping(() => {
-  if (document.activeElement !== inputRef.value) {
-    inputRef.value?.$el.focus();
+  if (document.activeElement !== inputFieldRef.value) {
+    inputFieldRef.value?.$el.focus();
   }
 });
 
@@ -52,7 +52,7 @@ useTitle(() => filterQuery.value.length
 <template>
   <MainLayout class="flex flex-col gap-2 p-2">
     <div class="w-full max-w-2xl mx-auto relative items-center">
-      <Input ref="input-field" v-model.trim="inputQuery" type="text" placeholder="Search..." class="pl-10" />
+      <Input ref="input-field" v-model.trim="urlSearchParams.query" type="text" placeholder="Search..." class="pl-10" />
       <span class="absolute start-0 inset-y-0 grid place-content-center px-2">
         <LucideSearch class="size-6 text-muted-foreground" />
       </span>
