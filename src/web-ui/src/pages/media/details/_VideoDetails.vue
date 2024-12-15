@@ -71,5 +71,27 @@ const features = computed<[LucideIcon, string, boolean][]>(() => [
         </Badge>
       </template>
     </span>
+    <template v-if="media.meta.audio_streams.length">
+      <label>Audio</label>
+      <span class="flex flex-wrap gap-1">
+        <template v-for="audio_stream in media.meta.audio_streams">
+          <Badge variant="secondary">{{ audio_stream.language }}</Badge>
+        </template>
+      </span>
+    </template>
+    <template v-if="media.meta.subtitles.length">
+      <label>Subtitles</label>
+      <span class="flex flex-wrap gap-1">
+        <template v-for="subtitle in media.meta.subtitles">
+          <Badge variant="secondary">{{ subtitle.language }}</Badge>
+        </template>
+      </span>
+    </template>
+    <template v-if="media.meta.chapters.length">
+      <label>Chapters</label>
+      <span>
+        {{ media.meta.chapters.length }}
+      </span>
+    </template>
   </template>
 </template>
