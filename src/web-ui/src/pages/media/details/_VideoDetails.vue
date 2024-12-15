@@ -5,12 +5,33 @@ import * as humanize from "humanize-plus";
 import { Badge } from "@/components/ui/badge";
 import type { VideoMediaEntry } from "@/types";
 import { useWebSettings } from "@/composables";
+import { computed } from "vue";
+import {
+  LucideBookmark, LucideBookmarkX,
+  LucideCaptions, LucideCaptionsOff,
+  type LucideIcon,
+  LucideVideo,
+  LucideVideoOff,
+  LucideVolume2,
+  LucideVolumeX
+} from "lucide-vue-next";
 
-defineProps<{
+const { media } = defineProps<{
   media: VideoMediaEntry
 }>();
 
 const extendedMediaDetails = useWebSettings("extendedMediaDetails");
+
+const features = computed<[LucideIcon, string, boolean][]>(() => [
+    media.meta.video_streams.length
+      ? [ LucideVideo, "Video", true ] : [ LucideVideoOff, "Video", false ],
+    media.meta.audio_streams.length
+      ? [ LucideVolume2, "Audio", true ] : [ LucideVolumeX, "Audio", false ],
+    media.meta.subtitles.length
+      ? [ LucideCaptions, "Subtitles", true ] : [ LucideCaptionsOff, "Subtitles", false ],
+    media.meta.chapters.length
+      ? [ LucideBookmark, "Chapters", true ] : [ LucideBookmarkX, "Chapters", false ],
+]);
 </script>
 
 <template>
@@ -38,4 +59,17 @@ const extendedMediaDetails = useWebSettings("extendedMediaDetails");
   <span>
     <Badge variant="secondary">{{ media.ext }}</Badge>
   </span>
+  <template v-if="extendedMediaDetails">
+    <label>Features</label>
+    <span class="flex flex-wrap gap-1">
+      <template v-for="[icon, label, has] in features">
+        <Badge variant="secondary">
+          <component :is="icon" class="size-4" />
+          <span :class="has ? '' : 'decoration-from-font line-through'">
+            {{ label }}
+          </span>
+        </Badge>
+      </template>
+    </span>
+  </template>
 </template>
