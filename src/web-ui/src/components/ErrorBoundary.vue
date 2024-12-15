@@ -1,15 +1,9 @@
 <script setup lang="ts">
-import {onErrorCaptured, ref} from "vue";
-import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
-import {LucideAlertCircle} from "lucide-vue-next";
+import { onErrorCaptured, ref, watch } from "vue";
 import {AxiosError, HttpStatusCode} from "axios";
 import {useRouter} from "vue-router";
 
 const router = useRouter();
-
-defineProps<{
-  title?: string,
-}>();
 
 const errorRef = ref<Error | null>(null);
 
@@ -22,15 +16,13 @@ onErrorCaptured((err) => {
   errorRef.value = err;
   return false;
 });
+
+watch(router.currentRoute, () => {
+  errorRef.value = null;
+});
 </script>
 
 <template>
-  <div v-if="errorRef" class="h-full grid place-content-center p-4">
-    <Alert variant="destructive">
-      <LucideAlertCircle class="size-4" />
-      <AlertTitle>{{ title ?? "Something went wrong" }}</AlertTitle>
-      <AlertDescription>{{ errorRef.name }}: {{ errorRef.message }}</AlertDescription>
-    </Alert>
-  </div>
+  <slot name="fallback" v-if="errorRef" :error="errorRef" :resetBoundary="() => { errorRef = null }" />
   <slot v-else />
 </template>

@@ -2,7 +2,7 @@
 import { useMediaQuery, useMediaPath, useCollections, useWebSettings } from "@/composables";
 import {computed} from "vue";
 import Page404 from "@/pages/[...path]/index.vue";
-import { aspectRatioFromSize, getAnimatedPreview, getMediaSize, getPreviewImage, type Size } from "@/lib";
+import { aspectRatioFromSize, getAnimatedPreview, getMediaSize, getPreviewImage } from "@/lib";
 import {HorizontalScroll} from "@/components/composed/container";
 import {Separator} from "@/components/ui/separator";
 import {Spinner} from "@/components/ui/spinner";
