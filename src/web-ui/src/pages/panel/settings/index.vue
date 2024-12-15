@@ -38,6 +38,16 @@ useTitle("Jarklin - Settings");
       Here you can disable it and get a static preview image instead.
     </SettingDescription>
   </Setting>
+  <Separator class="ml-16 w-[100%-4rem]" />
+  <Setting>
+    <Switch v-model:checked="webSettings.extendedMediaDetails" />
+    <SettingTitle>
+      Extended Media Details
+    </SettingTitle>
+    <SettingDescription class="text-muted-foreground">
+      Shows additional information about media.
+    </SettingDescription>
+  </Setting>
   <Separator label="Media Optimization" />
   <Setting>
     <Switch v-model:checked="webSettings.optimizedMedia" />

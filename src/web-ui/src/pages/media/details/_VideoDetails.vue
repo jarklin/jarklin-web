@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import humanizeDuration from "humanize-duration";
 import { height2resolution } from "@/lib";
-import humanize from "humanize-plus";
+import * as humanize from "humanize-plus";
 import { Badge } from "@/components/ui/badge";
 import type { VideoMediaEntry } from "@/types";
+import { useWebSettings } from "@/composables";
 
 defineProps<{
   media: VideoMediaEntry
 }>();
+
+const extendedMediaDetails = useWebSettings("extendedMediaDetails");
 </script>
 
 <template>
@@ -15,10 +18,12 @@ defineProps<{
   <span>
     {{ humanizeDuration(media.meta.duration*1000, { largest: 2, round: true }) }}
   </span>
-  <label>Dimensions</label>
-  <span>
-    {{ media.meta.width }}x{{ media.meta.height }}
-  </span>
+  <template v-if="extendedMediaDetails">
+    <label>Dimensions</label>
+    <span>
+      {{ media.meta.width }}x{{ media.meta.height }}
+    </span>
+  </template>
   <label>Resolution</label>
   <span>
     <Badge variant="secondary">

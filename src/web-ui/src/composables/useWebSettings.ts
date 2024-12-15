@@ -4,12 +4,14 @@ import { computed, type Ref } from "vue";
 interface Settings {
     optimizedMedia: boolean
     animatedPreview: boolean
+    extendedMediaDetails: boolean
     mangaAutoFullscreen: "on" | "off" | "mobile"
 }
 
 const defaultSettings: Settings = {
     optimizedMedia: false,
     animatedPreview: true,
+    extendedMediaDetails: false,
     mangaAutoFullscreen: "mobile",
 };
 
