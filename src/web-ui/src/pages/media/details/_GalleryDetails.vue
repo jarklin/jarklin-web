@@ -52,7 +52,7 @@ const aspectIcons = computed(() => (
   </span>
   <template v-if="extendedMediaDetails">
     <label>Aspects</label>
-    <span>
+    <span class="flex flex-wrap gap-1">
       <template v-for="[icon, label] in aspectIcons">
         <component class="size-6" :is="icon" :title="label" />
       </template>

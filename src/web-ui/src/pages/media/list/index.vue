@@ -49,12 +49,12 @@ useTitle("Jarklin - Media List");
 <!--      </div>-->
 <!--      <Separator class="my-2" />-->
 <!--    </template>-->
-    <MasonryGrid class="gap-2">
+    <MasonryGrid v-if="viableMedia.length" class="gap-2">
       <router-link v-for="media in viableMedia" :key="media.path" :to="{ name: '/media/details/[...mediaPath]', params: { mediaPath: media.path } }" class="h-80">
         <MediaCard :media="media" />
       </router-link>
     </MasonryGrid>
-    <div v-if="!viableMedia.length" class="grid place-content-center h-full">
+    <div v-else class="grid place-content-center h-full">
       <Alert class="max-w-md">
         <LucideImageOff class="size-4" />
         <AlertTitle>
