@@ -3,9 +3,8 @@ import * as humanize from "humanize-plus";
 import { Badge } from "@/components/ui/badge";
 import type { GalleryMediaEntry } from "@/types";
 import { useWebSettings } from "@/composables";
-import { type LucideIcon, LucideRectangleHorizontal, LucideRectangleVertical, LucideSquare } from "lucide-vue-next";
 import { computed } from "vue";
-import { findClosestEntry } from "@/lib";
+import AspectRatioDistribution from "@/components/composed/AspectRatioDistribution.vue";
 
 const { media } = defineProps<{
   media: GalleryMediaEntry
@@ -13,20 +12,7 @@ const { media } = defineProps<{
 
 const extendedMediaDetails = useWebSettings("extendedMediaDetails");
 
-const aspect2IconMap: Record<number, [LucideIcon, string]> = {
-  [9/16]: [LucideRectangleVertical, "portrait"],
-  [1]: [LucideSquare, "squared"],
-  [16/9]: [LucideRectangleHorizontal, "landscape"],
-};
-
-const aspectIcons = computed(() => (
-    Array
-        .from(new Set(
-            media.meta.images
-                .map(image => image.width / image.height)  // calculate aspect-ratio's
-                .map(ratio => findClosestEntry(aspect2IconMap, ratio)),
-        ))
-));
+const aspectRatios = computed(() => media.meta.images.map(image => image.width / image.height));
 </script>
 
 <template>
@@ -52,10 +38,8 @@ const aspectIcons = computed(() => (
   </span>
   <template v-if="extendedMediaDetails">
     <label>Aspects</label>
-    <span class="flex flex-wrap gap-1">
-      <template v-for="[icon, label] in aspectIcons">
-        <component class="size-6" :is="icon" :title="label" />
-      </template>
+    <span>
+      <AspectRatioDistribution :values="aspectRatios" class="max-w-sm" />
     </span>
   </template>
 </template>

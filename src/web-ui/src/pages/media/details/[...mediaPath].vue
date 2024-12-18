@@ -78,7 +78,7 @@ useTitle(() => `Jarklin - Media Details - ${currentMedia.value?.name}`);
               />
             </router-link>
           </div>
-          <div class="p-4">
+          <div class="p-4 grow">
             <h1 class="text-2xl">{{ currentMedia.name }}</h1>
             <div class="h-4" />
             <KvGrid>
