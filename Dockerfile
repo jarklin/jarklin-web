@@ -4,8 +4,9 @@ FROM node:${NODE_VERSION}-alpine AS builder
 
 WORKDIR /code
 
-COPY src/web-ui/ ./
+COPY src/web-ui/package*.json ./
 RUN npm clean-install
+COPY src/web-ui/ ./
 RUN npm run build
 
 FROM pierrezemb/gostatic:latest AS runtime
