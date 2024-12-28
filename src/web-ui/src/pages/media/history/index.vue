@@ -39,7 +39,7 @@ const groupedMedia = computed(() => {
     else groups.set(key, [media]);
   }
 
-  return new Map([...groups.entries()].sort(([a], [b]) => a - b));
+  return new Map([...groups.entries()].sort(([a], [b]) => b - a));
 });
 
 useTitle("Jarklin - Media List");
