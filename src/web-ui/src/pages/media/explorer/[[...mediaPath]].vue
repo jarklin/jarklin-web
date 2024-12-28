@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {useRoute} from "vue-router";
-import { useMediaPath, useMediaQuery } from "@/composables";
-import {computed} from "vue";
+import { useMediaPath } from "@/composables";
+import { computed, inject } from "vue";
 import {getAllParentPaths, getBasename, getParentPath} from "@/lib";
 import {LucideFolder, LucideFolderUp} from "lucide-vue-next";
 import {Button} from "@/components/ui/button";
@@ -10,15 +10,15 @@ import {MainLayout} from "@/layouts";
 import {Separator} from "@/components/ui/separator";
 import MasonryGrid from "@/components/composed/container/MasonryGrid.vue";
 import { useTitle } from "@vueuse/core";
+import { KEY_MEDIA_DATA } from "@/keys.ts";
 
 const route = useRoute("/media/explorer/[[...mediaPath]]");
 
-const mediaQuery = useMediaQuery();
+const mediaData = inject(KEY_MEDIA_DATA)!;
 const currentLocation = useMediaPath();
 
 const subDirectories = computed(() => {
-  if (!mediaQuery.isSuccess) return;
-  const pathNames = Array.from(new Set(mediaQuery.data.flatMap(entry => getAllParentPaths(entry.path))));
+  const pathNames = Array.from(new Set(mediaData.flatMap(entry => getAllParentPaths(entry.path))));
   return pathNames
       .filter(path => !!path.length)
       .map(path => ({
@@ -30,9 +30,7 @@ const subDirectories = computed(() => {
 });
 
 const localMedia = computed(() => {
-  if (!mediaQuery.isSuccess) return;
-  return mediaQuery.data
-      .filter(entry => getParentPath(entry.path) === currentLocation.value);
+  return mediaData.filter(entry => getParentPath(entry.path) === currentLocation.value);
 });
 
 useTitle(() => `Jarklin - Explorer - /${currentLocation.value}`);
