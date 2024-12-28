@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useMediaPath, useMediaQuery, useWebSettings } from "@/composables";
-import {computed, onMounted, onUnmounted, reactive, ref} from "vue";
+import { useMediaPath, useWebSettings } from "@/composables";
+import { computed, inject, onMounted, onUnmounted, reactive, ref } from "vue";
 import Page404 from "@/pages/[...path]/index.vue";
 import ScrollProgress from "@/components/ScrollProgress.vue";
 import PreviewedImage from "@/components/composed/PreviewedImage.vue";
@@ -11,15 +11,14 @@ import { cn, isMobile } from "@/lib";
 import type {GalleryMediaEntry} from "@/types";
 import {MainLayout} from "@/layouts";
 import ScrollToMe from "@/assets/ScrollToMe.vue";
+import { KEY_MEDIA_DATA } from "@/keys.ts";
 
 const mangaAutoFullscreen = useWebSettings("mangaAutoFullscreen");
-const mediaQuery = useMediaQuery();
+const mediaData = inject(KEY_MEDIA_DATA)!;
 const mediaPath = useMediaPath();
 
 const currentMedia = computed(() => {
-  if (!mediaQuery.isSuccess) return undefined;
-  return mediaQuery.data!
-      .find(m => m.type === 'gallery' && m.path === mediaPath.value) as GalleryMediaEntry ?? null;
+  return mediaData.find(m => m.type === 'gallery' && m.path === mediaPath.value) as GalleryMediaEntry ?? null;
 });
 
 const fullscreen = reactive(useFullscreen());

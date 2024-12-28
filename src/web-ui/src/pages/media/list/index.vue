@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { useMediaQuery } from "@/composables";
 import { useTitle, useUrlSearchParams } from "@vueuse/core";
-import { computed } from "vue";
+import { computed, inject } from "vue";
 import { type Filter, parseFilter } from "@/lib/filters";
 import { MainLayout } from "@/layouts";
 import { MediaCard } from "@/components/composed/mediacard";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { LucideImageOff } from "lucide-vue-next";
 import MasonryGrid from "@/components/composed/container/MasonryGrid.vue";
+import { KEY_MEDIA_DATA } from "@/keys.ts";
 
-const mediaQuery = useMediaQuery();
+const mediaData = inject(KEY_MEDIA_DATA)!;
 
 const queryParams = useUrlSearchParams<{
   tag?: string
@@ -19,8 +19,7 @@ const queryParams = useUrlSearchParams<{
 const filter = computed<Filter | undefined>(() => queryParams.filterDefinition === undefined ? undefined : parseFilter(queryParams.filterDefinition));
 
 const viableMedia = computed(() => {
-  if (!mediaQuery.isSuccess) return [];
-  let elements = mediaQuery.data;
+  let elements = mediaData;
   if (queryParams.tag) elements = elements.filter((m => m.tags.includes(queryParams.tag!)))
   if (filter.value) elements = filter.value(elements)
   return elements;

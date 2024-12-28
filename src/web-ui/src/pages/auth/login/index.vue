@@ -1,22 +1,28 @@
 <script setup lang="ts">
 import {useMutation, useQuery, useQueryClient} from "@tanstack/vue-query";
-import { useTitle, useUrlSearchParams } from "@vueuse/core";
+import { useTitle, useUrlSearchParams, whenever } from "@vueuse/core";
 import axios, {AxiosError, HttpStatusCode} from "axios";
 import jarklinIconSrc from "@/assets/jarklin-special.svg";
 import {useRouter} from "vue-router";
-import {SimpleLayout} from "@/layouts";  // special-logo. shorter and not rounded
+import {SimpleLayout} from "@/layouts";
+import { inject, watch } from "vue";
+import { KEY_MEDIA_DATA } from "@/keys.ts";  // special-logo. shorter and not rounded
 
 const router = useRouter();
 
 const queryClient = useQueryClient();
 const searchParams = useUrlSearchParams<{redirect?: string}>("hash");
 
+function doRedirect() {
+  router.push(searchParams.redirect ?? "/");
+}
+
 const { mutate: doLogin, isPending, isError, error } = useMutation({
   mutationKey: ['auth', 'login'],
   mutationFn: (formData: FormData) => axios.post("/auth/login", formData),
   onSuccess: () => {
     queryClient.removeQueries();
-    router.push(searchParams.redirect ?? "/");
+    doRedirect();
   },
 });
 
@@ -25,6 +31,10 @@ function handleSubmit(event: Event) {
   const formData = new FormData(form);
   doLogin(formData);
 }
+
+const media = inject(KEY_MEDIA_DATA);
+
+whenever(() => media !== undefined, () => doRedirect());
 
 useTitle("Jarklin - Login");
 </script>

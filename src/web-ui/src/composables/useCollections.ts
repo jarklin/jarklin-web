@@ -1,12 +1,9 @@
 import type {Collection} from "@/types";
-import {useMediaQuery} from "./useMediaQuery";
-import {computed, type ComputedRef} from "vue";
+import { computed, type ComputedRef, inject } from "vue";
 import {extractCollections} from "@/lib";
+import { KEY_MEDIA_DATA } from "@/keys.ts";
 
 export function useCollections(): ComputedRef<Collection[]> {
-    const media = useMediaQuery();
-
-    return computed(() => {
-        return !media.isSuccess ? [] : extractCollections(media.data);
-    });
+    const mediaData = inject(KEY_MEDIA_DATA)!;
+    return computed(() => extractCollections(mediaData));
 }
