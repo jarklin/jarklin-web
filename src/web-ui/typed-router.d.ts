@@ -29,6 +29,7 @@ declare module 'vue-router/auto-routes' {
     '/media/consume/watch/[...mediaPath]': RouteRecordInfo<'/media/consume/watch/[...mediaPath]', '/media/consume/watch/:mediaPath(.*)', { mediaPath: ParamValue<true> }, { mediaPath: ParamValue<false> }>,
     '/media/details/[...mediaPath]': RouteRecordInfo<'/media/details/[...mediaPath]', '/media/details/:mediaPath(.*)', { mediaPath: ParamValue<true> }, { mediaPath: ParamValue<false> }>,
     '/media/explorer/[[...mediaPath]]': RouteRecordInfo<'/media/explorer/[[...mediaPath]]', '/media/explorer/:mediaPath(.*)?', { mediaPath?: ParamValueZeroOrOne<true> }, { mediaPath?: ParamValueZeroOrOne<false> }>,
+    '/media/history/': RouteRecordInfo<'/media/history/', '/media/history', Record<never, never>, Record<never, never>>,
     '/media/list/': RouteRecordInfo<'/media/list/', '/media/list', Record<never, never>, Record<never, never>>,
     '/media/search/': RouteRecordInfo<'/media/search/', '/media/search', Record<never, never>, Record<never, never>>,
     '/panel': RouteRecordInfo<'/panel', '/panel', Record<never, never>, Record<never, never>>,

@@ -1,5 +1,6 @@
 import type {RouteLocationRaw} from "vue-router";
 import {
+    LucideBadgePlus,
     LucideFilm,
     LucideFolderClosed,
     type LucideIcon,
@@ -22,10 +23,10 @@ export interface HomepageElement {
 
 export const MAX_ENTRIES = 20;
 
-function homepageFeed(data: Omit<HomepageElement, "location" | "component" | "props"> & { filterDefinition: string }): HomepageElement {
+function homepageFeed(data: Omit<HomepageElement, "location" | "component" | "props"> & { filterDefinition: string, historyAttribute?: 'creation_time' | 'modification_time' }): HomepageElement {
     return {
         ...data,
-        location: { name: '/media/list/', query: { filterDefinition: data.filterDefinition } },
+        location: { name: data.historyAttribute ? '/media/history/' : '/media/list/', query: { filterDefinition: data.filterDefinition, historyAttribute: data.historyAttribute } },
         component: Feed,
         props: { filterDefinition: data.filterDefinition }
     }
@@ -46,16 +47,25 @@ export const homepageElements: HomepageElement[] = [
         displayName: "Recently Updated Galleries",
         icon: LucideReplaceAll,
         filterDefinition: "isGallery|isUpdated|sortModificationTimeDesc",
+        historyAttribute: "modification_time",
+    }),
+    homepageFeed({
+        displayName: "Newest Media",
+        icon: LucideBadgePlus,
+        filterDefinition: "sortCreationTimeDesc",
+        historyAttribute: "creation_time",
     }),
     homepageFeed({
         displayName: "Newest Galleries",
         icon: LucideSparkle,
         filterDefinition: "isGallery|sortCreationTimeDesc",
+        historyAttribute: "creation_time",
     }),
     homepageFeed({
         displayName: "Newest Videos",
         icon: LucideSparkles,
         filterDefinition: "isVideo|sortCreationTimeDesc",
+        historyAttribute: "creation_time",
     }),
     {
         displayName: "Tags",
