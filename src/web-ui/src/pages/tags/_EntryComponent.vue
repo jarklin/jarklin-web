@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type {TagTreeEntry} from "@/pages/tags/types";
 import TagBadge from "@/components/composed/TagBadge.vue";
+import EntryComponent from "./_EntryComponent.vue";
 
 defineProps<{
   tagEntries: TagTreeEntry[]
