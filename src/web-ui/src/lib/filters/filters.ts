@@ -1,5 +1,6 @@
 import type {Filter} from "@/types/filter";
 import random from "random";
+import { getRandomSeed } from "@/lib/seed.ts";
 
 const ONE_DAY = 60*60*24;
 
@@ -27,10 +28,7 @@ export const sortCreationTimeDesc: Filter = (entries) => {
 }
 
 export const shuffled: Filter = (entries) => {
-    const now = new Date(Date.now());
-    const seedDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours());
-    const seed = seedDate.toISOString();
-    const rand = random.clone(seed);
+    const rand = random.clone(getRandomSeed());
 
     const arr = Array.from(entries);
     for (let i = arr.length - 1; i > 0; i--) {
