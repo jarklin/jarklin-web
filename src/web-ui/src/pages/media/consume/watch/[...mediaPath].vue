@@ -1,19 +1,18 @@
 <script setup lang="ts">
 import VideoPlayer from "@/components/player/VideoPlayer.vue";
-import { useMediaPath, useMediaQuery } from "@/composables/";
-import {computed} from "vue";
+import { useMediaPath } from "@/composables/";
+import { computed, inject } from "vue";
 import Page404 from "@/pages/[...path]/index.vue";
 import type {VideoMediaEntry} from "@/types";
 import {MainLayout} from "@/layouts";
 import { useTitle } from "@vueuse/core";
+import { KEY_MEDIA_DATA } from "@/keys.ts";
 
-const mediaQuery = useMediaQuery();
+const mediaData = inject(KEY_MEDIA_DATA)!;
 const mediaPath = useMediaPath();
 
 const currentMedia = computed(() => {
-  if (!mediaQuery.isSuccess) return undefined;
-  return mediaQuery.data!
-      .find(m => m.type === 'video' && m.path === mediaPath.value) as VideoMediaEntry ?? null;
+  return mediaData.find(m => m.type === 'video' && m.path === mediaPath.value) as VideoMediaEntry ?? null;
 });
 
 useTitle(() => `Jarklin - Watch - ${currentMedia.value?.name}`);

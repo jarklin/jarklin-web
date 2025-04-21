@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useMediaQuery, useMediaPath, useCollections, useWebSettings } from "@/composables";
-import {computed} from "vue";
+import { useMediaPath, useCollections, useWebSettings } from "@/composables";
+import { computed, inject } from "vue";
 import Page404 from "@/pages/[...path]/index.vue";
 import { aspectRatioFromSize, getAnimatedPreview, getMediaSize, getPreviewImage } from "@/lib";
 import {HorizontalScroll} from "@/components/composed/container";
@@ -17,21 +17,20 @@ import { LucideLibraryBig } from "lucide-vue-next";
 import KvGrid from "@/components/composed/KvGrid.vue";
 import GalleryDetails from "./_GalleryDetails.vue";
 import VideoDetails from "./_VideoDetails.vue";
+import { KEY_MEDIA_DATA } from "@/keys.ts";
 
 const preferredReducedMotion = usePreferredReducedMotion();
 const settingAnimatedPreview = useWebSettings("animatedPreview");
 
 const showAnimatedPreview = computed(() => (preferredReducedMotion.value !== 'reduce' && settingAnimatedPreview.value))
 
-const mediaQuery = useMediaQuery();
+const mediaData = inject(KEY_MEDIA_DATA)!;
 const mediaPath = useMediaPath();
 
 const collections = useCollections();
 
 const currentMedia = computed(() => {
-  if (!mediaQuery.isSuccess) return undefined;
-  return mediaQuery.data!
-      .find(m => m.path === mediaPath.value) ?? null;
+  return mediaData.find(m => m.path === mediaPath.value) ?? null;
 });
 
 const linkInfo = computed(() => currentMedia.value && getLinkInfo(currentMedia.value));

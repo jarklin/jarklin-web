@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import { LucideSearch, LucideSearchX } from "lucide-vue-next";
 import {Input} from "@/components/ui/input";
-import { computed, ref } from "vue";
+import { computed, inject, ref } from "vue";
 import { onStartTyping, templateRef, useTitle, useUrlSearchParams, watchDebounced } from "@vueuse/core";
 import {MainLayout} from "@/layouts";
-import { useMediaQuery } from "@/composables";
 import * as JsSearch from "js-search";
 import { MediaCard } from "@/components/composed/mediacard";
 import MasonryGrid from "@/components/composed/container/MasonryGrid.vue";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import type { MediaEntry } from "@/types";
 import { useRouter } from "vue-router";
+import { KEY_MEDIA_DATA } from "@/keys.ts";
 
 const router = useRouter();
-const mediaQuery = useMediaQuery();
+const mediaData = inject(KEY_MEDIA_DATA)!;
 
 const urlSearchParams = useUrlSearchParams<{ query?: string }>("hash");
 const filterQuery = ref<string>(urlSearchParams.query ?? "");
@@ -24,7 +24,7 @@ const search = computed(() => {
   const s = new JsSearch.Search("path");
   s.addIndex("name");
   s.addIndex("tags");
-  s.addDocuments(mediaQuery.data ?? []);
+  s.addDocuments(mediaData);
   return s;
 });
 

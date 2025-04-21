@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import {useMediaQuery} from "@/composables";
-import {computed} from "vue";
+import { computed, inject } from "vue";
 import type {TagTreeEntry} from "@/pages/tags/types";
 import EntryComponent from "@/pages/tags/_EntryComponent.vue";
 import {MainLayout} from "@/layouts";
 import { useTitle } from "@vueuse/core";
+import { KEY_MEDIA_DATA } from "@/keys.ts";
 
-const mediaQuery = useMediaQuery();
+const mediaData = inject(KEY_MEDIA_DATA)!;
 
-const allTags = computed(() => Array.from(new Set(mediaQuery.data?.flatMap(e => e.tags))));
+const allTags = computed(() => Array.from(new Set(mediaData.flatMap(e => e.tags))));
 
 const tagTree = computed(() => {
   if (!allTags.value) return [];

@@ -7,8 +7,8 @@ import { createPinia } from 'pinia'
 import { VueQueryPlugin } from '@tanstack/vue-query'
 import Vue3TouchEvents, {type Vue3TouchEventsOptions} from "vue3-touch-events";
 
-import App from './App.vue'
-import router from './router'
+import App from '@/AppWrapper.vue'
+import router from '@/router'
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "./";

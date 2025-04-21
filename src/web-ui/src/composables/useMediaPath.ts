@@ -12,7 +12,7 @@ export function useMediaPath(): Ref<string> {
         } else if (typeof mediaPath === 'string') {
             return mediaPath;
         } else {
-            return mediaPath[0];
+            return mediaPath.join("/");
         }
     })
 }

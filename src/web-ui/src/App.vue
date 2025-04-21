@@ -1,33 +1,32 @@
 <script setup lang="ts">
-import ErrorBoundary from "@/components/ErrorBoundary.vue";
 import ScrollProgressFix from "@/components/ScrollProgressFix.vue";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { LucideAlertCircle } from "lucide-vue-next";
-import { MainLayout } from "@/layouts";
-import { Button } from "@/components/ui/button";
+import { SimpleLayout } from "@/layouts";
+import { useMediaQuery } from "@/composables";
+import { Spinner } from "@/components/ui/spinner";
+import { provide, watch } from "vue";
+import { KEY_MEDIA_DATA } from "@/keys.ts";
+import { AxiosError, HttpStatusCode } from "axios";
+import { useRouter } from "vue-router";
+
+
+const router = useRouter();
+const mediaQuery = useMediaQuery();
+
+provide(KEY_MEDIA_DATA, mediaQuery.data);
+
+watch(() => mediaQuery.error, (err) => {
+  if (err instanceof AxiosError && err.status === HttpStatusCode.Unauthorized && router.currentRoute.value.name !== '/auth/login/') {
+    router.push({ name: '/auth/login/', query: { redirect: router.currentRoute.value.fullPath } });
+    return;
+  }
+  throw err;
+});
 </script>
 
 <template>
   <ScrollProgressFix />
-  <ErrorBoundary>
-    <router-view />
-    <template #fallback="{ error, resetBoundary }">
-      <MainLayout class="grid place-items-center p-4">
-        <Alert variant="destructive" class="max-w-screen-md">
-          <LucideAlertCircle class="size-4" />
-          <AlertTitle>
-            Something went wrong
-          </AlertTitle>
-          <AlertDescription>
-            {{ error.name }}: {{ error.message }}
-          </AlertDescription>
-          <div>
-            <Button variant="secondary" size="sm" @click="resetBoundary" class="float-right">
-              Try Again
-            </Button>
-          </div>
-        </Alert>
-      </MainLayout>
-    </template>
-  </ErrorBoundary>
+  <SimpleLayout v-if="mediaQuery.isFetching" class="grid place-items-center">
+    <Spinner class="size-10" />
+  </SimpleLayout>
+  <router-view v-else-if="mediaQuery.isSuccess" />
 </template>

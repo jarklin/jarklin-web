@@ -2,25 +2,25 @@
 import { Separator } from "@/components/ui/separator";
 import SectionHeader from "@/components/composed/SectionHeader.vue";
 import { type HomepageElement, MAX_ENTRIES } from "@/pages/home/elements.ts";
-import { computed } from "vue";
-import { useMediaQuery } from "@/composables";
+import { computed, inject } from "vue";
 import TagBadge from "@/components/composed/TagBadge.vue";
+import { KEY_MEDIA_DATA } from "@/keys.ts";
 
 defineProps<{
   element: HomepageElement
 }>();
 
-const mediaQuery = useMediaQuery();
+const mediaData = inject(KEY_MEDIA_DATA)!;
 
 const topTags = computed(() =>
         Array.from(
-            new Set((mediaQuery.data ?? []).flatMap(m => m.tags))
+            new Set(mediaData.flatMap(m => m.tags))
         )
-        .map(tag => ({ tag, count: mediaQuery.data?.filter(m => m.tags.includes(tag)).length ?? 0 }))
+        .map(tag => ({ tag, count: mediaData.filter(m => m.tags.includes(tag)).length }))
         .sort((a, b) => b.count - a.count)
-        .map(({tag}) => tag)
+        .map(({ tag }) => tag)
         .slice(0, MAX_ENTRIES)
-)
+);
 </script>
 
 <template>

@@ -15,7 +15,5 @@ export function useMediaQuery() {
                 type: entry.meta.type,
                 tags: extractTags(entry.path),
             }))),
-        refetchOnMount: false,
-        throwOnError: true,
     }));
 }

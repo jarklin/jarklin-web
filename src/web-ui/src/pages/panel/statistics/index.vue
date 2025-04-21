@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import {useMediaQuery, useProblemsQuery} from "@/composables";
-import {computed} from "vue";
+import {useProblemsQuery} from "@/composables";
+import { computed, inject } from "vue";
 import * as humanize from "humanize-plus";
 import humanizeDuration from "humanize-duration";
 import type {GalleryMediaEntry, VideoMediaEntry} from "@/types";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { LucideChartBar } from "lucide-vue-next";
 import { useTitle } from "@vueuse/core";
+import { KEY_MEDIA_DATA } from "@/keys.ts";
 
 type Index = Array<{
   category: string
@@ -16,17 +17,15 @@ type Index = Array<{
   }>
 }>
 
-const mediaData = useMediaQuery();
+const mediaData = inject(KEY_MEDIA_DATA)!;
 const problemsData = useProblemsQuery();
 
-const staticsIndex = computed<Index | null>(() => {
-  const galleries = !mediaData.isSuccess ? null : mediaData.data
-      .filter(entry => entry.meta.type === "gallery") as GalleryMediaEntry[];
-  const videos = !mediaData.isSuccess ? null : mediaData.data
-      .filter(entry => entry.meta.type === "video") as VideoMediaEntry[];
+const staticsIndex = computed<Index>(() => {
+  const galleries = mediaData.filter(entry => entry.meta.type === "gallery") as GalleryMediaEntry[];
+  const videos = mediaData.filter(entry => entry.meta.type === "video") as VideoMediaEntry[];
 
-  const gallerySizes = galleries === null ? null : galleries.reduce((n, e) => n + e.meta.images.reduce((n2, i) => n2 + i.filesize, 0), 0);
-  const videoSizes = videos === null ? null : videos.reduce((n, e) => n + e.meta.filesize, 0);
+  const gallerySizes = galleries.reduce((n, e) => n + e.meta.images.reduce((n2, i) => n2 + i.filesize, 0), 0);
+  const videoSizes = videos.reduce((n, e) => n + e.meta.filesize, 0);
 
   return [
     {
@@ -91,8 +90,7 @@ const staticsIndex = computed<Index | null>(() => {
       stats: [
         {
           label: "Total Tags",
-          value: !mediaData.isSuccess ? "-" : humanize.intComma(
-              Array.from(new Set(mediaData.data.flatMap(e => e.tags))).length),
+          value: humanize.intComma(Array.from(new Set(mediaData.flatMap(e => e.tags))).length),
         },
       ],
     },

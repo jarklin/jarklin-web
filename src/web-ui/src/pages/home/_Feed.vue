@@ -1,25 +1,24 @@
 <script setup lang="ts">
 import {HorizontalScroll} from "@/components/composed/container";
-import {useMediaQuery} from "@/composables";
-import {computed} from "vue";
+import { computed, inject } from "vue";
 import { mergeFilters, parseFilter, filters } from "@/lib/filters";
 import {MediaCard} from "@/components/composed/mediacard";
 import SectionHeader from "@/components/composed/SectionHeader.vue";
 import { type HomepageElement, MAX_ENTRIES } from "@/pages/home/elements";
 import {Separator} from "@/components/ui/separator";
+import { KEY_MEDIA_DATA } from "@/keys.ts";
 
 const { filterDefinition } = defineProps<{
   element: HomepageElement
   filterDefinition: string
 }>();
 
-const mediaQuery = useMediaQuery();
+const mediaData = inject(KEY_MEDIA_DATA)!;
 
 const filter = computed(() => mergeFilters(parseFilter(filterDefinition), filters.limitedTo(MAX_ENTRIES)));
 
 const viableMedia = computed(() => {
-  if (!mediaQuery.isSuccess) return [];
-  return filter.value(mediaQuery.data);
+  return filter.value(mediaData);
 });
 </script>
 
